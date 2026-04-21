@@ -1,0 +1,40 @@
+﻿using MediatR;
+using PamirPlastik.Application.Features.Mediator.Queries.ProductQueries;
+using PamirPlastik.Application.Features.Mediator.Results.ProductResults;
+using PamirPlastik.Application.Interfaces;
+using PamirPlastik.Domain.Entities;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductHandlers
+{
+    public class GetProductByCategoryIdQueryHandler : IRequestHandler<GetProductByCategoryIdQuery, List<GetProductQueryResult>>
+    {
+        private readonly IRepository<Product> _repository;
+
+        public GetProductByCategoryIdQueryHandler(IRepository<Product> repository)
+        {
+            _repository = repository;
+        }
+
+        public async Task<List<GetProductQueryResult>> Handle(GetProductByCategoryIdQuery request, CancellationToken cancellationToken)
+        {
+            // Verileri çekip bellekte filtreliyoruz (Generic Repository kullandığımız için)
+            var values = await _repository.GetAllAsync();
+            return values.Where(x => x.CategoryID == request.CategoryId).Select(x => new GetProductQueryResult
+            {
+                ProductID = x.ProductID,
+                Name_TR = x.Name_TR,
+                Name_EN = x.Name_EN,
+                ProductCode = x.ProductCode,
+                ImagePath = x.ImagePath,
+                Slug = x.Slug,
+                IsFeatured = x.IsFeatured,
+                IsActive = x.IsActive,
+                CategoryID = x.CategoryID
+            }).ToList();
+        }
+    }
+}

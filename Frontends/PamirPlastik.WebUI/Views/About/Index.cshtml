@@ -1,0 +1,63 @@
+﻿@model PamirPlastik.Dto.AboutDtos.ResultAboutPageDto
+
+@{
+    ViewData["Title"] = "Kurumsal Yolculuk | Pamir Plastik";
+    ViewData["Description"] = "1990'dan bugüne plastik enjeksiyon teknolojilerinde öncü Pamir Plastik. 25 yıllık tecrübe, sürdürülebilir üretim ve global vizyonumuzla tanışın.";
+    ViewData["PageName"] = "Kurumsal";
+    ViewData["HeaderTitle"] = "Plastiğin <span class='text-[#ffda44]'>Geleceğini</span> <br /> İnşa Ediyoruz.";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model != null)
+{
+    @await Component.InvokeAsync("_AboutHistoryComponentPartial", new { aboutDetail = Model.AboutDetail })
+
+    @await Component.InvokeAsync("_AboutFeatureComponentPartial", new { features = Model.Features })
+
+    @await Component.InvokeAsync("_AboutVisionMissionComponentPartial", new { aboutDetail = Model.AboutDetail })
+
+    @await Component.InvokeAsync("_AboutCtaComponentPartial")
+}
+else
+{
+    <div class="py-20 text-center text-xl font-bold">Veritabanından veriler yüklenemedi.</div>
+}
+
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var swiper = new Swiper(".corporateSwiper", {
+                loop: true,
+                effect: "fade", // Daha elit bir geçiş için fade
+                fadeEffect: {
+                    crossFade: true
+                },
+                autoplay: {
+                    delay: 3500,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+            });
+        });
+    </script>
+}
+
+<style>
+    /* Slider noktalarını sarı yapalım kanka */
+    .swiper-pagination-bullet {
+        background: white !important;
+        opacity: 0.5;
+    }
+
+    .swiper-pagination-bullet-active {
+        background: #ffda44 !important;
+        opacity: 1 !important;
+        width: 25px !important;
+        border-radius: 5px !important;
+        transition: all 0.3s ease;
+    }
+</style>

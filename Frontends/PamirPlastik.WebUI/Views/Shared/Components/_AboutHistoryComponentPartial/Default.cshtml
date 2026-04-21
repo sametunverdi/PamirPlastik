@@ -1,0 +1,40 @@
+﻿@model PamirPlastik.Dto.AboutDtos.ResultAboutDto
+
+<section class="relative bg-white py-16 md:py-24 overflow-hidden border-t-0">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+
+            <div class="lg:col-span-5 space-y-8">
+                <div class="w-20 h-2 bg-[#ffda44] rounded-full"></div>
+                <h2 class="text-4xl md:text-5xl font-black text-[#0f172a] leading-tight tracking-tighter">
+                    @Html.Raw(Model.StoryTitle)
+                </h2>
+                <p class="text-gray-400 font-bold text-sm uppercase tracking-widest italic">
+                    "@Model.StorySubtitle"
+                </p>
+            </div>
+
+            <div class="lg:col-span-7">
+                <div class="text-gray-600 font-medium leading-relaxed space-y-6 text-base md:text-lg">
+                    <p>
+                        @Model.StoryParagraph1
+                    </p>
+                    <p>
+                        @Model.StoryParagraph2
+                    </p>
+
+                    <div class="p-8 bg-white border-l-8 border-[#ffda44] rounded-r-3xl my-10 shadow-sm">
+                        <p class="text-[#0f172a] font-black text-xl leading-snug">
+                            @Model.StoryQuote
+                        </p>
+                    </div>
+
+                    <p>
+                        @Model.StoryParagraph3
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
