@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Ürün Kataloğu - Pamir Plastik";
+    ViewData["Description"] = "Mutfak gereçlerinden banyo aksesuarlarına kadar 150'den fazla dayanıklı ve şık plastik ürünümüzü keşfedin.";
+}
+
+<div class="lg:hidden bg-white border-b border-gray-100 sticky top-[80px] z-40 px-4 py-4">
+    <button id="open-filter-btn" class="w-full flex items-center justify-center gap-3 py-3 bg-[#0f172a] text-white rounded-2xl font-black text-xs tracking-widest shadow-xl shadow-blue-900/10">
+        <svg class="w-5 h-5 text-[#ffda44]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4H4m6-4H4m8 8v-2m0 2a2 2 0 100-4m0 4a2 2 0 110-4m0 4h10m-10-4h10m-4 6v-2m0 2a2 2 0 100-4m0 4a2 2 0 110-4m0 4h10m-10-4h10"></path></svg>
+        KATEGORİLERİ FİLTRELE
+    </button>
+</div>
+
+<section class="py-12 bg-gray-50 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row gap-12">
+
+            @await Component.InvokeAsync("_ProductFilterComponentPartial")
+
+            <div class="w-full lg:w-3/4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+                    @for (int i = 0; i < 9; i++)
+                    {
+                        <div class="group bg-white rounded-[2.5rem] p-5 shadow-sm border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+                            <div class="relative aspect-square rounded-[2rem] overflow-hidden bg-gray-50 mb-6 border border-gray-50">
+                                <span class="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-md text-[#0f172a] text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-sm">Mutfak</span>
+                                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=600" loading="lazy" alt="Ürün Adı" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+
+                                <div class="absolute inset-0 bg-[#0f172a]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                                    <a href="/Product/Details/1" class="w-12 h-12 bg-[#ffda44] text-[#0f172a] rounded-xl flex items-center justify-center shadow-xl hover:scale-110 transition-all">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="px-2">
+                                <h4 class="text-xl font-black text-gray-900 mb-2 group-hover:text-pamir-brand transition-colors tracking-tighter leading-none uppercase">Premium Süzgeç Seti</h4>
+                                <p class="text-gray-400 text-xs font-medium leading-relaxed mb-6 line-clamp-2">Dayanıklı polimer yapısı ve ergonomik tasarımıyla mutfağınızın vazgeçilmezi.</p>
+
+                                <div class="flex items-center justify-between pt-4 border-t border-gray-50">
+                                    <span class="text-[10px] font-black text-gray-300 uppercase tracking-widest">Kod: PMR-402</span>
+                                    <a href="/Product/Details/1" class="text-pamir-brand font-black text-xs flex items-center gap-1 group-hover:text-[#ffda44] transition-colors">
+                                        İNCELE
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="mt-16 flex justify-center gap-3">
+                    <a href="#" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-400 hover:border-pamir-brand hover:text-pamir-brand transition-all">1</a>
+                    <a href="#" class="w-12 h-12 flex items-center justify-center rounded-xl bg-[#0f172a] text-[#ffda44] font-bold shadow-lg shadow-blue-900/10">2</a>
+                    <a href="#" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-400 hover:border-pamir-brand hover:text-pamir-brand transition-all">3</a>
+                    <span class="w-12 h-12 flex items-center justify-center text-gray-300">...</span>
+                    <a href="#" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-400 hover:border-pamir-brand hover:text-pamir-brand transition-all">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterSidebar = document.getElementById('filter-sidebar');
+            const openBtn = document.getElementById('open-filter-btn');
+            const closeBtn = document.getElementById('close-filter-btn');
+            const overlay = document.getElementById('filter-overlay');
+
+            function toggleFilter() {
+                filterSidebar.classList.toggle('-translate-x-full');
+                // Açıldığında arka plan kaymasını engelle
+                if (!filterSidebar.classList.contains('-translate-x-full')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
+
+            if (openBtn) openBtn.addEventListener('click', toggleFilter);
+            if (closeBtn) closeBtn.addEventListener('click', toggleFilter);
+            if (overlay) overlay.addEventListener('click', toggleFilter);
+        });
+    </script>
+}

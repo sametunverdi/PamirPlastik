@@ -2,7 +2,10 @@
 using PamirPlastik.Application.Features.Mediator.Commands.ProductImageCommands;
 using PamirPlastik.Application.Interfaces;
 using PamirPlastik.Domain.Entities;
-using System.Threading;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductImageHandlers
@@ -20,11 +23,7 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductImageHandle
         {
             await _repository.CreateAsync(new ProductImage
             {
-                ImagePath = request.ImagePath,
-                ImageAlt_TR = request.ImageAlt_TR,
-                ImageAlt_EN = request.ImageAlt_EN,
-                IsMain = request.IsMain,
-                Order = request.Order,
+                ImageUrl = request.ImageUrl,
                 ProductID = request.ProductID
             });
         }

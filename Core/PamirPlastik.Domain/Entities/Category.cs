@@ -8,35 +8,23 @@ namespace PamirPlastik.Domain.Entities
 {
     public class Category
     {
-        public int CategoryID { get; set; }
+        public int CategoryID { get; set; } // Birincil anahtar
 
-        // TR
-        public string Name_TR { get; set; }
-        public string Description_TR { get; set; }
+        // SEO ve Dil Desteği
+        public string Name_TR { get; set; } // Kategorinin Türkçe adı (Örn: Mutfak Gereçleri)
+        public string Name_EN { get; set; } // Kategorinin İngilizce adı (Örn: Kitchenware)
 
-        // EN
-        public string Name_EN { get; set; }
-        public string Description_EN { get; set; }
+        public string Description_TR { get; set; } // Kartlarda görünen kısa Türkçe açıklama
+        public string Description_EN { get; set; } // Kartlarda görünen kısa İngilizce açıklama
 
-        // Görsel
-        public string ImagePath { get; set; }
-        public string ImageAlt_TR { get; set; }
-        public string ImageAlt_EN { get; set; }
+        public string ImageUrl { get; set; } // Kategorinin kapak fotoğrafı yolu
 
-        // URL (örn: "mutfak-gerecleri")
-        public string Slug { get; set; }
+        public string Slug { get; set; } // URL dostu isim (Örn: mutfak-gerecleri). SEO için kritik!
 
-        // Sıralama & Durum
-        public int Order { get; set; }
-        public bool IsActive { get; set; }
+        public bool Status { get; set; } // Kategori yayında mı? (true/false)
 
-        // SEO
-        public string MetaTitle_TR { get; set; }
-        public string MetaTitle_EN { get; set; }
-        public string MetaDescription_TR { get; set; }
-        public string MetaDescription_EN { get; set; }
-
-        // Navigation Property
-        public ICollection<Product> Products { get; set; }
+        // İlişki (Navigation Property)
+        // Bir kategorinin birden fazla ürünü olabilir.
+        public List<Product> Products { get; set; }
     }
 }

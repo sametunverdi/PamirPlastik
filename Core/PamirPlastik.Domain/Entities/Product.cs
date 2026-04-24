@@ -8,53 +8,38 @@ namespace PamirPlastik.Domain.Entities
 {
     public class Product
     {
-        public int ProductID { get; set; }
+        public int ProductID { get; set; } // Birincil anahtar
 
-        // TR
-        public string Name_TR { get; set; }
-        public string ShortDescription_TR { get; set; }
-        public string Description_TR { get; set; }
+        // Dil Desteği Gerektiren Alanlar
+        public string Name_TR { get; set; } // Ürün adı Türkçe (Örn: Premium Süzgeç Seti)
+        public string Name_EN { get; set; } // Ürün adı İngilizce
+        public string ShortDescription_TR { get; set; } // Katalog kartındaki 2 satırlık açıklama (TR)
+        public string ShortDescription_EN { get; set; } // Katalog kartındaki 2 satırlık açıklama (EN)
+        public string FullDescription_TR { get; set; } // Detay sayfasındaki uzun üretim standartları metni (TR)
+        public string FullDescription_EN { get; set; } // Detay sayfasındaki uzun üretim standartları metni (EN)
 
-        // EN
-        public string Name_EN { get; set; }
-        public string ShortDescription_EN { get; set; }
-        public string Description_EN { get; set; }
+        // Teknik ve Lojistik Veriler (Bunlar sayısal/sabit olduğu için dil fark etmez)
+        public string ProductCode { get; set; } // Ürün Kodu (Örn: PMR-402)
+        public int BoxCount { get; set; } // Koli Adedi (Örn: 48)
+        public string Capacity { get; set; } // Hacim Kapasitesi (Örn: 2.5 Litre)
+        public string Material { get; set; } // Hammadde (Örn: Orijinal PP)
+        public string BoxSize { get; set; } // Koli Ölçüsü (Örn: 60x40x40 cm)
+        public string BoxWeight { get; set; } // Koli Ağırlığı (Örn: 12.4 Kg)
 
-        // Ürün Kodu
-        public string ProductCode { get; set; }
+        // Özellikler (Boolean)
+        public bool IsDishwasherSafe { get; set; } // Bulaşık makinesinde yıkanabilir mi?
+        public bool IsFoodSafe { get; set; } // Gıda temasına uygun mu?
 
-        // Görsel
-        public string ImagePath { get; set; }
-        public string ImageAlt_TR { get; set; }
-        public string ImageAlt_EN { get; set; }
+        // Vitrin ve Durum Yönetimi
+        public string MainImageUrl { get; set; } // Katalog listesinde görünecek ana kapak resmi
+        public bool IsFeatured { get; set; } // Senin istediğin "Yıldızlı Ürün". True ise ana sayfaya düşer.
+        public bool Status { get; set; } // Ürün yayında mı?
+        public int Order { get; set; } // Ürünlerin sıralaması (Örn: en çok satan en üstte)
 
-        // URL
-        public string Slug { get; set; }
+        // İlişkiler (Navigation Properties)
+        public int CategoryID { get; set; } // Hangi kategoriye bağlı olduğunu tutan Id
+        public Category Category { get; set; } // Ürünün kategorisine erişim yolu
 
-        // Lojistik
-        public string Material { get; set; }
-        public string BoxDimensions { get; set; }
-        public string BoxWeight { get; set; }
-        public string LoadingCapacity { get; set; }
-        public string BoxQuantity { get; set; }
-
-        // Durum
-        public bool IsFeatured { get; set; }
-        public bool IsActive { get; set; }
-        public int Order { get; set; }
-
-        // SEO
-        public string MetaTitle_TR { get; set; }
-        public string MetaTitle_EN { get; set; }
-        public string MetaDescription_TR { get; set; }
-        public string MetaDescription_EN { get; set; }
-
-        // İlişkiler
-        public int CategoryID { get; set; }
-        public Category Category { get; set; }
-
-        public ICollection<ProductImage> ProductImages { get; set; }
-        public ICollection<ProductColor> ProductColors { get; set; }
-        public ICollection<ProductFeature> ProductFeatures { get; set; }
+        public List<ProductImage> ProductImages { get; set; } // Ürünün galerisindeki diğer resimler (1'e Çok İlişki)
     }
 }

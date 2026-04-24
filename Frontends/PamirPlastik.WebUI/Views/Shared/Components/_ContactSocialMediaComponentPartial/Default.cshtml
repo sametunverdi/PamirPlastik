@@ -1,0 +1,13 @@
+﻿@model List<PamirPlastik.WebUI.DTOs.SocialMediaDtos.ResultSocialMediaDto>
+
+<div class="flex justify-center lg:justify-start gap-4">
+    @if (Model != null)
+    {
+        @foreach (var item in Model.Where(x => x.IsActive))
+        {
+            <a href="@item.Url" target="_blank" class="w-12 h-12 rounded-full bg-white border border-gray-100 flex items-center justify-center text-[#ffda44] hover:bg-[#ffda44] hover:text-[#0f172a] hover:scale-110 transition-all shadow-sm">
+                <i class="@item.IconClass text-xl"></i>
+            </a>
+        }
+    }
+</div>

@@ -9,11 +9,7 @@ namespace PamirPlastik.Application.Features.Mediator.Commands.ProductImageComman
 {
     public class CreateProductImageCommand : IRequest
     {
-        public string ImagePath { get; set; }
-        public string ImageAlt_TR { get; set; }
-        public string ImageAlt_EN { get; set; }
-        public bool IsMain { get; set; }
-        public int Order { get; set; }
-        public int ProductID { get; set; }
+        public string ImageUrl { get; set; }
+        public int ProductID { get; set; } // Hangi ürüne resim ekliyoruz? İşte ilişki burada kanka!
     }
 }

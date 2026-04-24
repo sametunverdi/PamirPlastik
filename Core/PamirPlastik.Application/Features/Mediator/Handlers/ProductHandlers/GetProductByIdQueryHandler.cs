@@ -2,7 +2,6 @@
 using PamirPlastik.Application.Features.Mediator.Queries.ProductQueries;
 using PamirPlastik.Application.Features.Mediator.Results.ProductResults;
 using PamirPlastik.Application.Interfaces;
-using PamirPlastik.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,12 +9,8 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductHandlers
 {
     public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, GetProductByIdQueryResult>
     {
-        private readonly IRepository<Product> _repository;
-
-        public GetProductByIdQueryHandler(IRepository<Product> repository)
-        {
-            _repository = repository;
-        }
+        private readonly IProductRepository _repository;
+        public GetProductByIdQueryHandler(IProductRepository repository) { _repository = repository; }
 
         public async Task<GetProductByIdQueryResult> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
@@ -24,29 +19,23 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductHandlers
             {
                 ProductID = value.ProductID,
                 Name_TR = value.Name_TR,
-                ShortDescription_TR = value.ShortDescription_TR,
-                Description_TR = value.Description_TR,
                 Name_EN = value.Name_EN,
+                ShortDescription_TR = value.ShortDescription_TR,
                 ShortDescription_EN = value.ShortDescription_EN,
-                Description_EN = value.Description_EN,
+                FullDescription_TR = value.FullDescription_TR,
+                FullDescription_EN = value.FullDescription_EN,
                 ProductCode = value.ProductCode,
-                ImagePath = value.ImagePath,
-                ImageAlt_TR = value.ImageAlt_TR,
-                ImageAlt_EN = value.ImageAlt_EN,
-                Slug = value.Slug,
+                BoxCount = value.BoxCount,
+                Capacity = value.Capacity,
                 Material = value.Material,
-                BoxDimensions = value.BoxDimensions,
+                BoxSize = value.BoxSize,
                 BoxWeight = value.BoxWeight,
-                LoadingCapacity = value.LoadingCapacity,
-                BoxQuantity = value.BoxQuantity,
+                IsDishwasherSafe = value.IsDishwasherSafe,
+                IsFoodSafe = value.IsFoodSafe,
+                MainImageUrl = value.MainImageUrl,
                 IsFeatured = value.IsFeatured,
-                IsActive = value.IsActive,
-                Order = value.Order,
-                MetaTitle_TR = value.MetaTitle_TR,
-                MetaTitle_EN = value.MetaTitle_EN,
-                MetaDescription_TR = value.MetaDescription_TR,
-                MetaDescription_EN = value.MetaDescription_EN,
-                CategoryID = value.CategoryID
+                Status = value.Status,
+                CategoryId = value.CategoryID
             };
         }
     }

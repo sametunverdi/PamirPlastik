@@ -1,0 +1,31 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using PamirPlastik.WebUI.DTOs.CategoryDtos;
+
+namespace PamirPlastik.WebUI.ViewComponents.Product
+{
+    public class _ProductFilterComponentPartial : ViewComponent
+    {
+        private readonly IHttpClientFactory _httpClientFactory;
+
+        public _ProductFilterComponentPartial(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            var client = _httpClientFactory.CreateClient();
+            // Kanka buradaki portu kendi Swagger portunla değiştirmeyi unutma!
+            var responseMessage = await client.GetAsync("https://localhost:7184/api/Categories");
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
+                return View(values);
+            }
+            return View();
+        }
+    }
+}

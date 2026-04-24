@@ -1,8 +1,8 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PamirPlastik.Application.Features.Mediator.Commands.AboutFeatureCommands;
 using PamirPlastik.Application.Features.Mediator.Queries.AboutFeatureQueries;
-using System.Threading.Tasks;
 
 namespace PamirPlastik.WebApi.Controllers
 {
@@ -11,11 +11,7 @@ namespace PamirPlastik.WebApi.Controllers
     public class AboutFeaturesController : ControllerBase
     {
         private readonly IMediator _mediator;
-
-        public AboutFeaturesController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        public AboutFeaturesController(IMediator mediator) { _mediator = mediator; }
 
         [HttpGet]
         public async Task<IActionResult> AboutFeatureList()
@@ -24,32 +20,25 @@ namespace PamirPlastik.WebApi.Controllers
             return Ok(values);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetAboutFeature(int id)
-        {
-            var values = await _mediator.Send(new GetAboutFeatureByIdQuery(id));
-            return Ok(values);
-        }
-
         [HttpPost]
         public async Task<IActionResult> CreateAboutFeature(CreateAboutFeatureCommand command)
         {
             await _mediator.Send(command);
-            return Ok("Hakkımızda Özelliği Başarıyla Eklendi");
-        }
-
-        [HttpPut]
-        public async Task<IActionResult> UpdateAboutFeature(UpdateAboutFeatureCommand command)
-        {
-            await _mediator.Send(command);
-            return Ok("Hakkımızda Özelliği Başarıyla Güncellendi");
+            return Ok("Özellik eklendi");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveAboutFeature(int id)
         {
             await _mediator.Send(new RemoveAboutFeatureCommand(id));
-            return Ok("Hakkımızda Özelliği Başarıyla Silindi");
+            return Ok("Özellik silindi");
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateAboutFeature(UpdateAboutFeatureCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok("Özellik güncellendi");
         }
     }
 }

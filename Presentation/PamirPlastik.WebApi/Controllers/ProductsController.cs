@@ -1,8 +1,8 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PamirPlastik.Application.Features.Mediator.Commands.ProductCommands;
 using PamirPlastik.Application.Features.Mediator.Queries.ProductQueries;
-using System.Threading.Tasks;
 
 namespace PamirPlastik.WebApi.Controllers
 {
@@ -31,10 +31,11 @@ namespace PamirPlastik.WebApi.Controllers
             return Ok(value);
         }
 
-        [HttpGet("GetProductByCategoryId/{id}")]
-        public async Task<IActionResult> GetProductByCategoryId(int id)
+        // Ana sayfadaki vitrin (Yıldızlı) ürünleri getirecek özel endpoint
+        [HttpGet("GetFeaturedProducts")]
+        public async Task<IActionResult> GetFeaturedProducts()
         {
-            var values = await _mediator.Send(new GetProductByCategoryIdQuery(id));
+            var values = await _mediator.Send(new GetFeaturedProductQuery());
             return Ok(values);
         }
 
@@ -42,21 +43,21 @@ namespace PamirPlastik.WebApi.Controllers
         public async Task<IActionResult> CreateProduct(CreateProductCommand command)
         {
             await _mediator.Send(command);
-            return Ok("Ürün Başarıyla Eklendi");
+            return Ok("Ürün başarıyla eklendi!");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveProduct(int id)
         {
             await _mediator.Send(new RemoveProductCommand(id));
-            return Ok("Ürün Başarıyla Silindi");
+            return Ok("Ürün başarıyla silindi!");
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateProduct(UpdateProductCommand command)
         {
             await _mediator.Send(command);
-            return Ok("Ürün Başarıyla Güncellendi");
+            return Ok("Ürün başarıyla güncellendi!");
         }
     }
 }

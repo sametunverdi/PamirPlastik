@@ -2,7 +2,10 @@
 using PamirPlastik.Application.Features.Mediator.Commands.AboutCommands;
 using PamirPlastik.Application.Interfaces;
 using PamirPlastik.Domain.Entities;
-using System.Threading;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace PamirPlastik.Application.Features.Mediator.Handlers.AboutHandlers
@@ -18,10 +21,10 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.AboutHandlers
 
         public async Task Handle(RemoveAboutCommand request, CancellationToken cancellationToken)
         {
-            var value = await _repository.GetByIdAsync(request.Id);
-            if (value != null)
+            var values = await _repository.GetByIdAsync(request.Id);
+            if (values != null)
             {
-                await _repository.RemoveAsync(value);
+                await _repository.RemoveAsync(values);
             }
         }
     }

@@ -21,8 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontends", "Frontends", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PamirPlastik.WebUI", "Frontends\PamirPlastik.WebUI\PamirPlastik.WebUI.csproj", "{38DF9473-AEBB-40C9-A2C4-AA7AA4EB542D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PamirPlastik.Dto", "Frontends\PamirPlastik.Dto\PamirPlastik.Dto.csproj", "{03A04B82-A9F0-4ED4-B649-57A797DFC5E4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,10 +47,6 @@ Global
 		{38DF9473-AEBB-40C9-A2C4-AA7AA4EB542D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38DF9473-AEBB-40C9-A2C4-AA7AA4EB542D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38DF9473-AEBB-40C9-A2C4-AA7AA4EB542D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{03A04B82-A9F0-4ED4-B649-57A797DFC5E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03A04B82-A9F0-4ED4-B649-57A797DFC5E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03A04B82-A9F0-4ED4-B649-57A797DFC5E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03A04B82-A9F0-4ED4-B649-57A797DFC5E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,7 +57,6 @@ Global
 		{8F225A32-7195-4D07-93FC-6FC0E9BB896B} = {06E44AFB-D66C-47F4-8D3B-7E3D94C206BE}
 		{A4F8AD20-F4A3-4E80-9355-16F2610834CC} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{38DF9473-AEBB-40C9-A2C4-AA7AA4EB542D} = {CE41DE9A-9457-4D8B-85A9-9CCDFCFC81A4}
-		{03A04B82-A9F0-4ED4-B649-57A797DFC5E4} = {CE41DE9A-9457-4D8B-85A9-9CCDFCFC81A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1BC183D6-66FB-4CC6-8CA5-4F9F7AAB84C0}

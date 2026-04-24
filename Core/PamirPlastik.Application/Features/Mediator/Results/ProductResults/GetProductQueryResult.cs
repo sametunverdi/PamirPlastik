@@ -11,11 +11,11 @@ namespace PamirPlastik.Application.Features.Mediator.Results.ProductResults
         public int ProductID { get; set; }
         public string Name_TR { get; set; }
         public string Name_EN { get; set; }
-        public string ProductCode { get; set; }
-        public string ImagePath { get; set; }
-        public string Slug { get; set; }
-        public bool IsFeatured { get; set; }
-        public bool IsActive { get; set; }
-        public int CategoryID { get; set; }
+        public string ShortDescription_TR { get; set; }
+        public string ShortDescription_EN { get; set; }
+        public string MainImageUrl { get; set; } // Karttaki ana görsel
+        public string ProductCode { get; set; } // PMR-402 gibi
+        public bool IsFeatured { get; set; } // Yıldızlı mı?
+        public string CategoryName { get; set; } // UI'da "Mutfak" yazması için kategori adını da taşıyacağız
     }
 }

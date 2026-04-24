@@ -8,12 +8,8 @@ namespace PamirPlastik.Application.Features.Mediator.Results.ProductImageResults
 {
     public class GetProductImageQueryResult
     {
-        public int ProductImageID { get; set; }
-        public string ImagePath { get; set; }
-        public string ImageAlt_TR { get; set; }
-        public string ImageAlt_EN { get; set; }
-        public bool IsMain { get; set; }
-        public int Order { get; set; }
-        public int ProductID { get; set; }
+        public int ProductImageID { get; set; } // Senin Entity'ndeki isim
+        public string ImageUrl { get; set; }
+        public int ProductID { get; set; } // Senin Entity'ndeki isim
     }
 }

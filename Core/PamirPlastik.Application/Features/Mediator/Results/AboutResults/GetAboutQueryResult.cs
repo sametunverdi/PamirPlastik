@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PamirPlastik.Application.Features.Mediator.Results.AboutFeatureResults;
+using PamirPlastik.Application.Features.Mediator.Results.AboutImageResults;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,48 +10,38 @@ namespace PamirPlastik.Application.Features.Mediator.Results.AboutResults
 {
     public class GetAboutQueryResult
     {
-        public int AboutID { get; set; }
-        public string StoryTitle_TR { get; set; }
-        public string StoryTitle_EN { get; set; }
-        public string StorySubtitle_TR { get; set; }
-        public string StorySubtitle_EN { get; set; }
-        public string StoryParagraph1_TR { get; set; }
-        public string StoryParagraph1_EN { get; set; }
-        public string StoryParagraph2_TR { get; set; }
-        public string StoryParagraph2_EN { get; set; }
-        public string StoryQuote_TR { get; set; }
-        public string StoryQuote_EN { get; set; }
-        public string StoryParagraph3_TR { get; set; }
-        public string StoryParagraph3_EN { get; set; }
-        public string FacilitySectionBadge_TR { get; set; }
-        public string FacilitySectionBadge_EN { get; set; }
-        public string FacilitySectionTitle_TR { get; set; }
-        public string FacilitySectionTitle_EN { get; set; }
-        public string Stat1Value { get; set; }
-        public string Stat1Label_TR { get; set; }
-        public string Stat1Label_EN { get; set; }
-        public string Stat2Value { get; set; }
-        public string Stat2Label_TR { get; set; }
-        public string Stat2Label_EN { get; set; }
-        public string VisionBadge_TR { get; set; }
-        public string VisionBadge_EN { get; set; }
-        public string VisionText_TR { get; set; }
-        public string VisionText_EN { get; set; }
-        public string VisionSubText_TR { get; set; }
-        public string VisionSubText_EN { get; set; }
-        public string MissionBadge_TR { get; set; }
-        public string MissionBadge_EN { get; set; }
-        public string MissionText_TR { get; set; }
-        public string MissionText_EN { get; set; }
-        public string MissionSubText_TR { get; set; }
-        public string MissionSubText_EN { get; set; }
-        public string CtaTitle_TR { get; set; }
-        public string CtaTitle_EN { get; set; }
-        public string CtaSubText_TR { get; set; }
-        public string CtaSubText_EN { get; set; }
-        public string MetaTitle_TR { get; set; }
-        public string MetaTitle_EN { get; set; }
-        public string MetaDescription_TR { get; set; }
-        public string MetaDescription_EN { get; set; }
+        public int Id { get; set; }
+
+        // --- SEO ---
+        public string SeoTitle_TR { get; set; }
+        public string SeoTitle_EN { get; set; }
+        public string SeoDescription_TR { get; set; }
+        public string SeoDescription_EN { get; set; }
+
+        // --- ANA İÇERİK ---
+        public string MainTitle_TR { get; set; }
+        public string MainTitle_EN { get; set; }
+        public string SubTitle_TR { get; set; }
+        public string SubTitle_EN { get; set; }
+        public string Description1_TR { get; set; }
+        public string Description1_EN { get; set; }
+        public string Description2_TR { get; set; }
+        public string Description2_EN { get; set; }
+        public string HighlightQuote_TR { get; set; }
+        public string HighlightQuote_EN { get; set; }
+
+        // --- VİZYON & MİSYON ---
+        public string VisionTitle_TR { get; set; }
+        public string VisionTitle_EN { get; set; }
+        public string VisionDescription_TR { get; set; }
+        public string VisionDescription_EN { get; set; }
+        public string MissionTitle_TR { get; set; }
+        public string MissionTitle_EN { get; set; }
+        public string MissionDescription_TR { get; set; }
+        public string MissionDescription_EN { get; set; }
+
+        // İŞTE BURASI KANKA: Alt tabloları (Resimler ve Süreçler) liste halinde buraya gömüyoruz
+        public List<GetAboutFeatureQueryResult> Features { get; set; }
+        public List<GetAboutImageQueryResult> Images { get; set; }
     }
 }

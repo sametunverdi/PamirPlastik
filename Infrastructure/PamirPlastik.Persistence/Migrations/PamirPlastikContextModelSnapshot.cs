@@ -24,194 +24,114 @@ namespace PamirPlastik.Persistence.Migrations
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.About", b =>
                 {
-                    b.Property<int>("AboutID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AboutID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CtaSubText_EN")
+                    b.Property<string>("Description1_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CtaSubText_TR")
+                    b.Property<string>("Description1_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CtaTitle_EN")
+                    b.Property<string>("Description2_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CtaTitle_TR")
+                    b.Property<string>("Description2_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FacilitySectionBadge_EN")
+                    b.Property<string>("HighlightQuote_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FacilitySectionBadge_TR")
+                    b.Property<string>("HighlightQuote_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FacilitySectionTitle_EN")
+                    b.Property<string>("MainTitle_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FacilitySectionTitle_TR")
+                    b.Property<string>("MainTitle_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MetaDescription_EN")
+                    b.Property<string>("MissionDescription_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MetaDescription_TR")
+                    b.Property<string>("MissionDescription_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MetaTitle_EN")
+                    b.Property<string>("MissionTitle_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MetaTitle_TR")
+                    b.Property<string>("MissionTitle_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MissionBadge_EN")
+                    b.Property<string>("SeoDescription_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MissionBadge_TR")
+                    b.Property<string>("SeoDescription_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MissionSubText_EN")
+                    b.Property<string>("SeoTitle_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MissionSubText_TR")
+                    b.Property<string>("SeoTitle_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MissionText_EN")
+                    b.Property<string>("SubTitle_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MissionText_TR")
+                    b.Property<string>("SubTitle_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Stat1Label_EN")
+                    b.Property<string>("VisionDescription_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Stat1Label_TR")
+                    b.Property<string>("VisionDescription_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Stat1Value")
+                    b.Property<string>("VisionTitle_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Stat2Label_EN")
+                    b.Property<string>("VisionTitle_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Stat2Label_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Stat2Value")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StoryParagraph1_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StoryParagraph1_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StoryParagraph2_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StoryParagraph2_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StoryParagraph3_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StoryParagraph3_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StoryQuote_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StoryQuote_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StorySubtitle_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StorySubtitle_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StoryTitle_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StoryTitle_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VisionBadge_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VisionBadge_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VisionSubText_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VisionSubText_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VisionText_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VisionText_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AboutID");
+                    b.HasKey("Id");
 
                     b.ToTable("Abouts");
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.AboutFeature", b =>
                 {
-                    b.Property<int>("AboutFeatureID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AboutFeatureID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AboutID")
+                    b.Property<int>("AboutId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description_EN")
@@ -222,8 +142,9 @@ namespace PamirPlastik.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<string>("FeatureType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
@@ -236,47 +157,48 @@ namespace PamirPlastik.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("AboutFeatureID");
+                    b.Property<string>("ValueOrIcon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("AboutID");
+                    b.HasKey("Id");
+
+                    b.HasIndex("AboutId");
 
                     b.ToTable("AboutFeatures");
                 });
 
-            modelBuilder.Entity("PamirPlastik.Domain.Entities.AboutSliderImage", b =>
+            modelBuilder.Entity("PamirPlastik.Domain.Entities.AboutImage", b =>
                 {
-                    b.Property<int>("AboutSliderImageID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AboutSliderImageID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AboutID")
+                    b.Property<int>("AboutId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ImageAlt_EN")
+                    b.Property<string>("AltText_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageAlt_TR")
+                    b.Property<string>("AltText_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImagePath")
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
-                    b.HasKey("AboutSliderImageID");
+                    b.HasKey("Id");
 
-                    b.HasIndex("AboutID");
+                    b.HasIndex("AboutId");
 
-                    b.ToTable("AboutSliderImages");
+                    b.ToTable("AboutImages");
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.Category", b =>
@@ -295,34 +217,7 @@ namespace PamirPlastik.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageAlt_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageAlt_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("MetaDescription_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MetaDescription_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MetaTitle_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MetaTitle_TR")
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -334,118 +229,31 @@ namespace PamirPlastik.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
-
                     b.Property<string>("Slug")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.HasKey("CategoryID");
 
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("PamirPlastik.Domain.Entities.Fair", b =>
+            modelBuilder.Entity("PamirPlastik.Domain.Entities.Contact", b =>
                 {
-                    b.Property<int>("FairID")
+                    b.Property<int>("ContactID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FairID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContactID"));
 
-                    b.Property<string>("Description_EN")
+                    b.Property<string>("Address_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("FairDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ImageAlt_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageAlt_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImagePath1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImagePath2")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StandNo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("FairID");
-
-                    b.ToTable("Fairs");
-                });
-
-            modelBuilder.Entity("PamirPlastik.Domain.Entities.HeroBadge", b =>
-                {
-                    b.Property<int>("HeroBadgeID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HeroBadgeID"));
-
-                    b.Property<string>("IconName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Text_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Text_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("HeroBadgeID");
-
-                    b.ToTable("HeroBadges");
-                });
-
-            modelBuilder.Entity("PamirPlastik.Domain.Entities.HeroSection", b =>
-                {
-                    b.Property<int>("HeroSectionID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HeroSectionID"));
-
-                    b.Property<string>("BadgeText_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BadgeText_TR")
+                    b.Property<string>("Address_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -457,140 +265,57 @@ namespace PamirPlastik.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageAlt_EN")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageAlt_TR")
+                    b.Property<string>("EmailDescription_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImagePath")
+                    b.Property<string>("EmailDescription_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("MetaDescription_EN")
+                    b.Property<string>("EmailTitle_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MetaDescription_TR")
+                    b.Property<string>("EmailTitle_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MetaTitle_EN")
+                    b.Property<string>("MapLocation")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MetaTitle_TR")
+                    b.Property<string>("MapTitle_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PrimaryButtonText_EN")
+                    b.Property<string>("MapTitle_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PrimaryButtonText_TR")
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PrimaryButtonUrl")
+                    b.Property<string>("PhoneDescription_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SecondaryButtonText_EN")
+                    b.Property<string>("PhoneDescription_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SecondaryButtonText_TR")
+                    b.Property<string>("PhoneTitle_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SecondaryButtonUrl")
+                    b.Property<string>("PhoneTitle_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TitleEnd_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TitleEnd_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TitleHighlight_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TitleHighlight_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TitleMain_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TitleMain_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("HeroSectionID");
-
-                    b.ToTable("HeroSections");
-                });
-
-            modelBuilder.Entity("PamirPlastik.Domain.Entities.HeroStat", b =>
-                {
-                    b.Property<int>("HeroStatID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HeroStatID"));
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Label_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Label_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("HeroStatID");
-
-                    b.ToTable("HeroStats");
-                });
-
-            modelBuilder.Entity("PamirPlastik.Domain.Entities.ManufacturingFeature", b =>
-                {
-                    b.Property<int>("ManufacturingFeatureID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ManufacturingFeatureID"));
-
-                    b.Property<string>("Description_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IconName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Title_EN")
                         .IsRequired()
@@ -600,93 +325,48 @@ namespace PamirPlastik.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ManufacturingFeatureID");
+                    b.HasKey("ContactID");
 
-                    b.ToTable("ManufacturingFeatures");
+                    b.ToTable("Contacts");
                 });
 
-            modelBuilder.Entity("PamirPlastik.Domain.Entities.ManufacturingSection", b =>
+            modelBuilder.Entity("PamirPlastik.Domain.Entities.ContactMessage", b =>
                 {
-                    b.Property<int>("ManufacturingSectionID")
+                    b.Property<int>("ContactMessageID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ManufacturingSectionID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContactMessageID"));
 
-                    b.Property<string>("ButtonText_EN")
+                    b.Property<string>("Company")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ButtonText_TR")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ButtonUrl")
+                    b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageAlt_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageAlt_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("IsRead")
                         .HasColumnType("bit");
 
-                    b.Property<string>("StatLabel_EN")
+                    b.Property<string>("MessageDetail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StatLabel_TR")
+                    b.Property<DateTime>("SendDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Subject")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StatValue")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("ContactMessageID");
 
-                    b.Property<string>("SubTitle_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SubTitle_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TitleHighlight_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TitleHighlight_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TitleMain_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TitleMain_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ManufacturingSectionID");
-
-                    b.ToTable("ManufacturingSections");
+                    b.ToTable("ContactMessages");
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.Product", b =>
@@ -697,11 +377,10 @@ namespace PamirPlastik.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductID"));
 
-                    b.Property<string>("BoxDimensions")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("BoxCount")
+                        .HasColumnType("int");
 
-                    b.Property<string>("BoxQuantity")
+                    b.Property<string>("BoxSize")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -709,56 +388,35 @@ namespace PamirPlastik.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Capacity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description_EN")
+                    b.Property<string>("FullDescription_EN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description_TR")
+                    b.Property<string>("FullDescription_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageAlt_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageAlt_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("IsDishwasherSafe")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsFeatured")
                         .HasColumnType("bit");
 
-                    b.Property<string>("LoadingCapacity")
+                    b.Property<bool>("IsFoodSafe")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MainImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Material")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MetaDescription_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MetaDescription_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MetaTitle_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MetaTitle_TR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -785,71 +443,14 @@ namespace PamirPlastik.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.HasKey("ProductID");
 
                     b.HasIndex("CategoryID");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("PamirPlastik.Domain.Entities.ProductColor", b =>
-                {
-                    b.Property<int>("ProductColorID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductColorID"));
-
-                    b.Property<string>("ColorHex")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ColorName_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ColorName_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductColorID");
-
-                    b.HasIndex("ProductID");
-
-                    b.ToTable("ProductColors");
-                });
-
-            modelBuilder.Entity("PamirPlastik.Domain.Entities.ProductFeature", b =>
-                {
-                    b.Property<int>("ProductFeatureID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductFeatureID"));
-
-                    b.Property<string>("Feature_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Feature_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductFeatureID");
-
-                    b.HasIndex("ProductID");
-
-                    b.ToTable("ProductFeatures");
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.ProductImage", b =>
@@ -860,23 +461,9 @@ namespace PamirPlastik.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductImageID"));
 
-                    b.Property<string>("ImageAlt_EN")
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageAlt_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsMain")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
 
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
@@ -888,141 +475,50 @@ namespace PamirPlastik.Persistence.Migrations
                     b.ToTable("ProductImages");
                 });
 
-            modelBuilder.Entity("PamirPlastik.Domain.Entities.SeoSetting", b =>
+            modelBuilder.Entity("PamirPlastik.Domain.Entities.SocialMedia", b =>
                 {
-                    b.Property<int>("SeoSettingID")
+                    b.Property<int>("SocialMediaID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SeoSettingID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SocialMediaID"));
 
-                    b.Property<string>("MetaDescription_EN")
+                    b.Property<string>("IconClass")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MetaDescription_TR")
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PlatformName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MetaTitle_EN")
+                    b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MetaTitle_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("SocialMediaID");
 
-                    b.Property<string>("PageName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SeoSettingID");
-
-                    b.ToTable("SeoSettings");
-                });
-
-            modelBuilder.Entity("PamirPlastik.Domain.Entities.SiteSetting", b =>
-                {
-                    b.Property<int>("SiteSettingID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SiteSettingID"));
-
-                    b.Property<string>("Address_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Address_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Facebook")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Instagram")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Linkedin")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LogoPath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SiteName_EN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SiteName_TR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Youtube")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SiteSettingID");
-
-                    b.ToTable("SiteSettings");
-                });
-
-            modelBuilder.Entity("PamirPlastik.Domain.Entities.TrendyolSetting", b =>
-                {
-                    b.Property<int>("TrendyolSettingID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TrendyolSettingID"));
-
-                    b.Property<string>("MonthlyDelivery")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Rating")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReviewCount")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StoreUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TrendyolSettingID");
-
-                    b.ToTable("TrendyolSettings");
+                    b.ToTable("SocialMedias");
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.AboutFeature", b =>
                 {
                     b.HasOne("PamirPlastik.Domain.Entities.About", "About")
-                        .WithMany("AboutFeatures")
-                        .HasForeignKey("AboutID")
+                        .WithMany("Features")
+                        .HasForeignKey("AboutId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("About");
                 });
 
-            modelBuilder.Entity("PamirPlastik.Domain.Entities.AboutSliderImage", b =>
+            modelBuilder.Entity("PamirPlastik.Domain.Entities.AboutImage", b =>
                 {
                     b.HasOne("PamirPlastik.Domain.Entities.About", "About")
-                        .WithMany("AboutSliderImages")
-                        .HasForeignKey("AboutID")
+                        .WithMany("Images")
+                        .HasForeignKey("AboutId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1040,28 +536,6 @@ namespace PamirPlastik.Persistence.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("PamirPlastik.Domain.Entities.ProductColor", b =>
-                {
-                    b.HasOne("PamirPlastik.Domain.Entities.Product", "Product")
-                        .WithMany("ProductColors")
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("PamirPlastik.Domain.Entities.ProductFeature", b =>
-                {
-                    b.HasOne("PamirPlastik.Domain.Entities.Product", "Product")
-                        .WithMany("ProductFeatures")
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("PamirPlastik.Domain.Entities.ProductImage", b =>
                 {
                     b.HasOne("PamirPlastik.Domain.Entities.Product", "Product")
@@ -1075,9 +549,9 @@ namespace PamirPlastik.Persistence.Migrations
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.About", b =>
                 {
-                    b.Navigation("AboutFeatures");
+                    b.Navigation("Features");
 
-                    b.Navigation("AboutSliderImages");
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.Category", b =>
@@ -1087,10 +561,6 @@ namespace PamirPlastik.Persistence.Migrations
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.Product", b =>
                 {
-                    b.Navigation("ProductColors");
-
-                    b.Navigation("ProductFeatures");
-
                     b.Navigation("ProductImages");
                 });
 #pragma warning restore 612, 618

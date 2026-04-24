@@ -8,17 +8,11 @@ namespace PamirPlastik.Domain.Entities
 {
     public class ProductImage
     {
-        public int ProductImageID { get; set; }
-
-        public string ImagePath { get; set; }
-        public string ImageAlt_TR { get; set; }
-        public string ImageAlt_EN { get; set; }
-
-        public bool IsMain { get; set; }
-        public int Order { get; set; }
+        public int ProductImageID { get; set; } // Resim Id
+        public string ImageUrl { get; set; } // Resmin dosya yolu
 
         // İlişki
-        public int ProductID { get; set; }
-        public Product Product { get; set; }
+        public int ProductID { get; set; } // Resmin hangi ürüne ait olduğu
+        public Product Product { get; set; } // Resim üzerinden ürüne gitmek için
     }
 }

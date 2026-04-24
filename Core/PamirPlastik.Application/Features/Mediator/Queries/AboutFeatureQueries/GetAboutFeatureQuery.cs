@@ -10,5 +10,6 @@ namespace PamirPlastik.Application.Features.Mediator.Queries.AboutFeatureQueries
 {
     public class GetAboutFeatureQuery : IRequest<List<GetAboutFeatureQueryResult>>
     {
+        // Tüm özellikleri liste halinde getireceğimiz için parametre yok
     }
 }

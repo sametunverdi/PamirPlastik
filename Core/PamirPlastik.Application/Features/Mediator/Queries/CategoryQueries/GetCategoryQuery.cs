@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using PamirPlastik.Application.Features.Mediator.Results.CategoryResults.PamirPlastik.Application.Features.Mediator.Results.CategoryResults;
+using PamirPlastik.Application.Features.Mediator.Results.CategoryResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;

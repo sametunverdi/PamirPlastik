@@ -1,9 +1,8 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PamirPlastik.Application.Features.Mediator.Commands.AboutCommands;
-using PamirPlastik.Application.Features.Mediator.Queries.AboutPageQueries;
 using PamirPlastik.Application.Features.Mediator.Queries.AboutQueries;
-using System.Threading.Tasks;
 
 namespace PamirPlastik.WebApi.Controllers
 {
@@ -24,43 +23,25 @@ namespace PamirPlastik.WebApi.Controllers
             var values = await _mediator.Send(new GetAboutQuery());
             return Ok(values);
         }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetAbout(int id)
-        {
-            var values = await _mediator.Send(new GetAboutByIdQuery(id));
-            return Ok(values);
-        }
-
         [HttpPost]
         public async Task<IActionResult> CreateAbout(CreateAboutCommand command)
         {
             await _mediator.Send(command);
-            return Ok("Hakkımızda Bilgisi Başarıyla Eklendi");
-        }
-
-        [HttpPut]
-        public async Task<IActionResult> UpdateAbout(UpdateAboutCommand command)
-        {
-            await _mediator.Send(command);
-            return Ok("Hakkımızda Bilgisi Başarıyla Güncellendi");
+            return Ok("Hakkımızda bilgisi eklendi");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveAbout(int id)
         {
             await _mediator.Send(new RemoveAboutCommand(id));
-            return Ok("Hakkımızda Bilgisi Başarıyla Silindi");
+            return Ok("Hakkımızda bilgisi silindi");
         }
-        [HttpGet("GetAboutPage")]
-        public async Task<IActionResult> GetAboutPage(string lang = "tr")
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateAbout(UpdateAboutCommand command)
         {
-            var values = await _mediator.Send(new GetAboutPageQuery(lang));
-            if (values == null)
-            {
-                return NotFound("Hakkımızda sayfası bulunamadı.");
-            }
-            return Ok(values);
+            await _mediator.Send(command);
+            return Ok("Hakkımızda bilgisi güncellendi");
         }
     }
 }

@@ -9,41 +9,31 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductHandlers
 {
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand>
     {
-        private readonly IRepository<Product> _repository;
-
-        public CreateProductCommandHandler(IRepository<Product> repository)
-        {
-            _repository = repository;
-        }
+        private readonly IProductRepository _repository;
+        public CreateProductCommandHandler(IProductRepository repository) { _repository = repository; }
 
         public async Task Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
             await _repository.CreateAsync(new Product
             {
                 Name_TR = request.Name_TR,
-                ShortDescription_TR = request.ShortDescription_TR,
-                Description_TR = request.Description_TR,
                 Name_EN = request.Name_EN,
+                ShortDescription_TR = request.ShortDescription_TR,
                 ShortDescription_EN = request.ShortDescription_EN,
-                Description_EN = request.Description_EN,
+                FullDescription_TR = request.FullDescription_TR,
+                FullDescription_EN = request.FullDescription_EN,
                 ProductCode = request.ProductCode,
-                ImagePath = request.ImagePath,
-                ImageAlt_TR = request.ImageAlt_TR,
-                ImageAlt_EN = request.ImageAlt_EN,
-                Slug = request.Slug,
+                BoxCount = request.BoxCount,
+                Capacity = request.Capacity,
                 Material = request.Material,
-                BoxDimensions = request.BoxDimensions,
+                BoxSize = request.BoxSize,
                 BoxWeight = request.BoxWeight,
-                LoadingCapacity = request.LoadingCapacity,
-                BoxQuantity = request.BoxQuantity,
+                IsDishwasherSafe = request.IsDishwasherSafe,
+                IsFoodSafe = request.IsFoodSafe,
+                MainImageUrl = request.MainImageUrl,
                 IsFeatured = request.IsFeatured,
-                IsActive = request.IsActive,
-                Order = request.Order,
-                MetaTitle_TR = request.MetaTitle_TR,
-                MetaTitle_EN = request.MetaTitle_EN,
-                MetaDescription_TR = request.MetaDescription_TR,
-                MetaDescription_EN = request.MetaDescription_EN,
-                CategoryID = request.CategoryID
+                Status = request.Status,
+                CategoryID = request.CategoryId
             });
         }
     }

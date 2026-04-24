@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace PamirPlastik.Application.Features.Mediator.Queries.AboutQueries
 {
-    public class GetAboutQuery : IRequest<List<GetAboutQueryResult>>
-    {
+
+    public class GetAboutQuery : IRequest<GetAboutQueryResult>
+    { 
     }
+
 }

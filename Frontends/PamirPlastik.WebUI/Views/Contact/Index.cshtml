@@ -1,0 +1,121 @@
+﻿@{
+    // SEO: Arama motoru başlığı ve açıklaması
+    ViewData["Title"] = "İletişim | Pamir Plastik - Global Üretim ve İhracat Hattı";
+    ViewData["Description"] = "Pamir Plastik Çerkeş fabrikası ve İstanbul ofis bilgilerine ulaşın. 7/24 teknik destek ve satış ekibimizle iletişime geçmek için tıklayın.";
+
+    // BREADCRUMB (Üst Banner) İÇİN DEĞİŞKENLER - Kurumsal sayfanla aynı mantık
+    ViewData["PageName"] = "İletişim";
+    ViewData["HeaderTitle"] = "Dünyanın Dört Bir Yanına <br/> <span class='text-[#ffda44]'>Hızlı ve Kesintisiz Destek</span>";
+}
+
+@* Google'a sayfanın ne olduğunu anlatan yapısal veri (Harita iğnesi için kritik) *@
+@section Scripts {
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org",
+          "@@type": "ContactPage",
+          "mainEntity": {
+            "@@type": "LocalBusiness",
+            "name": "Pamir Plastik",
+            "image": "https://www.pamirplastik.com/logo.png",
+            "telephone": "+905015521834",
+            "address": {
+              "@@type": "PostalAddress",
+              "streetAddress": "OSB, Çerkeş OSB, 2. Cad No:10/1",
+              "addressLocality": "Çerkeş",
+              "addressRegion": "Çankırı",
+              "postalCode": "18600",
+              "addressCountry": "TR"
+            },
+            "geo": {
+              "@@type": "GeoCoordinates",
+              "latitude": 40.816434,
+              "longitude": 32.890656
+            }
+          }
+        }
+    </script>
+}
+
+@* FontAwesome linki vb. diğer eklentilerin *@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+
+
+<section class="relative z-20 -mt-10 py-12 bg-[#f4f7fa]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+
+            <div class="lg:col-span-5 space-y-8">
+                @await Component.InvokeAsync("_ContactInfoComponentPartial")
+                <div class="pt-6 px-4 text-center lg:text-left">
+                    <span class="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] block mb-6">Dijitalde Pamir Plastik</span>
+                    @await Component.InvokeAsync("_ContactSocialMediaComponentPartial")
+                </div>
+            </div>
+
+            <div class="lg:col-span-7">
+                <div class="bg-white rounded-[3rem] p-8 md:p-14 shadow-2xl border border-white">
+                    <form method="post" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                            <div class="space-y-1.5">
+                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-4">Ad Soyad</label>
+                                <div class="relative">
+                                    <input type="text" name="FullName" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 pl-12 pr-6 text-sm text-[#0f172a] focus:outline-none focus:border-[#ffda44] transition-all" placeholder="Samet ..." required>
+                                    <i class="fa-solid fa-user absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 text-xs"></i>
+                                </div>
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-4">E-Posta</label>
+                                <div class="relative">
+                                    <input type="email" name="Email" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 pl-12 pr-6 text-sm text-[#0f172a] focus:outline-none focus:border-[#ffda44] transition-all" placeholder="iletisim@sirket.com" required>
+                                    <i class="fa-solid fa-at absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 text-xs"></i>
+                                </div>
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-4">Şirket / Kurum</label>
+                                <div class="relative">
+                                    <input type="text" name="Company" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 pl-12 pr-6 text-sm text-[#0f172a] focus:outline-none focus:border-[#ffda44] transition-all" placeholder="Şirketiniz...">
+                                    <i class="fa-solid fa-building absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 text-xs"></i>
+                                </div>
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-4">İletişim Konusu</label>
+                                <div class="relative">
+                                    <input type="text" name="Subject" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 pl-12 pr-6 text-sm text-[#0f172a] focus:outline-none focus:border-[#ffda44] transition-all" placeholder="Konuyu giriniz..." required>
+                                    <i class="fa-solid fa-pen absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 text-xs"></i>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-4">Mesajınızın Detayı</label>
+                            <div class="relative">
+                                <textarea name="MessageDetail" rows="4" class="w-full bg-gray-50 border border-gray-100 rounded-[2rem] py-4 pl-12 pr-6 text-sm text-[#0f172a] focus:outline-none focus:border-[#ffda44] transition-all resize-none" placeholder="Size nasıl yardımcı olabiliriz?" required></textarea>
+                                <i class="fa-solid fa-message absolute left-5 top-6 text-gray-300 text-xs"></i>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="group w-full py-6 bg-[#0f172a] text-white rounded-2xl font-black text-[11px] tracking-[0.3em] uppercase shadow-lg hover:bg-pamir-brand transition-all flex items-center justify-center gap-3 active:scale-[0.98]">
+                            <span>MESAJI GÖNDER</span>
+                            <i class="fa-solid fa-paper-plane transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform text-[#ffda44]"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        @await Component.InvokeAsync("_ContactMapComponentPartial")
+    </div>
+</section>
+
+<style>
+    body {
+        background-color: #f4f7fa;
+    }
+</style>

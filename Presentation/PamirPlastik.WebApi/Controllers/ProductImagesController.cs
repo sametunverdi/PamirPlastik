@@ -1,8 +1,8 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PamirPlastik.Application.Features.Mediator.Commands.ProductImageCommands;
 using PamirPlastik.Application.Features.Mediator.Queries.ProductImageQueries;
-using System.Threading.Tasks;
 
 namespace PamirPlastik.WebApi.Controllers
 {
@@ -17,25 +17,39 @@ namespace PamirPlastik.WebApi.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("GetProductImagesByProductId/{id}")]
-        public async Task<IActionResult> GetProductImagesByProductId(int id)
+        [HttpGet]
+        public async Task<IActionResult> ProductImageList()
         {
-            var values = await _mediator.Send(new GetProductImageByProductIdQuery(id));
+            var values = await _mediator.Send(new GetProductImageQuery());
             return Ok(values);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProductImage(int id)
+        {
+            var value = await _mediator.Send(new GetProductImageByIdQuery(id));
+            return Ok(value);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateProductImage(CreateProductImageCommand command)
         {
             await _mediator.Send(command);
-            return Ok("Ürün Görseli Başarıyla Eklendi");
+            return Ok("Ürün resmi başarıyla eklendi kanka!");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveProductImage(int id)
         {
             await _mediator.Send(new RemoveProductImageCommand(id));
-            return Ok("Ürün Görseli Başarıyla Silindi");
+            return Ok("Ürün resmi başarıyla silindi!");
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateProductImage(UpdateProductImageCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok("Ürün resmi başarıyla güncellendi!");
         }
     }
 }

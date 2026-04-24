@@ -1,8 +1,8 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PamirPlastik.Application.Features.Mediator.Commands.CategoryCommands;
 using PamirPlastik.Application.Features.Mediator.Queries.CategoryQueries;
-using System.Threading.Tasks;
 
 namespace PamirPlastik.WebApi.Controllers
 {
@@ -35,21 +35,22 @@ namespace PamirPlastik.WebApi.Controllers
         public async Task<IActionResult> CreateCategory(CreateCategoryCommand command)
         {
             await _mediator.Send(command);
-            return Ok("Kategori Başarıyla Eklendi");
+            return Ok("Kategori başarıyla eklendi!");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveCategory(int id)
         {
+            // Senin yazdığın RemoveCategoryCommand sınıfına id parametresini gönderiyoruz
             await _mediator.Send(new RemoveCategoryCommand(id));
-            return Ok("Kategori Başarıyla Silindi");
+            return Ok("Kategori başarıyla silindi!");
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateCategory(UpdateCategoryCommand command)
         {
             await _mediator.Send(command);
-            return Ok("Kategori Başarıyla Güncellendi");
+            return Ok("Kategori başarıyla güncellendi!");
         }
     }
 }

@@ -9,30 +9,24 @@ namespace PamirPlastik.Application.Features.Mediator.Commands.ProductCommands
 {
     public class UpdateProductCommand : IRequest
     {
-        public int ProductID { get; set; }
+        public int ProducID { get; set; } // Hangi ürünü güncelliyoruz?
         public string Name_TR { get; set; }
-        public string ShortDescription_TR { get; set; }
-        public string Description_TR { get; set; }
         public string Name_EN { get; set; }
+        public string ShortDescription_TR { get; set; }
         public string ShortDescription_EN { get; set; }
-        public string Description_EN { get; set; }
+        public string FullDescription_TR { get; set; }
+        public string FullDescription_EN { get; set; }
         public string ProductCode { get; set; }
-        public string ImagePath { get; set; }
-        public string ImageAlt_TR { get; set; }
-        public string ImageAlt_EN { get; set; }
-        public string Slug { get; set; }
+        public int BoxCount { get; set; }
+        public string Capacity { get; set; }
         public string Material { get; set; }
-        public string BoxDimensions { get; set; }
+        public string BoxSize { get; set; }
         public string BoxWeight { get; set; }
-        public string LoadingCapacity { get; set; }
-        public string BoxQuantity { get; set; }
+        public bool IsDishwasherSafe { get; set; }
+        public bool IsFoodSafe { get; set; }
+        public string MainImageUrl { get; set; }
         public bool IsFeatured { get; set; }
-        public bool IsActive { get; set; }
-        public int Order { get; set; }
-        public string MetaTitle_TR { get; set; }
-        public string MetaTitle_EN { get; set; }
-        public string MetaDescription_TR { get; set; }
-        public string MetaDescription_EN { get; set; }
-        public int CategoryID { get; set; }
+        public bool Status { get; set; }
+        public int CategoryId { get; set; }
     }
 }

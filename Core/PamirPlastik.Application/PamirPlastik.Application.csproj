@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Frontends\PamirPlastik.Dto\PamirPlastik.Dto.csproj" />
     <ProjectReference Include="..\PamirPlastik.Domain\PamirPlastik.Domain.csproj" />
   </ItemGroup>
 

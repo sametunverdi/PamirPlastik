@@ -1,0 +1,51 @@
+﻿@model List<PamirPlastik.WebUI.DTOs.AboutDtos.ResultAboutImageDto>
+
+<div class="mt-20 relative rounded-[3rem] overflow-hidden group shadow-3xl">
+    @* Slider Alanı *@
+    <div class="swiper corporateSwiper w-full h-[350px] md:h-[550px]">
+        <div class="swiper-wrapper">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <div class="swiper-slide">
+                        <img src="@item.ImageUrl" alt="Pamir Plastik Üretim" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000" />
+                    </div>
+                }
+            }
+        </div>
+        @* Alt Karartma Katmanı *@
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent z-10 pointer-events-none"></div>
+    </div>
+
+    @* İstatistik Alanı (Dinamik) *@
+    <div class="absolute bottom-8 left-8 md:bottom-12 md:left-12 z-20">
+        <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
+
+            @* Kapalı Alan Bilgisi *@
+            <div class="text-left">
+                <span class="text-[#ffda44] font-black text-3xl md:text-5xl block leading-none">
+                    10.000m²
+                </span>
+                <span class="text-white/60 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em]">
+                    Kapalı Üretim Alanı
+                </span>
+            </div>
+
+            <div class="hidden md:block w-px h-12 bg-white/20"></div>
+
+            @* Çalışma Saati Bilgisi *@
+            <div class="text-left">
+                <span class="text-[#ffda44] font-black text-3xl md:text-5xl block leading-none">
+                    24/7
+                </span>
+                <span class="text-white/60 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em]">
+                    Kesintisiz Üretim
+                </span>
+            </div>
+        </div>
+    </div>
+
+    @* Pagination (Sayfalama noktaları) *@
+    <div class="swiper-pagination !bottom-8 !left-auto !right-8 !w-auto"></div>
+</div>
