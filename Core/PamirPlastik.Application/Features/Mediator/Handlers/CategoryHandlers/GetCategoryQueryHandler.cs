@@ -13,13 +13,21 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.CategoryHandlers
 {
     public class GetCategoryQueryHandler : IRequestHandler<GetCategoryQuery, List<GetCategoryQueryResult>>
     {
-        private readonly IRepository<Category> _repository;
-        public GetCategoryQueryHandler(IRepository<Category> repository) { _repository = repository; }
+        private readonly IRepository<Category> _categoryRepository;
+        private readonly IRepository<Product> _productRepository; 
+
+        public GetCategoryQueryHandler(IRepository<Category> categoryRepository, IRepository<Product> productRepository)
+        {
+            _categoryRepository = categoryRepository;
+            _productRepository = productRepository;
+        }
 
         public async Task<List<GetCategoryQueryResult>> Handle(GetCategoryQuery request, CancellationToken cancellationToken)
         {
-            var values = await _repository.GetAllAsync();
-            return values.Select(x => new GetCategoryQueryResult
+            var categories = await _categoryRepository.GetAllAsync();
+            var products = await _productRepository.GetAllAsync(); 
+
+            return categories.Select(x => new GetCategoryQueryResult
             {
                 CategoryID = x.CategoryID,
                 Name_TR = x.Name_TR,
@@ -29,7 +37,7 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.CategoryHandlers
                 ImageUrl = x.ImageUrl,
                 Slug = x.Slug,
                 Status = x.Status,
-                ProductCount = x.Products != null ? x.Products.Count() : 0
+                ProductCount = products.Where(p => p.CategoryID == x.CategoryID).Count()
             }).ToList();
         }
     }

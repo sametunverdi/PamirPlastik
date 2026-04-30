@@ -26,6 +26,11 @@
                 <div class="space-y-2">
                     @if (Model != null)
                     {
+                        <a href="/Product/Index" class="flex items-center justify-between py-3 px-4 rounded-xl font-bold text-gray-500 hover:bg-gray-50 hover:text-pamir-brand transition-all group">
+                            <span>Tüm Ürünler</span>
+                            <span class="text-[10px] bg-gray-100 px-2 py-1 rounded-md group-hover:bg-[#ffda44] group-hover:text-[#0f172a]">@Model.Sum(x => x.ProductCount)</span>
+                        </a>
+
                         foreach (var item in Model)
                         {
                             <a href="/Product/Index?categoryId=@item.CategoryID" class="flex items-center justify-between py-3 px-4 rounded-xl font-bold text-gray-500 hover:bg-gray-50 hover:text-pamir-brand transition-all group">

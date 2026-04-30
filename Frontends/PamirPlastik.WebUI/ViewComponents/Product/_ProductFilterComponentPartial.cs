@@ -16,7 +16,6 @@ namespace PamirPlastik.WebUI.ViewComponents.Product
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var client = _httpClientFactory.CreateClient();
-            // Kanka buradaki portu kendi Swagger portunla değiştirmeyi unutma!
             var responseMessage = await client.GetAsync("https://localhost:7184/api/Categories");
 
             if (responseMessage.IsSuccessStatusCode)

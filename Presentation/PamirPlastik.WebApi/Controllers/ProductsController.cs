@@ -59,5 +59,17 @@ namespace PamirPlastik.WebApi.Controllers
             await _mediator.Send(command);
             return Ok("Ürün başarıyla güncellendi!");
         }
+        [HttpGet("GetProductsByCategory")]
+        public async Task<IActionResult> GetProductsByCategory(int id)
+        {
+            var values = await _mediator.Send(new GetProductByCategoryQuery(id));
+            return Ok(values);
+        }
+        [HttpGet("GetProductPagination")]
+        public async Task<IActionResult> GetProductPagination(int page = 1, int pageSize = 9, int? categoryID = null)
+        {
+            var values = await _mediator.Send(new GetProductPaginationQuery(page, pageSize, categoryID));
+            return Ok(values);
+        }
     }
 }
