@@ -1,0 +1,139 @@
+@model PamirPlastik.WebUI.DTOs.ContactDtos.UpdateContactDto
+@{
+    ViewData["Title"] = "İletişim Ayarları";
+}
+
+<div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+        <h1 class="text-2xl font-bold text-slate-800">İletişim Ayarları</h1>
+        <p class="text-slate-500 text-sm mt-1">Sitedeki iletişim ve genel merkez bilgilerini güncelleyin.</p>
+    </div>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="mb-6 p-4 rounded-md bg-green-50 border border-green-200 flex items-start">
+        <i class="fa-solid fa-circle-check text-green-500 mt-0.5 mr-3"></i>
+        <div class="text-sm font-medium text-green-800">@TempData["Success"]</div>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="mb-6 p-4 rounded-md bg-red-50 border border-red-200 flex items-start">
+        <i class="fa-solid fa-circle-exclamation text-red-500 mt-0.5 mr-3"></i>
+        <div class="text-sm font-medium text-red-800">@TempData["Error"]</div>
+    </div>
+}
+
+<div class="bg-white rounded-lg shadow-sm border border-slate-200">
+    <form method="post" action="/Admin/Contact/Index" class="p-6">
+        <input type="hidden" name="ContactID" value="@Model?.ContactID" />
+
+        <!-- 1. Üst Bölüm (Genel Merkez Yazısı) -->
+        <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200">Genel Merkez Başlık ve Açıklama</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Başlık (TR)</label>
+                <input type="text" name="Title_TR" value="@Model?.Title_TR" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Başlık (EN)</label>
+                <input type="text" name="Title_EN" value="@Model?.Title_EN" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Açıklama (TR)</label>
+                <textarea name="Description_TR" rows="3" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.Description_TR</textarea>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Açıklama (EN)</label>
+                <textarea name="Description_EN" rows="3" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.Description_EN</textarea>
+            </div>
+        </div>
+
+        <!-- 2. Telefon Bölümü -->
+        <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200">Telefon Bilgileri</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="md:col-span-1">
+                <label class="block text-sm font-medium text-slate-700 mb-1">Telefon Numarası</label>
+                <input type="text" name="Phone" value="@Model?.Phone" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+            </div>
+            <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Başlık (TR)</label>
+                    <input type="text" name="PhoneTitle_TR" value="@Model?.PhoneTitle_TR" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Başlık (EN)</label>
+                    <input type="text" name="PhoneTitle_EN" value="@Model?.PhoneTitle_EN" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Açıklama (TR)</label>
+                    <input type="text" name="PhoneDescription_TR" value="@Model?.PhoneDescription_TR" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Açıklama (EN)</label>
+                    <input type="text" name="PhoneDescription_EN" value="@Model?.PhoneDescription_EN" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. E-Posta Bölümü -->
+        <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200">E-Posta Bilgileri</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="md:col-span-1">
+                <label class="block text-sm font-medium text-slate-700 mb-1">E-Posta Adresi</label>
+                <input type="email" name="Email" value="@Model?.Email" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+            </div>
+            <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Başlık (TR)</label>
+                    <input type="text" name="EmailTitle_TR" value="@Model?.EmailTitle_TR" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Başlık (EN)</label>
+                    <input type="text" name="EmailTitle_EN" value="@Model?.EmailTitle_EN" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Açıklama (TR)</label>
+                    <input type="text" name="EmailDescription_TR" value="@Model?.EmailDescription_TR" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Açıklama (EN)</label>
+                    <input type="text" name="EmailDescription_EN" value="@Model?.EmailDescription_EN" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Harita ve Adres Bölümü -->
+        <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200">Harita ve Adres Bilgileri</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-slate-700 mb-1">Harita (Iframe Linki)</label>
+                <textarea name="MapLocation" rows="3" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.MapLocation</textarea>
+                <p class="text-xs text-slate-500 mt-1">Google Maps'ten alınan embed iframe kodunu buraya yapıştırın.</p>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Harita Başlığı (TR)</label>
+                <input type="text" name="MapTitle_TR" value="@Model?.MapTitle_TR" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Harita Başlığı (EN)</label>
+                <input type="text" name="MapTitle_EN" value="@Model?.MapTitle_EN" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Adres (TR)</label>
+                <textarea name="Address_TR" rows="3" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.Address_TR</textarea>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Adres (EN)</label>
+                <textarea name="Address_EN" rows="3" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.Address_EN</textarea>
+            </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200 flex justify-end">
+            <button type="submit" class="px-6 py-2.5 bg-primary hover:bg-primary-dark text-white rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-sm">
+                <i class="fa-solid fa-check mr-2"></i> Ayarları Kaydet
+            </button>
+        </div>
+    </form>
+</div>

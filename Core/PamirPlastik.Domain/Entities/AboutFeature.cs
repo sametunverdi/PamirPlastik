@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,27 +10,27 @@ namespace PamirPlastik.Domain.Entities
     {
         public int Id { get; set; }
 
-        // Hangi HakkÄ±mÄ±zda sayfasÄ±na ait? (Ä°liÅŸki)
+        // Hangi Hakkımızda sayfasına ait? (İlişki)
         public int AboutId { get; set; }
         public About About { get; set; }
 
-        // Bu kayÄ±t bir Ãœretim AÅŸamasÄ± mÄ± (Process) yoksa Ä°statistik mi (Statistic)?
-        // Bunu DTO'da filtrelerken kullanacaÄŸÄ±z (Ã–rn: Sadece Process olanlarÄ± sol tarafa diz)
-        public string FeatureType { get; set; }
+        // Bu kayıt bir Üretim Aşaması mı (Process) yoksa İstatistik mi (Statistic)?
+        // Bunu DTO'da filtrelerken kullanacağız (Örn: Sadece Process olanları sol tarafa diz)
+        public string? FeatureType { get; set; }
 
-        // HTML'deki: "01", "02" veya istatistiklerdeki "10.000mÂ²", "24/7" yazÄ±larÄ±
-        public string ValueOrIcon { get; set; }
+        // HTML'deki: "01", "02" veya istatistiklerdeki "10.000m²", "24/7" yazıları
+        public string? ValueOrIcon { get; set; }
 
-        // HTML'deki: "Ar-Ge & TasarÄ±m" veya "KapalÄ± Ãœretim AlanÄ±"
-        public string Title_TR { get; set; }
-        public string Title_EN { get; set; }
+        // HTML'deki: "Ar-Ge & Tasarım" veya "Kapalı Üretim Alanı"
+        public string? Title_TR { get; set; }
+        public string? Title_EN { get; set; }
 
-        // HTML'deki: "Her Ã¼rÃ¼n, kullanÄ±cÄ± ihtiyaÃ§larÄ± doÄŸrultusunda..."
-        // Ä°statistikler iÃ§in bu alan boÅŸ kalabilir (nullable yapabiliriz)
-        public string Description_TR { get; set; }
-        public string Description_EN { get; set; }
+        // HTML'deki: "Her ürün, kullanıcı ihtiyaçları doğrultusunda..."
+        // İstatistikler için bu alan boş kalabilir (nullable yapabiliriz)
+        public string? Description_TR { get; set; }
+        public string? Description_EN { get; set; }
 
-        // SÄ±ralama iÃ§in (Panelde hangisi Ã¶nce gÃ¶rÃ¼nsÃ¼n istersen)
+        // Sıralama için (Panelde hangisi önce görünsün istersen)
         public int Order { get; set; }
     }
 }

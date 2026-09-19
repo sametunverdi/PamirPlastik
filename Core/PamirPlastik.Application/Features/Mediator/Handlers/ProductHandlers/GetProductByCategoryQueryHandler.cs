@@ -26,7 +26,7 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductHandlers
             var allValues = await _repository.GetAllAsync();
 
 
-            var values = allValues.Where(x => x.CategoryID == request.ID).ToList();
+            var values = allValues.Where(x => x.CategoryID == request.ID).OrderBy(x => x.Order).ToList();
 
             return values.Select(x => new GetProductQueryResult
             {

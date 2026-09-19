@@ -18,6 +18,8 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductHandlers
             {
                 Name_TR = request.Name_TR,
                 Name_EN = request.Name_EN,
+                Slug_TR = request.Slug_TR,
+                Slug_EN = request.Slug_EN,
                 ShortDescription_TR = request.ShortDescription_TR,
                 ShortDescription_EN = request.ShortDescription_EN,
                 FullDescription_TR = request.FullDescription_TR,
@@ -33,6 +35,7 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductHandlers
                 MainImageUrl = request.MainImageUrl,
                 IsFeatured = request.IsFeatured,
                 Status = request.Status,
+                Order = request.Order,
                 CategoryID = request.CategoryId
             });
         }

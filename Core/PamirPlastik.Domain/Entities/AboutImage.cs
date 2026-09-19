@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,18 +10,18 @@ namespace PamirPlastik.Domain.Entities
     {
         public int Id { get; set; }
 
-        // Ä°liÅŸki
+        // İlişki
         public int AboutId { get; set; }
         public About About { get; set; }
 
-        // HTML'deki: <img src="..."> kÄ±smÄ±na basÄ±lacak URL
-        public string ImageUrl { get; set; }
+        // HTML'deki: <img src="..."> kısmına basılacak URL
+        public string? ImageUrl { get; set; }
 
-        // HTML'deki: alt="..." kÄ±smÄ±. SEO iÃ§in Ã§ok Ã¶nemli! GÃ¶rme engelliler ve Google botlarÄ± okur.
-        public string AltText_TR { get; set; }
-        public string AltText_EN { get; set; }
+        // HTML'deki: alt="..." kısmı. SEO için çok önemli! Görme engelliler ve Google botları okur.
+        public string? AltText_TR { get; set; }
+        public string? AltText_EN { get; set; }
 
-        // Slider'da hangi sÄ±rayla Ã§Ä±ksÄ±n?
+        // Slider'da hangi sırayla çıksın?
         public int Order { get; set; }
     }
 }

@@ -1,0 +1,128 @@
+@model PamirPlastik.WebUI.DTOs.ColorDtos.UpdateColorDto
+
+@{
+    ViewData["Title"] = "Renk Düzenle";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Page header -->
+<div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+        <h1 class="text-2xl font-bold text-slate-800">Renk Düzenle</h1>
+        <p class="text-slate-500 text-sm mt-1">Var olan rengin özelliklerini güncelleyin.</p>
+    </div>
+    <a href="/Admin/Color/Index" class="inline-flex items-center justify-center px-4 py-2 border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-slate-200">
+        <i class="fa-solid fa-arrow-left mr-2"></i> Geri Dön
+    </a>
+</div>
+
+    <div class="bg-white shadow-xl shadow-slate-200/40 rounded-2xl border border-slate-200 overflow-hidden relative">
+        <!-- Decorative gradient top bar -->
+        <div class="h-2 w-full bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500"></div>
+
+        <div class="p-8">
+            <form method="post">
+                <input type="hidden" name="ColorID" value="@Model.ColorID" />
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Left Column: Names -->
+                    <div class="space-y-6">
+                        <div class="group">
+                            <label class="block text-sm font-semibold text-slate-700 mb-2" for="Name_TR">Renk Adı (TR) <span class="text-rose-500">*</span></label>
+                            <input id="Name_TR" name="Name_TR" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:bg-white outline-none transition-all duration-200 text-slate-700 font-medium" type="text" value="@Model.Name_TR" required />
+                        </div>
+
+                        <div class="group">
+                            <label class="block text-sm font-semibold text-slate-700 mb-2" for="Name_EN">Renk Adı (EN) <span class="text-rose-500">*</span></label>
+                            <input id="Name_EN" name="Name_EN" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 focus:bg-white outline-none transition-all duration-200 text-slate-700 font-medium" type="text" value="@Model.Name_EN" required />
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Color Picker -->
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Renk Seçimi <span class="text-rose-500">*</span></label>
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col items-center justify-center space-y-4 transition-all duration-300 hover:shadow-md hover:border-orange-300 relative overflow-hidden group">
+                            
+                            <!-- Dynamic Background Glow -->
+                            <div id="ColorGlow" class="absolute inset-0 opacity-10 transition-colors duration-300 pointer-events-none" style="background-color: @Model.HexCode;"></div>
+
+                            <!-- Pickr container -->
+                            <div class="relative z-10 p-2 bg-white rounded-full shadow-sm border border-slate-100 transform group-hover:scale-105 transition-transform duration-300">
+                                <div class="color-picker"></div>
+                            </div>
+                            
+                            <!-- Hidden input -->
+                            <input id="HexCode" name="HexCode" type="hidden" value="@Model.HexCode" required />
+                            
+                            <div class="text-center relative z-10">
+                                <div id="HexDisplay" class="text-2xl font-bold tracking-wider text-slate-800 uppercase mt-2">@Model.HexCode</div>
+                                <p class="text-xs text-slate-500 mt-1 font-medium">Palete tıklayarak rengi değiştirin</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="flex items-center justify-end space-x-4 mt-10 pt-6 border-t border-slate-100">
+                    <button type="button" onclick="window.location.href='/Admin/Color/Index'" class="px-6 py-2.5 rounded-xl font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors duration-200">İptal</button>
+                    <button type="submit" class="px-8 py-2.5 rounded-xl font-bold text-white bg-gradient-to-r from-orange-500 to-rose-600 hover:from-orange-600 hover:to-rose-700 shadow-lg shadow-orange-500/30 transform hover:-translate-y-0.5 transition-all duration-200">
+                        <i class="fa-solid fa-check mr-2"></i> Güncelle
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+@section Scripts {
+    <!-- Pickr CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@simonwep/pickr/dist/themes/monolith.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@@simonwep/pickr/dist/pickr.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const hexDisplay = document.getElementById('HexDisplay');
+            const colorGlow = document.getElementById('ColorGlow');
+            const hexInput = document.getElementById('HexCode');
+            const initialColor = hexInput.value || '#4f46e5';
+
+            const pickr = Pickr.create({
+                el: '.color-picker',
+                theme: 'monolith',
+                default: initialColor,
+                swatches: [
+                    '#F44336', '#E91E63', '#9C27B0', '#673AB7',
+                    '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4',
+                    '#009688', '#4CAF50', '#8BC34A', '#CDDC39',
+                    '#FFEB3B', '#FFC107', '#FF9800', '#FF5722',
+                    '#795548', '#9E9E9E', '#607D8B', '#000000',
+                    '#FFFFFF'
+                ],
+                components: {
+                    preview: true,
+                    opacity: false,
+                    hue: true,
+                    interaction: {
+                        hex: true,
+                        input: true,
+                        save: true
+                    }
+                },
+                i18n: {
+                    'btn:save': 'Seçimi Koru',
+                    'btn:cancel': 'İptal',
+                    'btn:clear': 'Temizle',
+                }
+            });
+
+            // Handle color changes
+            pickr.on('change', (color) => {
+                const hexColor = color.toHEXA().toString();
+                hexInput.value = hexColor;
+                hexDisplay.textContent = hexColor.toUpperCase();
+                colorGlow.style.backgroundColor = hexColor;
+            }).on('save', (color) => {
+                pickr.hide();
+            });
+        });
+    </script>
+}

@@ -31,6 +31,13 @@ namespace PamirPlastik.WebApi.Controllers
             return Ok(value);
         }
 
+        [HttpGet("ByProductId/{id}")]
+        public async Task<IActionResult> GetProductImagesByProductId(int id)
+        {
+            var values = await _mediator.Send(new GetProductImagesByProductIdQuery(id));
+            return Ok(values);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateProductImage(CreateProductImageCommand command)
         {

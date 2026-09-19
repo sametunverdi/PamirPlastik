@@ -13,12 +13,14 @@ namespace PamirPlastik.Application.Features.Mediator.Queries.ProductQueries
         public int Page { get; set; }
         public int PageSize { get; set; }
         public int? CategoryID { get; set; } 
+        public string? SearchQuery { get; set; }
 
-        public GetProductPaginationQuery(int page, int pageSize, int? categoryID = null)
+        public GetProductPaginationQuery(int page, int pageSize, int? categoryID = null, string? searchQuery = null)
         {
             Page = page;
             PageSize = pageSize;
             CategoryID = categoryID;
+            SearchQuery = searchQuery;
         }
     }
 }

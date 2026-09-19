@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PamirPlastik.Application.Interfaces;
 using PamirPlastik.Domain.Entities;
 using PamirPlastik.Persistence.Context;
@@ -31,6 +31,15 @@ namespace PamirPlastik.Persistence.Repositories
                 .Where(x => x.IsFeatured == true)
                 .Include(x => x.Category)
                 .ToListAsync();
+        }
+
+        public async Task<Product> GetProductBySlugAsync(string slug)
+        {
+            return await _context.Products
+                .Include(x => x.Category)
+                .Include(x => x.ProductColors)
+                .Include(x => x.ProductImages)
+                .FirstOrDefaultAsync(x => x.Slug_TR == slug || x.Slug_EN == slug);
         }
     }
 }

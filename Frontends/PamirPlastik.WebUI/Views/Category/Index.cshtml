@@ -1,0 +1,37 @@
+@model List<PamirPlastik.WebUI.DTOs.CategoryDtos.ResultCategoryDto>
+@{
+    ViewData["Title"] = "Kategoriler - Pamir Plastik";
+    ViewData["Description"] = "Ürünlerimizi kullanım alanlarına göre gruplandırdığımız kategorilerimizi iİnceleyin.";
+    ViewData["PageName"] = "Kategoriler";
+    ViewData["HeaderTitle"] = "Ürünlerimizi Kategorilere Göre <br/> <span class='text-[#ffda44]'>İİnceleyin</span>";
+}
+
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            @foreach (var item in Model)
+            {
+                <a href="/Product/Index/?categoryId=@item.CategoryID" class="group relative bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 flex flex-col h-full">
+                    <div class="relative h-64 overflow-hidden w-full">
+                        <div class="absolute inset-0 bg-[#0f172a]/20 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+                        <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? "/images/placeholder.jpg" : item.ImageUrl)" alt="@item.Name_TR" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 right-4 z-20 bg-white/90 backdrop-blur-sm p-3 rounded-2xl shadow-lg transform group-hover:rotate-12 transition-transform duration-300">
+                            <i class="fa-solid fa-layer-group text-[#4A5FC1] text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-black text-gray-900 mb-3 group-hover:text-[#4A5FC1] transition-colors">@item.Name_TR</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-6">@item.Description_TR</p>
+                        </div>
+                        <div class="inline-flex items-center text-[#4A5FC1] font-bold text-sm uppercase tracking-wider group-hover:tracking-widest transition-all">
+                            Ürünleri Gör <i class="fa-solid fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+        
+    </div>
+</section>

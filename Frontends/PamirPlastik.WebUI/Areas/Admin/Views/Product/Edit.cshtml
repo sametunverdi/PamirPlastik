@@ -1,0 +1,401 @@
+@model PamirPlastik.WebUI.DTOs.ProductDtos.UpdateProductDto
+@{
+    ViewData["Title"] = "Ürün Düzenle";
+}
+
+<div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+        <h1 class="text-2xl font-bold text-slate-800">Ürün Düzenle</h1>
+        <p class="text-slate-500 text-sm mt-1">Mevcut ürünün özelliklerini ve detaylarını güncelleyin.</p>
+    </div>
+    <a href="/Admin/Product" class="inline-flex items-center justify-center px-4 py-2 border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-slate-200">
+        <i class="fa-solid fa-arrow-left mr-2"></i> Listeye Dön
+    </a>
+</div>
+
+<form method="post" action="/Admin/Product/Edit" enctype="multipart/form-data">
+    <input type="hidden" name="ProductID" value="@Model.ProductID" />
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Sol Kolon (Ana Bilgiler) -->
+        <div class="lg:col-span-2 space-y-6">
+            <!-- Temel Bilgiler Kartı -->
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+                <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200 text-primary">Temel Bilgiler</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Ürün Adı (TR) <span class="text-red-500">*</span></label>
+                        <input type="text" name="Name_TR" value="@Model.Name_TR" required class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Ürün Adı (EN) <span class="text-red-500">*</span></label>
+                        <input type="text" name="Name_EN" value="@Model.Name_EN" required class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Kısa Açıklama (TR)</label>
+                        <textarea name="ShortDescription_TR" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model.ShortDescription_TR</textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Kısa Açıklama (EN)</label>
+                        <textarea name="ShortDescription_EN" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model.ShortDescription_EN</textarea>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Detaylı Açıklama (TR)</label>
+                        <textarea name="FullDescription_TR" rows="4" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model.FullDescription_TR</textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Detaylı Açıklama (EN)</label>
+                        <textarea name="FullDescription_EN" rows="4" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model.FullDescription_EN</textarea>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">SEO URL (TR)</label>
+                        <input type="text" name="Slug_TR" value="@Model.Slug_TR" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">SEO URL (EN)</label>
+                        <input type="text" name="Slug_EN" value="@Model.Slug_EN" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teknik Özellikler Kartı -->
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+                <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200 text-primary">Teknik ve Lojistik Veriler</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Koli Adedi</label>
+                        <input type="number" name="BoxCount" value="@Model.BoxCount" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Kapasite / Hacim</label>
+                        <input type="text" name="Capacity" value="@Model.Capacity" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Hammadde</label>
+                        <input type="text" name="Material" value="@Model.Material" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Koli Ölçüsü</label>
+                        <input type="text" name="BoxSize" value="@Model.BoxSize" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Koli Ağırlığı</label>
+                        <input type="text" name="BoxWeight" value="@Model.BoxWeight" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                    </div>
+                </div>
+                
+                <div class="flex gap-8 mt-6">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <div class="relative">
+                            <input type="checkbox" id="IsDishwasherSafe" name="IsDishwasherSafe" value="true" class="sr-only toggle-checkbox" @(Model.IsDishwasherSafe ? "checked" : "") onchange="document.getElementById('IsDishwasherSafeHidden').value = this.checked ? 'true' : 'false'">
+                            <input type="hidden" id="IsDishwasherSafeHidden" name="IsDishwasherSafe" value="@(Model.IsDishwasherSafe ? "true" : "false")" />
+                            <div class="block bg-slate-200 w-10 h-6 rounded-full transition-colors toggle-bg"></div>
+                            <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform toggle-dot"></div>
+                        </div>
+                        <span class="text-sm font-medium text-slate-700">Bulaşık Makinesi Uygunluğu</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <div class="relative">
+                            <input type="checkbox" id="IsFoodSafe" name="IsFoodSafe" value="true" class="sr-only toggle-checkbox" @(Model.IsFoodSafe ? "checked" : "") onchange="document.getElementById('IsFoodSafeHidden').value = this.checked ? 'true' : 'false'">
+                            <input type="hidden" id="IsFoodSafeHidden" name="IsFoodSafe" value="@(Model.IsFoodSafe ? "true" : "false")" />
+                            <div class="block bg-slate-200 w-10 h-6 rounded-full transition-colors toggle-bg"></div>
+                            <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform toggle-dot"></div>
+                        </div>
+                        <span class="text-sm font-medium text-slate-700">Gıda Temasına Uygunluk</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Renk Seçenekleri Kartı -->
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6 mt-6">
+                <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200 text-primary">Renk Seçenekleri</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    @if (ViewBag.Colors != null)
+                    {
+                        var selectedColors = ViewBag.SelectedColors as List<int> ?? new List<int>();
+                        foreach (var color in (List<PamirPlastik.WebUI.DTOs.ColorDtos.ResultColorDto>)ViewBag.Colors)
+                        {
+                            var isChecked = selectedColors.Contains(color.ColorID) ? "checked" : "";
+                            <label class="flex items-center space-x-2 p-2 border border-slate-200 dark:border-slate-700 rounded cursor-pointer hover:bg-slate-50 transition-colors">
+                                <input type="checkbox" name="SelectedColors" value="@color.ColorID" class="form-checkbox text-indigo-500 rounded-sm" @isChecked />
+                                <div class="w-4 h-4 rounded-full border border-slate-300" style="background-color: @color.HexCode"></div>
+                                <span class="text-sm font-medium text-slate-800">@color.Name_TR</span>
+                            </label>
+                        }
+                    }
+                    </label>
+                </div>
+            </div>
+
+            <!-- Renk Seçenekleri Kartı -->
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6 mt-6">
+                <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200 text-primary">Renk Seçenekleri</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    @if (ViewBag.Colors != null)
+                    {
+                        var selectedColors = ViewBag.SelectedColors as List<int> ?? new List<int>();
+                        foreach (var color in (List<PamirPlastik.WebUI.DTOs.ColorDtos.ResultColorDto>)ViewBag.Colors)
+                        {
+                            var isChecked = selectedColors.Contains(color.ColorID) ? "checked" : "";
+                            <label class="flex items-center space-x-2 p-2 border border-slate-200 dark:border-slate-700 rounded cursor-pointer hover:bg-slate-50 transition-colors">
+                                <input type="checkbox" name="SelectedColors" value="@color.ColorID" class="form-checkbox text-indigo-500 rounded-sm" @isChecked />
+                                <div class="w-4 h-4 rounded-full border border-slate-300" style="background-color: @color.HexCode"></div>
+                                <span class="text-sm font-medium text-slate-800">@color.Name_TR</span>
+                            </label>
+                        }
+                    }
+                </div>
+            </div>
+
+            <!-- Ürün Galerisi Kartı -->
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6 mt-6">
+                <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200 text-primary">Ürün Galerisi</h3>
+                
+                @if (ViewBag.GalleryImages != null && ((IEnumerable<dynamic>)ViewBag.GalleryImages).Any())
+                {
+                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-6">
+                        @foreach (var image in ViewBag.GalleryImages)
+                        {
+                            <div class="relative group rounded-md overflow-hidden border border-slate-200 bg-slate-50" id="gallery-img-@image.productImageID">
+                                <img src="@image.imageUrl" class="w-full h-32 object-contain" />
+                                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <button type="button" onclick="deleteGalleryImage(@image.productImageID)" class="w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors shadow-lg" title="Resmi Sil">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                
+                <div class="mb-4 mt-6">
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Yeni Fotoğraflar Ekle ve Sıralayın</label>
+                    <div id="dropzone" class="border-2 border-dashed border-primary/40 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors p-8 text-center cursor-pointer relative">
+                        <input type="file" id="GalleryImages" name="GalleryImages" accept="image/*" multiple class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                        <i class="fa-solid fa-cloud-arrow-up text-4xl text-primary mb-3"></i>
+                        <p class="text-sm font-semibold text-slate-700">Fotoğrafları buraya sürükleyin veya seçmek için tıklayın</p>
+                        <p class="text-xs text-slate-500 mt-1">Seçtiğiniz resimleri sürükleyerek sıralayabilirsiniz. Mevcut resimlerin sonuna eklenecektir.</p>
+                    </div>
+                </div>
+
+                <div id="image-preview-container" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    <!-- Dinamik olarak oluşturulan önizlemeler buraya eklenecek -->
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- Sağ Kolon (Kategori, Görsel, Ayarlar) -->
+        <div class="space-y-6">
+            <!-- Kategorizasyon Kartı -->
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+                <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200 text-teal">Sınıflandırma</h3>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Kategori <span class="text-red-500">*</span></label>
+                    @Html.DropDownListFor(x => x.CategoryID, (List<SelectListItem>)ViewBag.v, "Kategori Seçiniz", new { @class = "w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-teal/50 focus:border-teal outline-none transition-colors", required = "required" })
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Ürün Kodu <span class="text-red-500">*</span></label>
+                    <input type="text" name="ProductCode" value="@Model.ProductCode" required class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-teal/50 focus:border-teal outline-none transition-colors">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Sıralama</label>
+                    <input type="number" name="Order" value="@Model.Order" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-teal/50 focus:border-teal outline-none transition-colors">
+                </div>
+            </div>
+            
+            <!-- Görsel & Görünürlük Kartı -->
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+                <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200 text-amber-dark">Vitrin & Görünürlük</h3>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Kapak Fotoğrafını Değiştir <span class="text-xs text-slate-500">(Bilgisayardan Seçin)</span></label>
+                    <input type="file" name="MainImageFile" accept="image/*" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-amber-dark/50 focus:border-amber-dark outline-none transition-colors">
+                    <input type="hidden" name="MainImageUrl" value="@Model.MainImageUrl" />
+                    @if(!string.IsNullOrEmpty(Model.MainImageUrl))
+                    {
+                        <div class="mt-2 text-xs text-slate-500 mb-2">Mevcut Görsel:</div>
+                        <div class="h-32 w-full bg-slate-100 rounded-md flex items-center justify-center overflow-hidden border border-slate-200">
+                            <img src="@Model.MainImageUrl" class="h-full object-contain" />
+                        </div>
+                    }
+                </div>
+                
+                <div class="space-y-4">
+                    <label class="flex items-center gap-3 cursor-pointer bg-slate-50 p-3 rounded-md border border-slate-200 hover:bg-amber-50 hover:border-amber-200 transition-colors">
+                        <span class="relative block">
+                            <input type="checkbox" id="IsFeatured" name="IsFeatured" value="true" @(Model.IsFeatured ? "checked" : "") class="sr-only toggle-checkbox" onchange="document.getElementById('IsFeaturedHidden').value = this.checked ? 'true' : 'false'">
+                            <input type="hidden" id="IsFeaturedHidden" name="IsFeatured" value="@(Model.IsFeatured ? "true" : "false")" />
+                            <span class="block bg-slate-300 w-10 h-6 rounded-full transition-colors toggle-bg"></span>
+                            <span class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform toggle-dot shadow-sm"></span>
+                        </span>
+                        <span class="block">
+                            <span class="text-sm font-semibold text-slate-800 flex items-center"><i class="fa-solid fa-star text-amber-dark mr-1"></i> Yıldızlı Ürün</span>
+                            <span class="text-xs text-slate-500 block">Ana sayfa vitrininde göster.</span>
+                        </span>
+                    </label>
+
+                    <label class="flex items-center gap-3 cursor-pointer bg-slate-50 p-3 rounded-md border border-slate-200 hover:bg-green-50 hover:border-green-200 transition-colors">
+                        <div class="relative">
+                            <input type="checkbox" id="Status" name="Status" value="true" class="sr-only toggle-checkbox" @(Model.Status ? "checked" : "") onchange="document.getElementById('StatusHidden').value = this.checked ? 'true' : 'false'">
+                            <input type="hidden" id="StatusHidden" name="Status" value="@(Model.Status ? "true" : "false")" />
+                            <div class="block bg-slate-300 w-10 h-6 rounded-full transition-colors toggle-bg"></div>
+                            <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform toggle-dot shadow-sm"></div>
+                        </div>
+                        <div>
+                            <span class="text-sm font-semibold text-slate-800">Ürün Aktif (Yayında)</span>
+                            <span class="text-xs text-slate-500 block">Ürün sitede müşteriler tarafından görülebilir.</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="mt-6 bg-white p-4 rounded-lg shadow-sm border border-slate-200 flex justify-end gap-3 sticky bottom-4 z-10">
+        <a href="/Admin/Product" class="px-6 py-2.5 border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-md font-medium transition-colors">İptal</a>
+        <button type="submit" class="px-8 py-2.5 bg-primary hover:bg-primary-dark text-white rounded-md font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-md flex items-center">
+            <i class="fa-solid fa-check mr-2"></i> Ürünü Güncelle
+        </button>
+    </div>
+</form>
+
+@section Scripts {
+    <style>
+        .toggle-checkbox:checked + input[type="hidden"] + .toggle-bg { background-color: var(--primary-color, #1976D2); }
+        .toggle-checkbox:checked + input[type="hidden"] + .toggle-bg + .toggle-dot { transform: translateX(100%); }
+        .sortable-ghost { opacity: 0.4; background-color: #f8fafc; border: 2px dashed #4A5FC1; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const input = document.getElementById('GalleryImages');
+            const previewContainer = document.getElementById('image-preview-container');
+            const form = input.closest('form');
+            let selectedFiles = []; 
+
+            const sortable = new Sortable(previewContainer, {
+                animation: 150,
+                ghostClass: 'sortable-ghost',
+                onEnd: function () {
+                    updateFilesArrayFromDOM();
+                }
+            });
+
+            input.addEventListener('change', function (e) {
+                const newFiles = Array.from(e.target.files);
+                
+                newFiles.forEach(file => {
+                    if (!selectedFiles.find(f => f.name === file.name && f.size === file.size)) {
+                        selectedFiles.push(file);
+                        addPreview(file);
+                    }
+                });
+                input.value = '';
+            });
+
+            function addPreview(file) {
+                const id = 'file-' + Math.random().toString(36).substr(2, 9);
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const div = document.createElement('div');
+                    div.className = 'relative group rounded-md overflow-hidden border border-slate-200 bg-slate-50 h-32 cursor-move flex items-center justify-center';
+                    div.setAttribute('data-id', id);
+                    div.setAttribute('data-filename', file.name);
+
+                    div.innerHTML = `
+                        <img src="${e.target.result}" class="w-full h-full object-cover" />
+                        <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button type="button" class="remove-btn w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors shadow-lg" title="Kaldır">
+                                <i class="fa-solid fa-times"></i>
+                            </button>
+                        </div>
+                    `;
+
+                    div.querySelector('.remove-btn').addEventListener('click', function () {
+                        div.remove();
+                        selectedFiles = selectedFiles.filter(f => f.name !== file.name);
+                    });
+
+                    previewContainer.appendChild(div);
+                };
+
+                reader.readAsDataURL(file);
+            }
+
+            function updateFilesArrayFromDOM() {
+                const items = previewContainer.children;
+                const newArr = [];
+                for (let i = 0; i < items.length; i++) {
+                    const filename = items[i].getAttribute('data-filename');
+                    const file = selectedFiles.find(f => f.name === filename);
+                    if (file) {
+                        newArr.push(file);
+                    }
+                }
+                selectedFiles = newArr;
+            }
+
+            form.addEventListener('submit', function (e) {
+                if (selectedFiles.length > 0) {
+                    const dataTransfer = new DataTransfer();
+                    selectedFiles.forEach(file => {
+                        dataTransfer.items.add(file);
+                    });
+                    input.files = dataTransfer.files;
+                }
+            });
+        });
+        function deleteGalleryImage(id) {
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Bu resmi galeriden silmek istediğinize emin misiniz?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, Sil!',
+                cancelButtonText: 'İptal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/Admin/Product/DeleteGalleryImage/' + id,
+                        type: 'POST',
+                        success: function (res) {
+                            if (res.success) {
+                                $('#gallery-img-' + id).fadeOut(300, function() { $(this).remove(); });
+                                Swal.fire('Silindi!', 'Resim başarıyla silindi.', 'success');
+                            } else {
+                                Swal.fire('Hata!', res.message, 'error');
+                            }
+                        },
+                        error: function () {
+                            Swal.fire('Hata!', 'Sunucu ile iletişim kurulamadı.', 'error');
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+}

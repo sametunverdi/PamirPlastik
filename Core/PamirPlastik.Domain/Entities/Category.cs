@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,21 +10,21 @@ namespace PamirPlastik.Domain.Entities
     {
         public int CategoryID { get; set; } // Birincil anahtar
 
-        // SEO ve Dil DesteÄŸi
-        public string Name_TR { get; set; } // Kategorinin TÃ¼rkÃ§e adÄ± (Ã–rn: Mutfak GereÃ§leri)
-        public string Name_EN { get; set; } // Kategorinin Ä°ngilizce adÄ± (Ã–rn: Kitchenware)
+        // SEO ve Dil Desteği
+        public string? Name_TR { get; set; } // Kategorinin Türkçe adı (Örn: Mutfak Gereçleri)
+        public string? Name_EN { get; set; } // Kategorinin İngilizce adı (Örn: Kitchenware)
 
-        public string Description_TR { get; set; } // Kartlarda gÃ¶rÃ¼nen kÄ±sa TÃ¼rkÃ§e aÃ§Ä±klama
-        public string Description_EN { get; set; } // Kartlarda gÃ¶rÃ¼nen kÄ±sa Ä°ngilizce aÃ§Ä±klama
+        public string? Description_TR { get; set; } // Kartlarda görünen kısa Türkçe açıklama
+        public string? Description_EN { get; set; } // Kartlarda görünen kısa İngilizce açıklama
 
-        public string ImageUrl { get; set; } // Kategorinin kapak fotoÄŸrafÄ± yolu
+        public string? ImageUrl { get; set; } // Kategorinin kapak fotoğrafı yolu
 
-        public string Slug { get; set; } // URL dostu isim (Ã–rn: mutfak-gerecleri). SEO iÃ§in kritik!
+        public string? Slug { get; set; } // URL dostu isim (Örn: mutfak-gerecleri). SEO için kritik!
 
-        public bool Status { get; set; } // Kategori yayÄ±nda mÄ±? (true/false)
+        public bool Status { get; set; } // Kategori yayında mı? (true/false)
 
-        // Ä°liÅŸki (Navigation Property)
-        // Bir kategorinin birden fazla Ã¼rÃ¼nÃ¼ olabilir.
+        // İlişki (Navigation Property)
+        // Bir kategorinin birden fazla ürünü olabilir.
         public List<Product> Products { get; set; }
     }
 }

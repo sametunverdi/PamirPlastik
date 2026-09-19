@@ -1,0 +1,218 @@
+@model PamirPlastik.WebUI.DTOs.HomePageSettingDtos.UpdateHomePageSettingDto
+
+@{
+    ViewData["Title"] = "Ana Sayfa Ayarlarını Düzenle";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+    <div class="sm:flex sm:justify-between sm:items-center mb-8">
+        <div class="mb-4 sm:mb-0">
+            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Ana Sayfa Ayarları ✨</h1>
+        </div>
+    </div>
+
+    <div class="bg-white shadow-lg rounded-sm border border-slate-200 p-6">
+        <form asp-action="Update" asp-controller="HomePageSetting" asp-area="Admin" method="post" enctype="multipart/form-data">
+            
+            <input type="hidden" asp-for="HomePageSettingID" />
+            <input type="hidden" asp-for="HeroImageUrl" />
+            <input type="hidden" asp-for="ProdImageUrl" />
+
+            <!-- HERO SECTION -->
+            <h2 class="text-xl font-bold mb-4 text-indigo-600 border-b pb-2">Hero Alanı (En Üst Giriş)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <!-- Hero Top Title -->
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="HeroTitleTop_TR">Üst Başlık (TR)</label>
+                    <input class="form-input w-full" asp-for="HeroTitleTop_TR" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="HeroTitleTop_EN">Üst Başlık (EN)</label>
+                    <input class="form-input w-full" asp-for="HeroTitleTop_EN" />
+                </div>
+
+                <!-- Hero Main Title -->
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="HeroTitleMain_TR">Ana Başlık (TR)</label>
+                    <input class="form-input w-full" asp-for="HeroTitleMain_TR" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="HeroTitleMain_EN">Ana Başlık (EN)</label>
+                    <input class="form-input w-full" asp-for="HeroTitleMain_EN" />
+                </div>
+
+                <!-- Hero Description -->
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="HeroDescription_TR">Açıklama (TR)</label>
+                    <textarea class="form-textarea w-full" rows="3" asp-for="HeroDescription_TR"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="HeroDescription_EN">Açıklama (EN)</label>
+                    <textarea class="form-textarea w-full" rows="3" asp-for="HeroDescription_EN"></textarea>
+                </div>
+
+                <!-- İstatistikler -->
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="ExperienceYear">Deneyim Yılı (Örn: 25+)</label>
+                    <input class="form-input w-full" asp-for="ExperienceYear" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="ProductTypeCount">Ürün Çeşidi Sayısı (Örn: 200+)</label>
+                    <input class="form-input w-full" asp-for="ProductTypeCount" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="ExportCountryCount">İhracat Ülke Sayısı (Örn: 50+)</label>
+                    <input class="form-input w-full" asp-for="ExportCountryCount" />
+                </div>
+                
+                <div class="col-span-full">
+                    <label class="block text-sm font-medium mb-1">Yeni Hero Görseli (Değiştirmek istemiyorsanız boş bırakın)</label>
+                    <input type="file" name="heroImageFile" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />
+                    @if (!string.IsNullOrEmpty(Model.HeroImageUrl))
+                    {
+                        <div class="mt-2">
+                            <img src="@Model.HeroImageUrl" alt="Mevcut Hero Resmi" class="h-20 w-auto rounded border" />
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- PRODUCTION POWER SECTION -->
+            <h2 class="text-xl font-bold mb-4 text-indigo-600 border-b pb-2">Üretim Gücü Alanı</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                 <!-- Prod Top Title -->
+                 <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="ProdTitleTop_TR">Üst Başlık (TR)</label>
+                    <input class="form-input w-full" asp-for="ProdTitleTop_TR" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="ProdTitleTop_EN">Üst Başlık (EN)</label>
+                    <input class="form-input w-full" asp-for="ProdTitleTop_EN" />
+                </div>
+
+                <!-- Prod Main Title -->
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="ProdTitleMain_TR">Ana Başlık (TR)</label>
+                    <input class="form-input w-full" asp-for="ProdTitleMain_TR" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="ProdTitleMain_EN">Ana Başlık (EN)</label>
+                    <input class="form-input w-full" asp-for="ProdTitleMain_EN" />
+                </div>
+                
+                 <!-- Prod Description -->
+                 <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="ProdDescription_TR">Açıklama (TR)</label>
+                    <textarea class="form-textarea w-full" rows="3" asp-for="ProdDescription_TR"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="ProdDescription_EN">Açıklama (EN)</label>
+                    <textarea class="form-textarea w-full" rows="3" asp-for="ProdDescription_EN"></textarea>
+                </div>
+
+                <!-- Prod Item 1 -->
+                 <div class="col-span-full grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-slate-50 rounded">
+                    <div>
+                        <label class="block text-sm font-medium mb-1" asp-for="ProdItem1Title_TR">Madde 1 Başlık (TR)</label>
+                        <input class="form-input w-full" asp-for="ProdItem1Title_TR" />
+                    </div>
+                     <div>
+                        <label class="block text-sm font-medium mb-1" asp-for="ProdItem1Title_EN">Madde 1 Başlık (EN)</label>
+                        <input class="form-input w-full" asp-for="ProdItem1Title_EN" />
+                    </div>
+                     <div>
+                        <label class="block text-sm font-medium mb-1" asp-for="ProdItem1Icon">Madde 1 İkon</label>
+                        <input class="form-input w-full" asp-for="ProdItem1Icon" />
+                    </div>
+                    <div class="col-span-full md:col-span-1">
+                        <label class="block text-sm font-medium mb-1" asp-for="ProdItem1Desc_TR">Madde 1 Açıklama (TR)</label>
+                         <textarea class="form-textarea w-full" rows="2" asp-for="ProdItem1Desc_TR"></textarea>
+                    </div>
+                    <div class="col-span-full md:col-span-2">
+                        <label class="block text-sm font-medium mb-1" asp-for="ProdItem1Desc_EN">Madde 1 Açıklama (EN)</label>
+                         <textarea class="form-textarea w-full" rows="2" asp-for="ProdItem1Desc_EN"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-span-full">
+                    <label class="block text-sm font-medium mb-1">Yeni Üretim Görseli (Değiştirmek istemiyorsanız boş bırakın)</label>
+                    <input type="file" name="prodImageFile" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />
+                     @if (!string.IsNullOrEmpty(Model.ProdImageUrl))
+                    {
+                        <div class="mt-2">
+                            <img src="@Model.ProdImageUrl" alt="Mevcut Üretim Resmi" class="h-20 w-auto rounded border" />
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- ECOMMERCE STATS SECTION -->
+            <h2 class="text-xl font-bold mb-4 text-indigo-600 border-b pb-2">E-Ticaret İstatistikleri</h2>
+             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="EcomStoreScore">Mağaza Puanı</label>
+                    <input class="form-input w-full" asp-for="EcomStoreScore" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="EcomDeliveryMonthly">Aylık Teslimat</label>
+                    <input class="form-input w-full" asp-for="EcomDeliveryMonthly" />
+                </div>
+                 <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="EcomCommentCount">Yorum Sayısı</label>
+                    <input class="form-input w-full" asp-for="EcomCommentCount" />
+                </div>
+                 <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="EcomStoreLink">Mağaza Linki</label>
+                    <input class="form-input w-full" asp-for="EcomStoreLink" />
+                </div>
+            </div>
+
+             <!-- COMPONENT TITLES SECTION -->
+             <h2 class="text-xl font-bold mb-4 text-indigo-600 border-b pb-2">Bileşen Başlıkları (Kategoriler, Vitrin, Fuarlar)</h2>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <!-- Kategoriler -->
+                <div class="col-span-full border-b pb-2 mt-4 text-slate-600 font-semibold">Kategoriler Alanı</div>
+                 <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="CatTitleTop_TR">Kategori Üst Başlık (TR)</label>
+                    <input class="form-input w-full" asp-for="CatTitleTop_TR" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="CatTitleTop_EN">Kategori Üst Başlık (EN)</label>
+                    <input class="form-input w-full" asp-for="CatTitleTop_EN" />
+                </div>
+                 <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="CatTitleMain_TR">Kategori Ana Başlık (TR)</label>
+                    <input class="form-input w-full" asp-for="CatTitleMain_TR" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="CatTitleMain_EN">Kategori Ana Başlık (EN)</label>
+                    <input class="form-input w-full" asp-for="CatTitleMain_EN" />
+                </div>
+
+                <!-- Vitrin -->
+                 <div class="col-span-full border-b pb-2 mt-4 text-slate-600 font-semibold">Vitrindeki Ürünler Alanı</div>
+                 <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="FeatTitleTop_TR">Vitrin Üst Başlık (TR)</label>
+                    <input class="form-input w-full" asp-for="FeatTitleTop_TR" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="FeatTitleTop_EN">Vitrin Üst Başlık (EN)</label>
+                    <input class="form-input w-full" asp-for="FeatTitleTop_EN" />
+                </div>
+                 <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="FeatTitleMain_TR">Vitrin Ana Başlık (TR)</label>
+                    <input class="form-input w-full" asp-for="FeatTitleMain_TR" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1" asp-for="FeatTitleMain_EN">Vitrin Ana Başlık (EN)</label>
+                    <input class="form-input w-full" asp-for="FeatTitleMain_EN" />
+                </div>
+             </div>
+
+            <div class="flex justify-end mt-6">
+                <button type="submit" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">Değişiklikleri Kaydet</button>
+            </div>
+        </form>
+    </div>
+</div>

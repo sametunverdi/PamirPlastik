@@ -1,0 +1,86 @@
+@model List<PamirPlastik.WebUI.DTOs.AboutDtos.ResultAboutFeatureDto>
+@{
+    ViewData["Title"] = "Hakkımızda Özellikleri";
+}
+
+<div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+        <h1 class="text-2xl font-bold text-slate-800">Hakkımızda Sayfası İkonlu Özellikleri</h1>
+        <p class="text-slate-500 text-sm mt-1">Hakkımızda sayfasındaki vizyon/misyon maddelerini veya özellik listesini yönetin.</p>
+    </div>
+    <div class="flex gap-2">
+        <a href="/Admin/About" class="inline-flex items-center px-4 py-2 bg-slate-200 text-slate-700 rounded-xl font-medium hover:bg-slate-300 transition-colors">
+            <i class="fa-solid fa-arrow-left mr-2"></i> Geri
+        </a>
+        <a href="/Admin/AboutFeature/Create" class="inline-flex items-center px-4 py-2 bg-[#4A5FC1] text-white rounded-xl font-medium shadow-md shadow-indigo-500/20 hover:bg-[#374796] transition-colors">
+            <i class="fa-solid fa-plus mr-2"></i> Yeni Ekle
+        </a>
+    </div>
+</div>
+
+<div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+    <table class="w-full text-left text-sm text-slate-600">
+        <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-500 uppercase text-xs font-semibold">
+            <tr>
+                <th class="px-6 py-4">Özellik İkonu & Başlık (TR)</th>
+                <th class="px-6 py-4">Tip</th>
+                <th class="px-6 py-4 text-right">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+            @foreach (var item in Model)
+            {
+                <tr class="hover:bg-slate-50/50 transition-colors" id="row-@item.Id">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center mr-3 text-[#4A5FC1]">
+                                <i class="@item.ValueOrIcon text-lg"></i>
+                            </div>
+                            <span class="font-medium text-slate-800">@item.Title_TR</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-md text-xs font-medium">@item.FeatureType</span>
+                    </td>
+                    <td class="px-6 py-4 text-right space-x-2">
+                        <a href="/Admin/AboutFeature/Edit/@item.Id" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors" title="Düzenle">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <button onclick="deleteRecord(@item.Id, '/Admin/AboutFeature/Delete')" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors" title="Sil">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+            @if(!Model.Any())
+            {
+                <tr>
+                    <td colspan="3" class="px-6 py-8 text-center text-slate-500">
+                        <div class="flex flex-col items-center justify-center">
+                            <i class="fa-regular fa-folder-open text-4xl mb-3 text-slate-300"></i>
+                            <p>Henüz özellik eklenmemiş.</p>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        function deleteRecord(id, url) {
+            if (confirm('Bu kaydı silmek istediğinize emin misiniz?')) {
+                fetchApi(url + '/' + id, { method: 'POST' })
+                    .then(data => {
+                        if (data && data.success) {
+                            document.getElementById('row-' + id).remove();
+                            showToast('Kayıt başarıyla silindi.', 'success');
+                        } else {
+                            showToast(data.message || 'Silme başarısız.', 'error');
+                        }
+                    });
+            }
+        }
+    </script>
+}

@@ -1,0 +1,99 @@
+@model PamirPlastik.WebUI.DTOs.CategoryDtos.UpdateCategoryDto
+@{
+    ViewData["Title"] = "Kategori Düzenle";
+}
+
+<div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+        <h1 class="text-2xl font-bold text-slate-800">Kategori Düzenle</h1>
+        <p class="text-slate-500 text-sm mt-1">Mevcut kategorinin bilgilerini güncelleyin.</p>
+    </div>
+    <a href="/Admin/Category" class="inline-flex items-center justify-center px-4 py-2 border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-slate-200">
+        <i class="fa-solid fa-arrow-left mr-2"></i> Listeye Dön
+    </a>
+</div>
+
+<div class="bg-white rounded-lg shadow-sm border border-slate-200">
+    <form method="post" action="/Admin/Category/Edit" class="p-6" enctype="multipart/form-data">
+        
+        <input type="hidden" name="CategoryID" value="@Model.CategoryID" />
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- Türkçe Ad -->
+            <div>
+                <label for="Name_TR" class="block text-sm font-medium text-slate-700 mb-1">Kategori Adı (TR) <span class="text-red-500">*</span></label>
+                <input type="text" id="Name_TR" name="Name_TR" value="@Model.Name_TR" required class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+            </div>
+            
+            <!-- İngilizce Ad -->
+            <div>
+                <label for="Name_EN" class="block text-sm font-medium text-slate-700 mb-1">Kategori Adı (EN) <span class="text-red-500">*</span></label>
+                <input type="text" id="Name_EN" name="Name_EN" value="@Model.Name_EN" required class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- Türkçe Açıklama -->
+            <div>
+                <label for="Description_TR" class="block text-sm font-medium text-slate-700 mb-1">Kısa Açıklama (TR)</label>
+                <textarea id="Description_TR" name="Description_TR" rows="3" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model.Description_TR</textarea>
+            </div>
+            
+            <!-- İngilizce Açıklama -->
+            <div>
+                <label for="Description_EN" class="block text-sm font-medium text-slate-700 mb-1">Kısa Açıklama (EN)</label>
+                <textarea id="Description_EN" name="Description_EN" rows="3" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model.Description_EN</textarea>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- Görsel URL -->
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Mevcut Kapak Fotoğrafı URL</label>
+                <input type="text" name="ImageUrl" value="@Model.ImageUrl" readonly class="w-full px-4 py-2 border border-slate-300 rounded-md bg-slate-100 outline-none mb-2" placeholder="/images/categories/mutfak.jpg">
+                
+                <label for="ImageFile" class="block text-sm font-medium text-slate-700 mb-1">Yeni Kapak Fotoğrafı Yükle</label>
+                <input type="file" id="ImageFile" name="ImageFile" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+                <p class="text-xs text-slate-500 mt-1">Yeni bir dosya seçerseniz mevcut resim değiştirilir.</p>
+            </div>
+            
+            <!-- Slug -->
+            <div>
+                <label for="Slug" class="block text-sm font-medium text-slate-700 mb-1">SEO URL (Slug)</label>
+                <input type="text" id="Slug" name="Slug" value="@Model.Slug" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="document.getElementById('Status').click()">
+                <div class="relative">
+                    <input type="checkbox" id="Status" name="Status" value="true" class="sr-only" @(Model.Status ? "checked" : "") onchange="document.getElementById('StatusHidden').value = this.checked ? 'true' : 'false'">
+                    <input type="hidden" id="StatusHidden" name="Status" value="@(Model.Status ? "true" : "false")" />
+                    <div class="block bg-slate-200 w-10 h-6 rounded-full transition-colors" id="toggleBg"></div>
+                    <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform" id="toggleDot"></div>
+                </div>
+                <label for="Status" class="text-sm font-medium text-slate-700 cursor-pointer">Kategori Aktif (Sitede Görünür)</label>
+            </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200 flex justify-end gap-3">
+            <a href="/Admin/Category" class="px-5 py-2.5 border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-md text-sm font-medium transition-colors">İptal</a>
+            <button type="submit" class="px-5 py-2.5 bg-primary hover:bg-primary-dark text-white rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50">
+                <i class="fa-solid fa-check mr-2"></i> Güncelle
+            </button>
+        </div>
+        
+    </form>
+</div>
+
+@section Scripts {
+    <style>
+        /* Simple custom CSS for the toggle, Tailwind doesn't have a built-in form-switch without plugins */
+        input:checked + #toggleBg {
+            background-color: var(--primary-color, #1976D2);
+        }
+        input:checked ~ #toggleDot {
+            transform: translateX(100%);
+        }
+    </style>
+}

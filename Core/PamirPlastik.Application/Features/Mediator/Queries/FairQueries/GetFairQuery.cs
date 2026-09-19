@@ -1,0 +1,1 @@
+using MediatR; using PamirPlastik.Application.Features.Mediator.Results.FairResults; namespace PamirPlastik.Application.Features.Mediator.Queries.FairQueries { public class GetFairQuery : IRequest<List<GetFairQueryResult>> { } }

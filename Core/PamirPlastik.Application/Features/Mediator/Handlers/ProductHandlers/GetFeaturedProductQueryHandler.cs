@@ -17,7 +17,7 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductHandlers
         public async Task<List<GetProductQueryResult>> Handle(GetFeaturedProductQuery request, CancellationToken cancellationToken)
         {
             var values = await _repository.GetFeaturedProductsWithCategoryAsync();
-            return values.Select(x => new GetProductQueryResult
+            return values.OrderBy(x => x.Order).Select(x => new GetProductQueryResult
             {
                 ProductID = x.ProductID,
                 Name_TR = x.Name_TR,

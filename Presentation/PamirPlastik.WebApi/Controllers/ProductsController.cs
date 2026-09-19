@@ -66,9 +66,9 @@ namespace PamirPlastik.WebApi.Controllers
             return Ok(values);
         }
         [HttpGet("GetProductPagination")]
-        public async Task<IActionResult> GetProductPagination(int page = 1, int pageSize = 9, int? categoryID = null)
+        public async Task<IActionResult> GetProductPagination(int page = 1, int pageSize = 9, int? categoryID = null, string? searchQuery = null)
         {
-            var values = await _mediator.Send(new GetProductPaginationQuery(page, pageSize, categoryID));
+            var values = await _mediator.Send(new GetProductPaginationQuery(page, pageSize, categoryID, searchQuery));
             return Ok(values);
         }
     }

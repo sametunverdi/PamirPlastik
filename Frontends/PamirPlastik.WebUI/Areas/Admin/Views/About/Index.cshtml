@@ -1,0 +1,154 @@
+@model PamirPlastik.WebUI.DTOs.AboutDtos.UpdateAboutDto
+@{
+    ViewData["Title"] = "Hakkımızda Ayarları";
+}
+
+<div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+        <h1 class="text-2xl font-bold text-slate-800">Hakkımızda Sayfası İçerikleri</h1>
+        <p class="text-slate-500 text-sm mt-1">Sitenin Kurumsal / Hakkımızda sayfasındaki metinleri yönetin.</p>
+    </div>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="mb-6 p-4 rounded-md bg-green-50 border border-green-200 flex items-start">
+        <i class="fa-solid fa-circle-check text-green-500 mt-0.5 mr-3"></i>
+        <div class="text-sm font-medium text-green-800">@TempData["Success"]</div>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="mb-6 p-4 rounded-md bg-red-50 border border-red-200 flex items-start">
+        <i class="fa-solid fa-circle-exclamation text-red-500 mt-0.5 mr-3"></i>
+        <div class="text-sm font-medium text-red-800">@TempData["Error"]</div>
+    </div>
+}
+
+<div class="bg-white rounded-lg shadow-sm border border-slate-200">
+    <form method="post" action="/Admin/About/Index" class="p-6">
+        <input type="hidden" name="Id" value="@Model?.Id" />
+
+        <!-- SEO Bölümü -->
+        <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200 text-primary">SEO Ayarları</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">SEO Başlığı (TR)</label>
+                <input type="text" name="SeoTitle_TR" value="@Model?.SeoTitle_TR" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">SEO Başlığı (EN)</label>
+                <input type="text" name="SeoTitle_EN" value="@Model?.SeoTitle_EN" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">SEO Açıklaması (TR)</label>
+                <textarea name="SeoDescription_TR" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.SeoDescription_TR</textarea>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">SEO Açıklaması (EN)</label>
+                <textarea name="SeoDescription_EN" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.SeoDescription_EN</textarea>
+            </div>
+        </div>
+
+        <!-- Üst Başlık ve Slogan (Hero) -->
+        <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200 text-primary">Giriş Bölümü</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Ana Başlık (TR)</label>
+                <input type="text" name="MainTitle_TR" value="@Model?.MainTitle_TR" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Ana Başlık (EN)</label>
+                <input type="text" name="MainTitle_EN" value="@Model?.MainTitle_EN" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Alt Başlık (TR)</label>
+                <textarea name="SubTitle_TR" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.SubTitle_TR</textarea>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Alt Başlık (EN)</label>
+                <textarea name="SubTitle_EN" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.SubTitle_EN</textarea>
+            </div>
+        </div>
+
+        <!-- Uzun Açıklamalar -->
+        <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200 text-primary">Hakkımızda Detaylı Yazılar</h3>
+        <div class="grid grid-cols-1 gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Açıklama Paragrafı 1 (TR)</label>
+                    <textarea name="Description1_TR" rows="5" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.Description1_TR</textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Açıklama Paragrafı 1 (EN)</label>
+                    <textarea name="Description1_EN" rows="5" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.Description1_EN</textarea>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Açıklama Paragrafı 2 (TR)</label>
+                    <textarea name="Description2_TR" rows="5" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.Description2_TR</textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Açıklama Paragrafı 2 (EN)</label>
+                    <textarea name="Description2_EN" rows="5" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.Description2_EN</textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vurgulu Slogan (Alıntı Kutusu) -->
+        <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200 text-amber-dark">Vurgulu Söz / Slogan Kutu</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Vurgulu Yazı (TR)</label>
+                <textarea name="HighlightQuote_TR" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.HighlightQuote_TR</textarea>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Vurgulu Yazı (EN)</label>
+                <textarea name="HighlightQuote_EN" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.HighlightQuote_EN</textarea>
+            </div>
+        </div>
+
+        <!-- Vizyon & Misyon -->
+        <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200 text-teal">Vizyon ve Misyon</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-slate-50 p-4 rounded-md border border-slate-200">
+                <h4 class="font-medium text-slate-800 mb-4 flex items-center"><i class="fa-solid fa-eye text-teal mr-2"></i> Vizyon</h4>
+                <div class="mb-4">
+                    <label class="block text-xs font-medium text-slate-500 mb-1">Başlık (TR/EN)</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" name="VisionTitle_TR" value="@Model?.VisionTitle_TR" placeholder="TR Başlık" class="w-full px-3 py-1.5 border border-slate-300 rounded-md text-sm">
+                        <input type="text" name="VisionTitle_EN" value="@Model?.VisionTitle_EN" placeholder="EN Başlık" class="w-full px-3 py-1.5 border border-slate-300 rounded-md text-sm">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-500 mb-1">Açıklamalar (TR/EN)</label>
+                    <textarea name="VisionDescription_TR" rows="3" placeholder="TR Açıklama" class="w-full px-3 py-1.5 border border-slate-300 rounded-md text-sm mb-2">@Model?.VisionDescription_TR</textarea>
+                    <textarea name="VisionDescription_EN" rows="3" placeholder="EN Açıklama" class="w-full px-3 py-1.5 border border-slate-300 rounded-md text-sm">@Model?.VisionDescription_EN</textarea>
+                </div>
+            </div>
+            
+            <div class="bg-slate-50 p-4 rounded-md border border-slate-200">
+                <h4 class="font-medium text-slate-800 mb-4 flex items-center"><i class="fa-solid fa-bullseye text-amber-dark mr-2"></i> Misyon</h4>
+                <div class="mb-4">
+                    <label class="block text-xs font-medium text-slate-500 mb-1">Başlık (TR/EN)</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" name="MissionTitle_TR" value="@Model?.MissionTitle_TR" placeholder="TR Başlık" class="w-full px-3 py-1.5 border border-slate-300 rounded-md text-sm">
+                        <input type="text" name="MissionTitle_EN" value="@Model?.MissionTitle_EN" placeholder="EN Başlık" class="w-full px-3 py-1.5 border border-slate-300 rounded-md text-sm">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-500 mb-1">Açıklamalar (TR/EN)</label>
+                    <textarea name="MissionDescription_TR" rows="3" placeholder="TR Açıklama" class="w-full px-3 py-1.5 border border-slate-300 rounded-md text-sm mb-2">@Model?.MissionDescription_TR</textarea>
+                    <textarea name="MissionDescription_EN" rows="3" placeholder="EN Açıklama" class="w-full px-3 py-1.5 border border-slate-300 rounded-md text-sm">@Model?.MissionDescription_EN</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200 flex justify-end">
+            <button type="submit" class="px-6 py-2.5 bg-primary hover:bg-primary-dark text-white rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-sm">
+                <i class="fa-solid fa-check mr-2"></i> İçerikleri Kaydet
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,84 @@
+@model List<PamirPlastik.WebUI.DTOs.ProductDtos.ResultProductColorDto>
+@{
+    ViewData["Title"] = "Ürün Renkleri";
+}
+
+<div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+        <h1 class="text-2xl font-bold text-slate-800">Ürün Renkleri Yönetimi</h1>
+        <p class="text-slate-500 text-sm mt-1">Ürünlere ait renk varyantlarını yönetin.</p>
+    </div>
+    <div class="flex gap-2">
+        <a href="/Admin/Product" class="inline-flex items-center px-4 py-2 bg-slate-200 text-slate-700 rounded-xl font-medium hover:bg-slate-300 transition-colors">
+            <i class="fa-solid fa-box mr-2"></i> Ürünlere Dön
+        </a>
+        <a href="/Admin/ProductColor/Create" class="inline-flex items-center px-4 py-2 bg-[#4A5FC1] text-white rounded-xl font-medium shadow-md shadow-indigo-500/20 hover:bg-[#374796] transition-colors">
+            <i class="fa-solid fa-plus mr-2"></i> Yeni Ekle
+        </a>
+    </div>
+</div>
+
+<div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+    <table class="w-full text-left text-sm text-slate-600">
+        <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-500 uppercase text-xs font-semibold">
+            <tr>
+                <th class="px-6 py-4">Renk Kodu / Görünüm</th>
+                <th class="px-6 py-4">Renk Adı</th>
+                <th class="px-6 py-4 text-right">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+            @foreach (var item in Model)
+            {
+                <tr class="hover:bg-slate-50/50 transition-colors" id="row-@item.ProductColorID">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full border border-slate-300 shadow-sm" style="background-color: @item.ColorHex"></div>
+                            <span class="font-mono text-xs bg-slate-100 px-2 py-1 rounded text-slate-600">@item.ColorHex</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 font-medium text-slate-800">
+                        @item.ColorName
+                    </td>
+                    <td class="px-6 py-4 text-right space-x-2">
+                        <a href="/Admin/ProductColor/Edit/@item.ProductColorID" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors" title="Düzenle">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <button onclick="deleteRecord(@item.ProductColorID, '/Admin/ProductColor/Delete')" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors" title="Sil">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+            @if(!Model.Any())
+            {
+                <tr>
+                    <td colspan="3" class="px-6 py-8 text-center text-slate-500">
+                        <div class="flex flex-col items-center justify-center">
+                            <i class="fa-solid fa-palette text-4xl mb-3 text-slate-300"></i>
+                            <p>Henüz renk eklenmemiş.</p>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        function deleteRecord(id, url) {
+            if (confirm('Bu rengi silmek istediğinize emin misiniz?')) {
+                fetchApi(url + '/' + id, { method: 'POST' })
+                    .then(data => {
+                        if (data && data.success) {
+                            document.getElementById('row-' + id).remove();
+                            showToast('Renk başarıyla silindi.', 'success');
+                        } else {
+                            showToast(data.message || 'Silme başarısız.', 'error');
+                        }
+                    });
+            }
+        }
+    </script>
+}

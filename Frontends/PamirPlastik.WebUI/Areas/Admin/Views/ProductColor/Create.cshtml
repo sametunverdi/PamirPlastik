@@ -1,0 +1,38 @@
+@model PamirPlastik.WebUI.DTOs.ProductDtos.CreateProductColorDto
+@{
+    ViewData["Title"] = "Yeni Renk Ekle";
+}
+
+<div class="mb-6">
+    <h1 class="text-2xl font-bold text-slate-800">Yeni Ürün Rengi Ekle</h1>
+</div>
+
+<div class="bg-white rounded-lg shadow-sm border border-slate-200">
+    <form method="post" action="/Admin/ProductColor/Create" class="p-6 space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-slate-700 mb-1">Hangi Ürüne Eklenecek?</label>
+                @Html.DropDownListFor(x => x.ProductId, (List<SelectListItem>)ViewBag.Products, "Lütfen Ürün Seçiniz", new { @class = "w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-[#4A5FC1]/50 focus:border-[#4A5FC1] outline-none", required = "required" })
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Renk Adı</label>
+                <input type="text" name="ColorName" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-[#4A5FC1]/50 focus:border-[#4A5FC1] outline-none" required placeholder="Örn: Siyah, Beyaz, Mavi...">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Renk Hex Kodu (Renk Seçici)</label>
+                <div class="flex gap-3 items-center">
+                    <input type="color" id="colorPicker" class="h-10 w-14 p-1 border border-slate-300 rounded cursor-pointer" onchange="document.getElementById('hexInput').value = this.value">
+                    <input type="text" id="hexInput" name="ColorHex" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-[#4A5FC1]/50 focus:border-[#4A5FC1] outline-none" required placeholder="#000000" oninput="document.getElementById('colorPicker').value = this.value">
+                </div>
+                <p class="text-xs text-slate-500 mt-1">Sol taraftaki kutuya tıklayarak renk seçebilir veya direkt kod yazabilirsiniz.</p>
+            </div>
+        </div>
+        
+        <div class="pt-4 border-t border-slate-200 flex justify-end gap-3">
+            <a href="/Admin/ProductColor" class="px-6 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors">İptal</a>
+            <button type="submit" class="px-6 py-2 bg-[#4A5FC1] hover:bg-[#374796] text-white rounded-lg shadow-md transition-colors">
+                <i class="fa-solid fa-save mr-2"></i> Kaydet
+            </button>
+        </div>
+    </form>
+</div>

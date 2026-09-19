@@ -28,8 +28,18 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductHandlers
                 ? allValues.Where(x => x.CategoryID == request.CategoryID.Value).ToList()
                 : allValues.ToList();
 
+            if (!string.IsNullOrEmpty(request.SearchQuery))
+            {
+                var query = request.SearchQuery.ToLower();
+                filteredValues = filteredValues.Where(x => 
+                    (x.Name_TR != null && x.Name_TR.ToLower().Contains(query)) ||
+                    (x.Name_EN != null && x.Name_EN.ToLower().Contains(query)) ||
+                    (x.ProductCode != null && x.ProductCode.ToLower().Contains(query))
+                ).ToList();
+            }
+
             var values = filteredValues
-                .OrderBy(x => x.ProductID)
+                .OrderBy(x => x.Order)
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .ToList();

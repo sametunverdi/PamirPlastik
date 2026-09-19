@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +10,10 @@ namespace PamirPlastik.Domain.Entities
     {
         public int SocialMediaID { get; set; }
 
-        public string PlatformName { get; set; } // Ã–rn: "Instagram"
-        public string IconClass { get; set; } // Ã–rn: "fa-brands fa-instagram"
-        public string Url { get; set; } // Ã–rn: "https://instagram.com/pamirplastik"
+        public string? PlatformName { get; set; } // Örn: "Instagram"
+        public string? IconClass { get; set; } // Örn: "fa-brands fa-instagram"
+        public string? Url { get; set; } // Örn: "https://instagram.com/pamirplastik"
 
-        public bool IsActive { get; set; } // Admin panelinden gizleyip aÃ§mak iÃ§in
+        public bool IsActive { get; set; } // Admin panelinden gizleyip açmak için
     }
 }

@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,10 +9,10 @@ namespace PamirPlastik.Domain.Entities
     public class ProductImage
     {
         public int ProductImageID { get; set; } // Resim Id
-        public string ImageUrl { get; set; } // Resmin dosya yolu
+        public string? ImageUrl { get; set; } // Resmin dosya yolu
 
-        // Ä°liÅŸki
-        public int ProductID { get; set; } // Resmin hangi Ã¼rÃ¼ne ait olduÄŸu
-        public Product Product { get; set; } // Resim Ã¼zerinden Ã¼rÃ¼ne gitmek iÃ§in
+        // Ýliþki
+        public int ProductID { get; set; } // Resmin hangi ürüne ait olduðu
+        public Product Product { get; set; } // Resim üzerinden ürüne gitmek için
     }
 }

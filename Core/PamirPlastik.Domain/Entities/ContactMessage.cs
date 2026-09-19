@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,14 +11,14 @@ namespace PamirPlastik.Domain.Entities
         public int ContactMessageID { get; set; }
 
         // Formdan Gelen Alanlar (HTML'deki inputlara birebir uygun)
-        public string FullName { get; set; } // Ad Soyad
-        public string Email { get; set; } // E-Posta
-        public string Company { get; set; } // Åirket / Kurum
-        public string Subject { get; set; } // Ä°letiÅŸim Konusu (Select kutusundan gelen)
-        public string MessageDetail { get; set; } // MesajÄ±nÄ±zÄ±n DetayÄ± (Textarea)
+        public string? FullName { get; set; } // Ad Soyad
+        public string? Email { get; set; } // E-Posta
+        public string? Company { get; set; } // Şirket / Kurum
+        public string? Subject { get; set; } // İletişim Konusu (Select kutusundan gelen)
+        public string? MessageDetail { get; set; } // Mesajınızın Detayı (Textarea)
 
-        // Arka Plan Bilgileri (Admin Paneli Ä°Ã§in)
-        public DateTime SendDate { get; set; } // MesajÄ±n gÃ¶nderildiÄŸi tarih
-        public bool IsRead { get; set; } // Admin paneli iÃ§in "Okundu/OkunmadÄ±" durumu
+        // Arka Plan Bilgileri (Admin Paneli İçin)
+        public DateTime SendDate { get; set; } // Mesajın gönderildiği tarih
+        public bool IsRead { get; set; } // Admin paneli için "Okundu/Okunmadı" durumu
     }
 }

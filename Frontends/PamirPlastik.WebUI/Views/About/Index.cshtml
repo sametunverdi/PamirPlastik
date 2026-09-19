@@ -1,11 +1,10 @@
-﻿@{
+﻿@model PamirPlastik.WebUI.DTOs.AboutDtos.ResultAboutDto
+@{
     // SEO: Tarayıcı sekmesinde ve Google arama sonuçlarında çıkacak mavi başlık.
-    // 60 karakteri çok geçmemeli, anahtar kelime içermeli.
-    ViewData["Title"] = "Kurumsal | Pamir Plastik - Plastik Enjeksiyon ve Ev Gereçleri Üreticisi";
+    ViewData["Title"] = Model?.SeoTitle_TR ?? "Kurumsal | Pamir Plastik - Plastik Enjeksiyon ve Ev Gereçleri Üreticisi";
 
     // SEO: Google aramalarında başlığın altındaki açıklama metni.
-    // 150-160 karakter civarı olmalı, müşteriyi tıklamaya ikna etmeli.
-    ViewData["Description"] = "2005'ten bugüne plastik enjeksiyon ve kalıp üretiminde uzman Pamir Plastik. İleri teknoloji makine parkuru ve yenilikçi ev gereçleri çözümleri için tıklayın.";
+    ViewData["Description"] = Model?.SeoDescription_TR ?? "2005'ten bugüne plastik enjeksiyon ve kalıp üretiminde uzman Pamir Plastik. İleri teknoloji makine parkuru ve yenilikçi ev gereçleri çözümleri için tıklayın.";
 
     // BREADCRUMB (Üst Banner) İÇİN GEREKENLER
     ViewData["PageName"] = "Kurumsal";

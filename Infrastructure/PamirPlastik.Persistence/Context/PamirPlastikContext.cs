@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PamirPlastik.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -26,6 +26,11 @@ namespace PamirPlastik.Persistence.Context
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ProductColor> ProductColors { get; set; }
+        
+        // EKSIK OLAN TABLOLAR (GERI EKLENDI)
+        public DbSet<Color> Colors { get; set; }
+        public DbSet<Fair> Fairs { get; set; }
+        public DbSet<HomePageSetting> HomePageSettings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
