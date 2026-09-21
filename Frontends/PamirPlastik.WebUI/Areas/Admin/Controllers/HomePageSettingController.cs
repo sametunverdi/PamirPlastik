@@ -22,8 +22,8 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var value = JsonConvert.DeserializeObject<UpdateHomePageSettingDto>(jsonData);
-                return View(value);
+                System.IO.File.WriteAllText("debug_json.txt", jsonData); var value = JsonConvert.DeserializeObject<UpdateHomePageSettingDto>(jsonData);
+                return View(value ?? new UpdateHomePageSettingDto());
             }
             // If it fails or not exists, return empty model
             return View(new UpdateHomePageSettingDto());
@@ -38,13 +38,10 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             {
                 var extension = Path.GetExtension(updateHomePageSettingDto.HeroImageFile.FileName);
                 var newImageName = Guid.NewGuid() + extension;
-                var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/homepagesetting/", newImageName);
+                var location = Path.Combine((Directory.GetCurrentDirectory() ?? ""), "wwwroot/images/homepagesetting/", newImageName);
                 
                 var directory = Path.GetDirectoryName(location);
-                if (!Directory.Exists(directory))
-                {
-                    Directory.CreateDirectory(directory);
-                }
+                if (directory != null && !Directory.Exists(directory)) { Directory.CreateDirectory(directory); }
 
                 using (var stream = new FileStream(location, FileMode.Create))
                 {
@@ -57,13 +54,10 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             {
                 var extension = Path.GetExtension(updateHomePageSettingDto.ProdImageFile.FileName);
                 var newImageName = Guid.NewGuid() + extension;
-                var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/homepagesetting/", newImageName);
+                var location = Path.Combine((Directory.GetCurrentDirectory() ?? ""), "wwwroot/images/homepagesetting/", newImageName);
                 
                 var directory = Path.GetDirectoryName(location);
-                if (!Directory.Exists(directory))
-                {
-                    Directory.CreateDirectory(directory);
-                }
+                if (directory != null && !Directory.Exists(directory)) { Directory.CreateDirectory(directory); }
 
                 using (var stream = new FileStream(location, FileMode.Create))
                 {
@@ -80,12 +74,13 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             var responseMessage = await client.PutAsync("https://localhost:7184/api/HomePageSettings", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "Ana sayfa ayarlarÄ± baÅŸarÄ±yla gÃ¼ncellendi.";
+                TempData["SuccessMessage"] = "Ana sayfa ayarlarý baþarýyla güncellendi.";
                 return RedirectToAction("Edit", "HomePageSetting", new { area = "Admin" });
             }
             
-            TempData["ErrorMessage"] = "Ana sayfa ayarlarÄ± gÃ¼ncellenirken bir hata oluÅŸtu.";
+            TempData["ErrorMessage"] = "Ana sayfa ayarlarý güncellenirken bir hata oluþtu.";
             return View(updateHomePageSettingDto);
         }
     }
 }
+

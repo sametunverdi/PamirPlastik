@@ -20,7 +20,7 @@ namespace PamirPlastik.WebUI.ViewComponents.Home
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
-                return View(values);
+                return View(values?.Where(x => x.ShowOnHome).ToList() ?? new List<ResultCategoryDto>());
             }
             return View(new List<ResultCategoryDto>());
         }

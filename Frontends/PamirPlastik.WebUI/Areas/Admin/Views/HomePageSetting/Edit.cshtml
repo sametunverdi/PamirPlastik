@@ -1,218 +1,543 @@
 @model PamirPlastik.WebUI.DTOs.HomePageSettingDtos.UpdateHomePageSettingDto
 
 @{
-    ViewData["Title"] = "Ana Sayfa Ayarlarını Düzenle";
+    ViewData["Title"] = "Ana Sayfa Ayarları";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-    <div class="sm:flex sm:justify-between sm:items-center mb-8">
-        <div class="mb-4 sm:mb-0">
-            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Ana Sayfa Ayarları ✨</h1>
+<!-- Alpine.js (Sekmeler için gerekli) -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js" defer></script>
+
+<style>
+    .lang-card { transition: all 0.2s ease; }
+    .field-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.4rem; }
+    .field-label .flag { font-size: 0.9rem; }
+    .modern-input {
+        width: 100%; padding: 0.6rem 0.85rem; border-radius: 0.5rem;
+        border: 1.5px solid #e2e8f0; font-size: 0.875rem; color: #1e293b;
+        background: #f8fafc; transition: all 0.15s;
+        outline: none;
+    }
+    .modern-input:focus { border-color: #6366f1; background: #fff; box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+    .modern-textarea { resize: vertical; min-height: 80px; }
+    .section-card {
+        background: #fff; border-radius: 1rem; border: 1.5px solid #e8eaf0;
+        overflow: hidden; margin-bottom: 1.5rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .section-header {
+        padding: 1rem 1.5rem; display: flex; align-items: center; gap: 0.75rem;
+        background: linear-gradient(135deg, #f8faff 0%, #eef0ff 100%);
+        border-bottom: 1.5px solid #e8eaf0;
+    }
+    .section-body { padding: 1.5rem; }
+    .lang-col-tr { border-right: 1.5px solid #f1f5f9; padding-right: 1.25rem; }
+    .lang-col-en { padding-left: 1.25rem; }
+    .badge-group { background: #f8fafc; border-radius: 0.75rem; padding: 1rem; border: 1.5px dashed #e2e8f0; }
+    .stat-card { background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%); border-radius: 0.75rem; padding: 1rem; border: 1.5px solid #c7d2fe; }
+    .stat-icon { width: 2rem; height: 2rem; background: #6366f1; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; margin-bottom: 0.5rem; }
+</style>
+
+<div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto" x-data="{ tab: 'hero' }">
+
+    <!-- Başlık -->
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                Ana Sayfa Ayarları
+            </h1>
+            <p class="text-sm text-slate-400 mt-1">Anasayfa üzerindeki tüm ana metin ve görselleri yönetin</p>
         </div>
     </div>
 
-    <div class="bg-white shadow-lg rounded-sm border border-slate-200 p-6">
-        <form asp-action="Update" asp-controller="HomePageSetting" asp-area="Admin" method="post" enctype="multipart/form-data">
-            
-            <input type="hidden" asp-for="HomePageSettingID" />
-            <input type="hidden" asp-for="HeroImageUrl" />
-            <input type="hidden" asp-for="ProdImageUrl" />
+    <!-- Sekmeler (Tabs) -->
+    <div class="flex gap-2 mb-8 border-b border-slate-200 pb-4">
+        <button @@click="tab = 'hero'" :class="tab === 'hero' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'" class="px-5 py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-2">
+            🏠 Hero (En Üst)
+        </button>
+        <button @@click="tab = 'prod'" :class="tab === 'prod' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'" class="px-5 py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-2">
+            🏭 Üretim Gücü
+        </button>
+        <button @@click="tab = 'cat'" :class="tab === 'cat' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'" class="px-5 py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-2">
+            🏷️ Kategoriler
+        </button>
+    </div>
 
-            <!-- HERO SECTION -->
-            <h2 class="text-xl font-bold mb-4 text-indigo-600 border-b pb-2">Hero Alanı (En Üst Giriş)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <!-- Hero Top Title -->
-                <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="HeroTitleTop_TR">Üst Başlık (TR)</label>
-                    <input class="form-input w-full" asp-for="HeroTitleTop_TR" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="HeroTitleTop_EN">Üst Başlık (EN)</label>
-                    <input class="form-input w-full" asp-for="HeroTitleTop_EN" />
-                </div>
+    <!-- Bildirimler -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="mb-6 p-4 bg-emerald-50 text-emerald-700 rounded-xl border border-emerald-200 flex items-center gap-3">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="mb-6 p-4 bg-rose-50 text-rose-700 rounded-xl border border-rose-200 flex items-center gap-3">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            @TempData["ErrorMessage"]
+        </div>
+    }
 
-                <!-- Hero Main Title -->
-                <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="HeroTitleMain_TR">Ana Başlık (TR)</label>
-                    <input class="form-input w-full" asp-for="HeroTitleMain_TR" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="HeroTitleMain_EN">Ana Başlık (EN)</label>
-                    <input class="form-input w-full" asp-for="HeroTitleMain_EN" />
-                </div>
+    <form asp-action="Edit" asp-controller="HomePageSetting" asp-area="Admin" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="HomePageSettingID" />
+        <input type="hidden" asp-for="HeroImageUrl" />
+        <input type="hidden" asp-for="ProdImageUrl" />
 
-                <!-- Hero Description -->
-                <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="HeroDescription_TR">Açıklama (TR)</label>
-                    <textarea class="form-textarea w-full" rows="3" asp-for="HeroDescription_TR"></textarea>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="HeroDescription_EN">Açıklama (EN)</label>
-                    <textarea class="form-textarea w-full" rows="3" asp-for="HeroDescription_EN"></textarea>
-                </div>
+        <!-- ==============================
+             HERO SEKME İÇERİĞİ
+             ============================== -->
+        <div x-show="tab === 'hero'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
 
-                <!-- İstatistikler -->
+        <!-- ===== ÜST BAŞLIK ===== -->
+        <div class="section-card">
+            <div class="section-header">
+                <span class="w-7 h-7 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 text-sm font-bold">1</span>
                 <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="ExperienceYear">Deneyim Yılı (Örn: 25+)</label>
-                    <input class="form-input w-full" asp-for="ExperienceYear" />
+                    <p class="font-semibold text-slate-800 text-sm">Üst Başlık</p>
+                    <p class="text-xs text-slate-400">Mavili alanın en üstündeki küçük rozet metni</p>
                 </div>
+            </div>
+            <div class="section-body">
+                <div class="grid grid-cols-2 gap-0">
+                    <div class="lang-col-tr">
+                        <div class="field-label text-slate-500"><span class="flag">🇹🇷</span> Türkçe</div>
+                        <input class="modern-input" asp-for="HeroTitleTop_TR" placeholder="Örn: ISO Onaylı Üretim" />
+                    </div>
+                    <div class="lang-col-en">
+                        <div class="field-label text-slate-500"><span class="flag">🇬🇧</span> English</div>
+                        <input class="modern-input" asp-for="HeroTitleTop_EN" placeholder="e.g. ISO Certified Production" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ANA BAŞLIK ===== -->
+        <div class="section-card">
+            <div class="section-header">
+                <span class="w-7 h-7 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 text-sm font-bold">2</span>
                 <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="ProductTypeCount">Ürün Çeşidi Sayısı (Örn: 200+)</label>
-                    <input class="form-input w-full" asp-for="ProductTypeCount" />
+                    <p class="font-semibold text-slate-800 text-sm">Ana Başlık</p>
+                    <p class="text-xs text-slate-400">Büyük H1 başlığı — HTML kullanabilirsiniz <code class="bg-slate-100 px-1 rounded text-[10px]">&lt;br /&gt;</code> gibi</p>
                 </div>
+            </div>
+            <div class="section-body">
+                <div class="grid grid-cols-2 gap-0">
+                    <div class="lang-col-tr">
+                        <div class="field-label text-slate-500"><span class="flag">🇹🇷</span> Türkçe</div>
+                        <input class="modern-input" asp-for="HeroTitleMain_TR" placeholder="Örn: Kalite ve Yeniliği<br/>Her Üründe..." />
+                    </div>
+                    <div class="lang-col-en">
+                        <div class="field-label text-slate-500"><span class="flag">🇬🇧</span> English</div>
+                        <input class="modern-input" asp-for="HeroTitleMain_EN" placeholder="e.g. Quality & Innovation<br/>In Every Product..." />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== AÇIKLAMA ===== -->
+        <div class="section-card">
+            <div class="section-header">
+                <span class="w-7 h-7 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 text-sm font-bold">3</span>
                 <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="ExportCountryCount">İhracat Ülke Sayısı (Örn: 50+)</label>
-                    <input class="form-input w-full" asp-for="ExportCountryCount" />
+                    <p class="font-semibold text-slate-800 text-sm">Açıklama Metni</p>
+                    <p class="text-xs text-slate-400">Başlığın altındaki paragraf</p>
                 </div>
-                
-                <div class="col-span-full">
-                    <label class="block text-sm font-medium mb-1">Yeni Hero Görseli (Değiştirmek istemiyorsanız boş bırakın)</label>
-                    <input type="file" name="heroImageFile" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />
+            </div>
+            <div class="section-body">
+                <div class="grid grid-cols-2 gap-0">
+                    <div class="lang-col-tr">
+                        <div class="field-label text-slate-500"><span class="flag">🇹🇷</span> Türkçe</div>
+                        <textarea class="modern-input modern-textarea" asp-for="HeroDescription_TR" placeholder="Pamir Plastik olarak..."></textarea>
+                    </div>
+                    <div class="lang-col-en">
+                        <div class="field-label text-slate-500"><span class="flag">🇬🇧</span> English</div>
+                        <textarea class="modern-input modern-textarea" asp-for="HeroDescription_EN" placeholder="As Pamir Plastic..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ROZETLER ===== -->
+        <div class="section-card">
+            <div class="section-header">
+                <span class="w-7 h-7 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 text-sm font-bold">4</span>
+                <div>
+                    <p class="font-semibold text-slate-800 text-sm">Uçan Rozetler</p>
+                    <p class="text-xs text-slate-400">Görselin etrafında animasyonla beliren küçük kartlar (Sürdürülebilir, Kalite, Yenilik)</p>
+                </div>
+            </div>
+            <div class="section-body space-y-4">
+                <!-- Rozet 1 -->
+                <div class="badge-group">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center">
+                            <svg class="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wide">Rozet 1 — Sol Üst (Yeşil)</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-0">
+                        <div class="lang-col-tr">
+                            <div class="field-label text-slate-400"><span class="flag">🇹🇷</span> Türkçe</div>
+                            <input class="modern-input" asp-for="HeroBadge1_TR" placeholder="Örn: ISO Sertifikalı" />
+                        </div>
+                        <div class="lang-col-en">
+                            <div class="field-label text-slate-400"><span class="flag">🇬🇧</span> English</div>
+                            <input class="modern-input" asp-for="HeroBadge1_EN" placeholder="e.g. ISO Certified" />
+                        </div>
+                    </div>
+                </div>
+                <!-- Rozet 2 -->
+                <div class="badge-group">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center">
+                            <svg class="w-3 h-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wide">Rozet 2 — Sağ Alt (Mavi)</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-0">
+                        <div class="lang-col-tr">
+                            <div class="field-label text-slate-400"><span class="flag">🇹🇷</span> Türkçe</div>
+                            <input class="modern-input" asp-for="HeroBadge2_TR" placeholder="Örn: Premium Kalite" />
+                        </div>
+                        <div class="lang-col-en">
+                            <div class="field-label text-slate-400"><span class="flag">🇬🇧</span> English</div>
+                            <input class="modern-input" asp-for="HeroBadge2_EN" placeholder="e.g. Premium Quality" />
+                        </div>
+                    </div>
+                </div>
+                <!-- Rozet 3 -->
+                <div class="badge-group">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-5 h-5 bg-yellow-100 rounded-full flex items-center justify-center">
+                            <svg class="w-3 h-3 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wide">Rozet 3 — Sağ Orta (Sarı)</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-0">
+                        <div class="lang-col-tr">
+                            <div class="field-label text-slate-400"><span class="flag">🇹🇷</span> Türkçe</div>
+                            <input class="modern-input" asp-for="HeroBadge3_TR" placeholder="Örn: Yenilikçi Tasarım" />
+                        </div>
+                        <div class="lang-col-en">
+                            <div class="field-label text-slate-400"><span class="flag">🇬🇧</span> English</div>
+                            <input class="modern-input" asp-for="HeroBadge3_EN" placeholder="e.g. Innovative Design" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== İSTATİSTİKLER ===== -->
+        <div class="section-card">
+            <div class="section-header">
+                <span class="w-7 h-7 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 text-sm font-bold">5</span>
+                <div>
+                    <p class="font-semibold text-slate-800 text-sm">Sayısal İstatistikler</p>
+                    <p class="text-xs text-slate-400">Hero alanının alt kısmındaki 3 sayac — dil seçeneği yoktur</p>
+                </div>
+            </div>
+            <div class="section-body">
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="field-label text-indigo-600">Sektör Yılı</div>
+                        <input class="modern-input" asp-for="ExperienceYear" placeholder="Örn: 25+" />
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                        </div>
+                        <div class="field-label text-indigo-600">Ürün Grupları</div>
+                        <input class="modern-input" asp-for="ProductTypeCount" placeholder="Örn: 150+" />
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"></path></svg>
+                        </div>
+                        <div class="field-label text-indigo-600">İhracat Ülkesi</div>
+                        <input class="modern-input" asp-for="ExportCountryCount" placeholder="Örn: 50+" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== GÖRSEL ===== -->
+        <div class="section-card">
+            <div class="section-header">
+                <span class="w-7 h-7 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 text-sm font-bold">6</span>
+                <div>
+                    <p class="font-semibold text-slate-800 text-sm">Hero Görseli</p>
+                    <p class="text-xs text-slate-400">Sağ tarafta görünen fotoğraf — boş bırakırsanız mevcut görsel korunur</p>
+                </div>
+            </div>
+            <div class="section-body">
+                <div class="flex items-start gap-6">
                     @if (!string.IsNullOrEmpty(Model.HeroImageUrl))
                     {
-                        <div class="mt-2">
-                            <img src="@Model.HeroImageUrl" alt="Mevcut Hero Resmi" class="h-20 w-auto rounded border" />
+                        <div class="shrink-0">
+                            <p class="text-xs text-slate-400 mb-2 font-medium">Mevcut Görsel</p>
+                            <img src="@Model.HeroImageUrl" alt="Mevcut Hero Resmi" class="h-28 w-auto rounded-xl border-2 border-slate-200 shadow-sm object-cover" />
                         </div>
                     }
+                    <div class="flex-1">
+                        <p class="text-xs text-slate-400 mb-2 font-medium">Yeni Görsel Yükle</p>
+                        <label class="flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-slate-200 rounded-xl cursor-pointer bg-slate-50 hover:bg-indigo-50 hover:border-indigo-300 transition-colors">
+                            <svg class="w-7 h-7 text-slate-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <p class="text-xs text-slate-400">Tıklayın veya dosyayı sürükleyin</p>
+                            <p class="text-[10px] text-slate-300 mt-1">PNG, JPG, WEBP — Max 5MB</p>
+                            <input type="file" name="heroImageFile" class="hidden" accept="image/*" />
+                        </label>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- PRODUCTION POWER SECTION -->
-            <h2 class="text-xl font-bold mb-4 text-indigo-600 border-b pb-2">Üretim Gücü Alanı</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                 <!-- Prod Top Title -->
-                 <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="ProdTitleTop_TR">Üst Başlık (TR)</label>
-                    <input class="form-input w-full" asp-for="ProdTitleTop_TR" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="ProdTitleTop_EN">Üst Başlık (EN)</label>
-                    <input class="form-input w-full" asp-for="ProdTitleTop_EN" />
-                </div>
+        </div> <!-- Hero Sekme Sonu -->
 
-                <!-- Prod Main Title -->
-                <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="ProdTitleMain_TR">Ana Başlık (TR)</label>
-                    <input class="form-input w-full" asp-for="ProdTitleMain_TR" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="ProdTitleMain_EN">Ana Başlık (EN)</label>
-                    <input class="form-input w-full" asp-for="ProdTitleMain_EN" />
-                </div>
-                
-                 <!-- Prod Description -->
-                 <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="ProdDescription_TR">Açıklama (TR)</label>
-                    <textarea class="form-textarea w-full" rows="3" asp-for="ProdDescription_TR"></textarea>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="ProdDescription_EN">Açıklama (EN)</label>
-                    <textarea class="form-textarea w-full" rows="3" asp-for="ProdDescription_EN"></textarea>
-                </div>
-
-                <!-- Prod Item 1 -->
-                 <div class="col-span-full grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-slate-50 rounded">
+        <!-- ==============================
+             ÜRETİM GÜCÜ SEKME İÇERİĞİ
+             ============================== -->
+        <div x-show="tab === 'prod'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;">
+            
+            <div class="section-card">
+                <div class="section-header">
+                    <span class="w-7 h-7 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 text-sm font-bold">1</span>
                     <div>
-                        <label class="block text-sm font-medium mb-1" asp-for="ProdItem1Title_TR">Madde 1 Başlık (TR)</label>
-                        <input class="form-input w-full" asp-for="ProdItem1Title_TR" />
-                    </div>
-                     <div>
-                        <label class="block text-sm font-medium mb-1" asp-for="ProdItem1Title_EN">Madde 1 Başlık (EN)</label>
-                        <input class="form-input w-full" asp-for="ProdItem1Title_EN" />
-                    </div>
-                     <div>
-                        <label class="block text-sm font-medium mb-1" asp-for="ProdItem1Icon">Madde 1 İkon</label>
-                        <input class="form-input w-full" asp-for="ProdItem1Icon" />
-                    </div>
-                    <div class="col-span-full md:col-span-1">
-                        <label class="block text-sm font-medium mb-1" asp-for="ProdItem1Desc_TR">Madde 1 Açıklama (TR)</label>
-                         <textarea class="form-textarea w-full" rows="2" asp-for="ProdItem1Desc_TR"></textarea>
-                    </div>
-                    <div class="col-span-full md:col-span-2">
-                        <label class="block text-sm font-medium mb-1" asp-for="ProdItem1Desc_EN">Madde 1 Açıklama (EN)</label>
-                         <textarea class="form-textarea w-full" rows="2" asp-for="ProdItem1Desc_EN"></textarea>
+                        <p class="font-semibold text-slate-800 text-sm">Üst Başlık & Ana Başlık</p>
+                        <p class="text-xs text-slate-400">Üretim bölümünün tepe başlıkları</p>
                     </div>
                 </div>
-
-                <div class="col-span-full">
-                    <label class="block text-sm font-medium mb-1">Yeni Üretim Görseli (Değiştirmek istemiyorsanız boş bırakın)</label>
-                    <input type="file" name="prodImageFile" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />
-                     @if (!string.IsNullOrEmpty(Model.ProdImageUrl))
-                    {
-                        <div class="mt-2">
-                            <img src="@Model.ProdImageUrl" alt="Mevcut Üretim Resmi" class="h-20 w-auto rounded border" />
+                <div class="section-body space-y-6">
+                    <div class="grid grid-cols-2 gap-0">
+                        <div class="lang-col-tr">
+                            <div class="field-label text-slate-500"><span class="flag">🇹🇷</span> Türkçe (Üst Başlık)</div>
+                            <input class="modern-input" asp-for="ProdTitleTop_TR" placeholder="Örn: PAMİR PLASTİK GÜVENCESİYLE" />
                         </div>
-                    }
+                        <div class="lang-col-en">
+                            <div class="field-label text-slate-500"><span class="flag">🇬🇧</span> English (Top Title)</div>
+                            <input class="modern-input" asp-for="ProdTitleTop_EN" placeholder="e.g. WITH PAMIR PLASTIC ASSURANCE" />
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-0">
+                        <div class="lang-col-tr">
+                            <div class="field-label text-slate-500"><span class="flag">🇹🇷</span> Türkçe (Ana Başlık - HTML serbest)</div>
+                            <input class="modern-input" asp-for="ProdTitleMain_TR" placeholder="Sadece Üretmiyor, <br/>Değer Katıyoruz." />
+                        </div>
+                        <div class="lang-col-en">
+                            <div class="field-label text-slate-500"><span class="flag">🇬🇧</span> English (Main Title)</div>
+                            <input class="modern-input" asp-for="ProdTitleMain_EN" placeholder="We Don't Just Produce, <br/>We Add Value." />
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- ECOMMERCE STATS SECTION -->
-            <h2 class="text-xl font-bold mb-4 text-indigo-600 border-b pb-2">E-Ticaret İstatistikleri</h2>
-             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="EcomStoreScore">Mağaza Puanı</label>
-                    <input class="form-input w-full" asp-for="EcomStoreScore" />
+            <div class="section-card">
+                <div class="section-header">
+                    <span class="w-7 h-7 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 text-sm font-bold">2</span>
+                    <div>
+                        <p class="font-semibold text-slate-800 text-sm">Açıklama Metni</p>
+                    </div>
                 </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="EcomDeliveryMonthly">Aylık Teslimat</label>
-                    <input class="form-input w-full" asp-for="EcomDeliveryMonthly" />
-                </div>
-                 <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="EcomCommentCount">Yorum Sayısı</label>
-                    <input class="form-input w-full" asp-for="EcomCommentCount" />
-                </div>
-                 <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="EcomStoreLink">Mağaza Linki</label>
-                    <input class="form-input w-full" asp-for="EcomStoreLink" />
+                <div class="section-body">
+                    <div class="grid grid-cols-2 gap-0">
+                        <div class="lang-col-tr">
+                            <div class="field-label text-slate-500"><span class="flag">🇹🇷</span> Türkçe</div>
+                            <textarea class="modern-input modern-textarea" asp-for="ProdDescription_TR" placeholder="Sektördeki 25 yıllık deneyimimizle..."></textarea>
+                        </div>
+                        <div class="lang-col-en">
+                            <div class="field-label text-slate-500"><span class="flag">🇬🇧</span> English</div>
+                            <textarea class="modern-input modern-textarea" asp-for="ProdDescription_EN" placeholder="With 25 years of experience..."></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-             <!-- COMPONENT TITLES SECTION -->
-             <h2 class="text-xl font-bold mb-4 text-indigo-600 border-b pb-2">Bileşen Başlıkları (Kategoriler, Vitrin, Fuarlar)</h2>
-             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <!-- Kategoriler -->
-                <div class="col-span-full border-b pb-2 mt-4 text-slate-600 font-semibold">Kategoriler Alanı</div>
-                 <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="CatTitleTop_TR">Kategori Üst Başlık (TR)</label>
-                    <input class="form-input w-full" asp-for="CatTitleTop_TR" />
+            <div class="section-card">
+                <div class="section-header">
+                    <span class="w-7 h-7 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 text-sm font-bold">3</span>
+                    <div>
+                        <p class="font-semibold text-slate-800 text-sm">Özellikler Listesi</p>
+                        <p class="text-xs text-slate-400">Maddeler halinde sıralanan 3 özellik</p>
+                    </div>
                 </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="CatTitleTop_EN">Kategori Üst Başlık (EN)</label>
-                    <input class="form-input w-full" asp-for="CatTitleTop_EN" />
-                </div>
-                 <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="CatTitleMain_TR">Kategori Ana Başlık (TR)</label>
-                    <input class="form-input w-full" asp-for="CatTitleMain_TR" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="CatTitleMain_EN">Kategori Ana Başlık (EN)</label>
-                    <input class="form-input w-full" asp-for="CatTitleMain_EN" />
-                </div>
+                <div class="section-body space-y-6">
+                    <!-- Madde 1 -->
+                    <div class="badge-group">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wide">Madde 1</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="lang-col-tr !border-0 !p-0">
+                                <input class="modern-input mb-2 font-bold" asp-for="ProdItem1Title_TR" placeholder="Başlık (TR)" />
+                                <textarea class="modern-input text-sm" rows="2" asp-for="ProdItem1Desc_TR" placeholder="Açıklama (TR)"></textarea>
+                            </div>
+                            <div class="lang-col-en !p-0">
+                                <input class="modern-input mb-2 font-bold" asp-for="ProdItem1Title_EN" placeholder="Title (EN)" />
+                                <textarea class="modern-input text-sm" rows="2" asp-for="ProdItem1Desc_EN" placeholder="Description (EN)"></textarea>
+                            </div>
+                        </div>
+                    </div>
 
-                <!-- Vitrin -->
-                 <div class="col-span-full border-b pb-2 mt-4 text-slate-600 font-semibold">Vitrindeki Ürünler Alanı</div>
-                 <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="FeatTitleTop_TR">Vitrin Üst Başlık (TR)</label>
-                    <input class="form-input w-full" asp-for="FeatTitleTop_TR" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="FeatTitleTop_EN">Vitrin Üst Başlık (EN)</label>
-                    <input class="form-input w-full" asp-for="FeatTitleTop_EN" />
-                </div>
-                 <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="FeatTitleMain_TR">Vitrin Ana Başlık (TR)</label>
-                    <input class="form-input w-full" asp-for="FeatTitleMain_TR" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1" asp-for="FeatTitleMain_EN">Vitrin Ana Başlık (EN)</label>
-                    <input class="form-input w-full" asp-for="FeatTitleMain_EN" />
-                </div>
-             </div>
+                    <!-- Madde 2 -->
+                    <div class="badge-group">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wide">Madde 2</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="lang-col-tr !border-0 !p-0">
+                                <input class="modern-input mb-2 font-bold" asp-for="ProdItem2Title_TR" placeholder="Başlık (TR)" />
+                                <textarea class="modern-input text-sm" rows="2" asp-for="ProdItem2Desc_TR" placeholder="Açıklama (TR)"></textarea>
+                            </div>
+                            <div class="lang-col-en !p-0">
+                                <input class="modern-input mb-2 font-bold" asp-for="ProdItem2Title_EN" placeholder="Title (EN)" />
+                                <textarea class="modern-input text-sm" rows="2" asp-for="ProdItem2Desc_EN" placeholder="Description (EN)"></textarea>
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="flex justify-end mt-6">
-                <button type="submit" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">Değişiklikleri Kaydet</button>
+                    <!-- Madde 3 -->
+                    <div class="badge-group">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wide">Madde 3</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="lang-col-tr !border-0 !p-0">
+                                <input class="modern-input mb-2 font-bold" asp-for="ProdItem3Title_TR" placeholder="Başlık (TR)" />
+                                <textarea class="modern-input text-sm" rows="2" asp-for="ProdItem3Desc_TR" placeholder="Açıklama (TR)"></textarea>
+                            </div>
+                            <div class="lang-col-en !p-0">
+                                <input class="modern-input mb-2 font-bold" asp-for="ProdItem3Title_EN" placeholder="Title (EN)" />
+                                <textarea class="modern-input text-sm" rows="2" asp-for="ProdItem3Desc_EN" placeholder="Description (EN)"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </form>
-    </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <span class="w-7 h-7 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 text-sm font-bold">4</span>
+                    <div>
+                        <p class="font-semibold text-slate-800 text-sm">Üretim Görseli</p>
+                    </div>
+                </div>
+                <div class="section-body">
+                    <div class="flex items-start gap-6">
+                        @if (!string.IsNullOrEmpty(Model.ProdImageUrl))
+                        {
+                            <div class="shrink-0">
+                                <p class="text-xs text-slate-400 mb-2 font-medium">Mevcut Görsel</p>
+                                <img src="@Model.ProdImageUrl" alt="Mevcut Üretim Resmi" class="h-28 w-auto rounded-xl border-2 border-slate-200 shadow-sm object-cover" />
+                            </div>
+                        }
+                        <div class="flex-1">
+                            <p class="text-xs text-slate-400 mb-2 font-medium">Yeni Görsel Yükle</p>
+                            <label class="flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-slate-200 rounded-xl cursor-pointer bg-slate-50 hover:bg-indigo-50 hover:border-indigo-300 transition-colors">
+                                <svg class="w-7 h-7 text-slate-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <p class="text-xs text-slate-400">Tıklayın veya dosyayı sürükleyin</p>
+                                <p class="text-[10px] text-slate-300 mt-1">PNG, JPG, WEBP — Max 5MB</p>
+                                <input type="file" name="prodImageFile" class="hidden" accept="image/*" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div> <!-- Üretim Gücü Sekme Sonu -->
+
+        <!-- SEKTÖR: Kategoriler -->
+        <div x-show="tab === 'cat'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;">
+            <div class="lang-card bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-6">
+                <div class="bg-indigo-50/50 px-6 py-4 border-b border-indigo-100/50 flex items-center justify-between">
+                    <h3 class="font-bold text-indigo-900 flex items-center gap-2"><i class="fa-solid fa-tags text-indigo-500"></i> Kategori Başlık ve Açıklamaları</h3>
+                </div>
+                <div class="p-6">
+                    <!-- Üst Başlık -->
+                    <div class="badge-group mb-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wide">Üst Başlık (Örn: ÜRETİM GRUPLARIMIZ)</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="lang-col-tr !border-0 !p-0">
+                                <input class="modern-input" asp-for="CatTitleTop_TR" placeholder="Üst Başlık (TR)" />
+                            </div>
+                            <div class="lang-col-en !p-0">
+                                <input class="modern-input" asp-for="CatTitleTop_EN" placeholder="Top Title (EN)" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ana Başlık -->
+                    <div class="badge-group mb-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wide">Ana Başlık (Örn: Geniş Ürün Yelpazesi)</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="lang-col-tr !border-0 !p-0">
+                                <input class="modern-input font-bold" asp-for="CatTitleMain_TR" placeholder="Ana Başlık (TR)" />
+                            </div>
+                            <div class="lang-col-en !p-0">
+                                <input class="modern-input font-bold" asp-for="CatTitleMain_EN" placeholder="Main Title (EN)" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Açıklama -->
+                    <div class="badge-group">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wide">Alt Açıklama (Örn: Pamir Plastik olarak 25 yıllık...)</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="lang-col-tr !border-0 !p-0">
+                                <textarea class="modern-input text-sm" rows="3" asp-for="CatDescription_TR" placeholder="Açıklama (TR)"></textarea>
+                            </div>
+                            <div class="lang-col-en !p-0">
+                                <textarea class="modern-input text-sm" rows="3" asp-for="CatDescription_EN" placeholder="Description (EN)"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- Kategoriler Sekme Sonu -->
+
+        <!-- Gizli diğer alanlar (kayıp olmasın diye) -->
+        <div class="hidden">
+            <input type="hidden" asp-for="ProdItem1Icon" />
+            <input type="hidden" asp-for="ProdItem2Icon" />
+            <input type="hidden" asp-for="ProdItem3Icon" />
+            <input type="hidden" asp-for="EcomStoreScore" />
+            <input type="hidden" asp-for="EcomDeliveryMonthly" />
+            <input type="hidden" asp-for="EcomCommentCount" />
+            <input type="hidden" asp-for="EcomStoreLink" />
+            <input type="hidden" asp-for="GlobExportCountry" />
+            <input type="hidden" asp-for="GlobContinent" />
+            <input type="hidden" asp-for="GlobDealer" />
+            <input type="hidden" asp-for="GlobSectorYear" />
+            <input type="hidden" asp-for="FeatTitleTop_TR" />
+            <input type="hidden" asp-for="FeatTitleTop_EN" />
+            <input type="hidden" asp-for="FeatTitleMain_TR" />
+            <input type="hidden" asp-for="FeatTitleMain_EN" />
+            <input type="hidden" asp-for="FairTitleTop_TR" />
+            <input type="hidden" asp-for="FairTitleTop_EN" />
+            <input type="hidden" asp-for="FairTitleMain_TR" />
+            <input type="hidden" asp-for="FairTitleMain_EN" />
+            <input type="hidden" asp-for="FairDescription_TR" />
+            <input type="hidden" asp-for="FairDescription_EN" />
+        </div>
+
+        <!-- Kaydet Butonu -->
+        <div class="sticky bottom-4 z-10">
+            <div class="bg-white/90 backdrop-blur-md rounded-2xl border border-slate-200 shadow-xl p-4 flex items-center justify-between">
+                <p class="text-sm text-slate-500">Tüm alanları doldurduktan sonra kaydedin.</p>
+                <button type="submit" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-6 rounded-xl shadow-lg shadow-indigo-200 transition-all hover:scale-105">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    Değişiklikleri Kaydet
+                </button>
+            </div>
+        </div>
+
+    </form>
 </div>

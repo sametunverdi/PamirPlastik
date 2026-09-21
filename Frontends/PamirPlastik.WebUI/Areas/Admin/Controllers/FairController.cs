@@ -43,8 +43,8 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             {
                 var extension = Path.GetExtension(createFairDto.Img1File.FileName);
                 var newImageName = Guid.NewGuid() + extension;
-                var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/fairs");
-                if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
+                var directoryPath = Path.Combine((Directory.GetCurrentDirectory() ?? ""), "wwwroot/images/fairs");
+                if (directoryPath != null && !Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
                 var location = Path.Combine(directoryPath, newImageName);
                 using (var stream = new FileStream(location, FileMode.Create))
                 {
@@ -56,8 +56,8 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             {
                 var extension = Path.GetExtension(createFairDto.Img2File.FileName);
                 var newImageName = Guid.NewGuid() + extension;
-                var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/fairs");
-                if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
+                var directoryPath = Path.Combine((Directory.GetCurrentDirectory() ?? ""), "wwwroot/images/fairs");
+                if (directoryPath != null && !Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
                 var location = Path.Combine(directoryPath, newImageName);
                 using (var stream = new FileStream(location, FileMode.Create))
                 {
@@ -73,11 +73,11 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "Fuar baÅŸarÄ±yla kaydedildi.";
+                TempData["SuccessMessage"] = "Fuar baþarýyla kaydedildi.";
                 return RedirectToAction("Index", "Fair", new { area = "Admin" });
             }
 
-            TempData["ErrorMessage"] = "Fuar kayÄ±t edilemedi. LÃ¼tfen zorunlu alanlarÄ± kontrol edin.";
+            TempData["ErrorMessage"] = "Fuar kayýt edilemedi. Lütfen zorunlu alanlarý kontrol edin.";
             return View(createFairDto);
         }
 
@@ -103,8 +103,8 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             {
                 var extension = Path.GetExtension(updateFairDto.Img1File.FileName);
                 var newImageName = Guid.NewGuid() + extension;
-                var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/fairs");
-                if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
+                var directoryPath = Path.Combine((Directory.GetCurrentDirectory() ?? ""), "wwwroot/images/fairs");
+                if (directoryPath != null && !Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
                 var location = Path.Combine(directoryPath, newImageName);
                 using (var stream = new FileStream(location, FileMode.Create))
                 {
@@ -121,8 +121,8 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             {
                 var extension = Path.GetExtension(updateFairDto.Img2File.FileName);
                 var newImageName = Guid.NewGuid() + extension;
-                var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/fairs");
-                if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
+                var directoryPath = Path.Combine((Directory.GetCurrentDirectory() ?? ""), "wwwroot/images/fairs");
+                if (directoryPath != null && !Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
                 var location = Path.Combine(directoryPath, newImageName);
                 using (var stream = new FileStream(location, FileMode.Create))
                 {
@@ -142,11 +142,11 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "Fuar baÅŸarÄ±yla gÃ¼ncellendi.";
+                TempData["SuccessMessage"] = "Fuar baþarýyla güncellendi.";
                 return RedirectToAction("Index", "Fair", new { area = "Admin" });
             }
 
-            TempData["ErrorMessage"] = "Fuar gÃ¼ncellenemedi. LÃ¼tfen alanlarÄ± kontrol edin.";
+            TempData["ErrorMessage"] = "Fuar güncellenemedi. Lütfen alanlarý kontrol edin.";
             return View(updateFairDto);
         }
 

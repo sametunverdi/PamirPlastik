@@ -27,7 +27,7 @@ namespace PamirPlastik.Application.Features.Mediator.Results.ProductResults
         public bool Status { get; set; }
         public int CategoryId { get; set; }
         
-        public List<ResultProductColorDto> Colors { get; set; }
-        public List<ResultProductImageDto> Images { get; set; }
+        public List<ResultProductColorDto>? Colors { get; set; }
+        public List<ResultProductImageDto>? Images { get; set; }
     }
 }

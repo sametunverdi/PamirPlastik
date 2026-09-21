@@ -10,21 +10,21 @@ namespace PamirPlastik.Domain.Entities
     {
         public int CategoryID { get; set; } // Birincil anahtar
 
-        // SEO ve Dil Desteği
-        public string? Name_TR { get; set; } // Kategorinin Türkçe adı (Örn: Mutfak Gereçleri)
-        public string? Name_EN { get; set; } // Kategorinin İngilizce adı (Örn: Kitchenware)
+        // SEO ve Dil DesteÄŸi
+        public string? Name_TR { get; set; } // Kategorinin TÃ¼rkÃ§e adÄ±
+        public string? Name_EN { get; set; } // Kategorinin Ä°ngilizce adÄ±
 
-        public string? Description_TR { get; set; } // Kartlarda görünen kısa Türkçe açıklama
-        public string? Description_EN { get; set; } // Kartlarda görünen kısa İngilizce açıklama
+        public string? Description_TR { get; set; } // Kartlarda gÃ¶rÃ¼nen kÄ±sa TÃ¼rkÃ§e aÃ§Ä±klama
+        public string? Description_EN { get; set; } // Kartlarda gÃ¶rÃ¼nen kÄ±sa Ä°ngilizce aÃ§Ä±klama
 
-        public string? ImageUrl { get; set; } // Kategorinin kapak fotoğrafı yolu
+        public string? ImageUrl { get; set; } // Kategorinin kapak fotoÄŸrafÄ± yolu
 
-        public string? Slug { get; set; } // URL dostu isim (Örn: mutfak-gerecleri). SEO için kritik!
+        public string? Slug { get; set; } // URL dostu isim
 
-        public bool Status { get; set; } // Kategori yayında mı? (true/false)
+        public bool Status { get; set; } // Kategori yayÄ±nda mÄ±?
+        public bool ShowOnHome { get; set; } // Ana sayfada gÃ¶sterilsin mi?
 
-        // İlişki (Navigation Property)
-        // Bir kategorinin birden fazla ürünü olabilir.
-        public List<Product> Products { get; set; }
+        // Ä°liÅŸki (Navigation Property)
+        public List<Product>? Products { get; set; }
     }
 }

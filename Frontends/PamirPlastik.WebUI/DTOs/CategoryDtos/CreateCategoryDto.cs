@@ -10,5 +10,6 @@ namespace PamirPlastik.WebUI.DTOs.CategoryDtos
         public Microsoft.AspNetCore.Http.IFormFile? ImageFile { get; set; }
         public string? Slug { get; set; }
         public bool Status { get; set; }
+        public bool ShowOnHome { get; set; }
     }
 }

@@ -23,8 +23,8 @@ namespace PamirPlastik.WebUI.DTOs.ProductDtos
         public string? Material { get; set; }
         public string? BoxSize { get; set; }
         public string? BoxWeight { get; set; }
-        public List<ResultProductImageDto> Images { get; set; }
-        public List<ResultProductColorDto> Colors { get; set; }
+        public List<ResultProductImageDto>? Images { get; set; }
+        public List<ResultProductColorDto>? Colors { get; set; }
         public string? MainImageUrl { get; set; }
         public bool IsFeatured { get; set; }
     }

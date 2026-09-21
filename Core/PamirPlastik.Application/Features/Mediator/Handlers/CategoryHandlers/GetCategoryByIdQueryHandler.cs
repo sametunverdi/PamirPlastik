@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using PamirPlastik.Application.Features.Mediator.Queries.CategoryQueries;
 using PamirPlastik.Application.Features.Mediator.Results.CategoryResults;
 using PamirPlastik.Application.Interfaces;
@@ -28,7 +28,8 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.CategoryHandlers
                 Description_EN = value.Description_EN,
                 ImageUrl = value.ImageUrl,
                 Slug = value.Slug,
-                Status = value.Status
+                Status = value.Status,
+                ShowOnHome = value.ShowOnHome
             };
         }
     }

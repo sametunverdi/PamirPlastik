@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using PamirPlastik.Application.Features.Mediator.Queries.CategoryQueries;
 using PamirPlastik.Application.Features.Mediator.Results.CategoryResults;
 using PamirPlastik.Application.Interfaces;
@@ -37,6 +37,7 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.CategoryHandlers
                 ImageUrl = x.ImageUrl,
                 Slug = x.Slug,
                 Status = x.Status,
+                ShowOnHome = x.ShowOnHome,
                 ProductCount = products.Where(p => p.CategoryID == x.CategoryID).Count()
             }).ToList();
         }

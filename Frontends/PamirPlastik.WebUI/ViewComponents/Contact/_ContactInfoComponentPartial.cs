@@ -23,10 +23,10 @@ namespace PamirPlastik.WebUI.ViewComponents.Contact
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultContactDto>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultContactDto>>(jsonData) ?? new List<ResultContactDto>();
 
                 // Veritabanında iletişim bilgisi genellikle 1 satır olur, o yüzden ilk kaydı gönderiyoruz
-                return View(values.FirstOrDefault());
+                return View(values?.FirstOrDefault());
             }
 
             return View();

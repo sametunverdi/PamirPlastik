@@ -17,5 +17,6 @@ namespace PamirPlastik.Application.Features.Mediator.Commands.CategoryCommands
         public string? ImageUrl { get; set; }
         public string? Slug { get; set; }
         public bool Status { get; set; }
+        public bool ShowOnHome { get; set; }
     }
 }

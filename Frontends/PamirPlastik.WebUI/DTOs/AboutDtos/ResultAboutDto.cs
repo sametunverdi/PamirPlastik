@@ -28,7 +28,7 @@ namespace PamirPlastik.WebUI.DTOs.AboutDtos
         public string? SeoDescription_EN { get; set; }
 
         // İçindeki listeleri de unutmadık kanka:
-        public List<ResultAboutFeatureDto> Features { get; set; }
-        public List<ResultAboutImageDto> Images { get; set; }
+        public List<ResultAboutFeatureDto>? Features { get; set; }
+        public List<ResultAboutImageDto>? Images { get; set; }
     }
 }

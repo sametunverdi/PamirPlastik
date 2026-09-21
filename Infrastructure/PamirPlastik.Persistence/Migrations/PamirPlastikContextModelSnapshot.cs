@@ -31,91 +31,69 @@ namespace PamirPlastik.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description1_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description1_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description2_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description2_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HighlightQuote_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HighlightQuote_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MainTitle_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MainTitle_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MissionDescription_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MissionDescription_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MissionTitle_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MissionTitle_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SeoDescription_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SeoDescription_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SeoTitle_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SeoTitle_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SubTitle_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SubTitle_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VisionDescription_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VisionDescription_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VisionTitle_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VisionTitle_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -135,30 +113,24 @@ namespace PamirPlastik.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FeatureType")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
                     b.Property<string>("Title_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ValueOrIcon")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -180,15 +152,12 @@ namespace PamirPlastik.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("AltText_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AltText_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Order")
@@ -210,27 +179,21 @@ namespace PamirPlastik.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryID"));
 
                     b.Property<string>("Description_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Slug")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Status")
@@ -239,6 +202,28 @@ namespace PamirPlastik.Persistence.Migrations
                     b.HasKey("CategoryID");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("PamirPlastik.Domain.Entities.Color", b =>
+                {
+                    b.Property<int>("ColorID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ColorID"));
+
+                    b.Property<string>("HexCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ColorID");
+
+                    b.ToTable("Colors");
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.Contact", b =>
@@ -250,79 +235,60 @@ namespace PamirPlastik.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContactID"));
 
                     b.Property<string>("Address_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmailDescription_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmailDescription_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmailTitle_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmailTitle_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MapLocation")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MapTitle_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MapTitle_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneDescription_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneDescription_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneTitle_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneTitle_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ContactID");
@@ -339,34 +305,262 @@ namespace PamirPlastik.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContactMessageID"));
 
                     b.Property<string>("Company")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
 
                     b.Property<string>("MessageDetail")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("SendDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Subject")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ContactMessageID");
 
                     b.ToTable("ContactMessages");
+                });
+
+            modelBuilder.Entity("PamirPlastik.Domain.Entities.Fair", b =>
+                {
+                    b.Property<int>("FairID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FairID"));
+
+                    b.Property<string>("Date")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Img1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Img2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsFuture")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Stand")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FairID");
+
+                    b.ToTable("Fairs");
+                });
+
+            modelBuilder.Entity("PamirPlastik.Domain.Entities.HomePageSetting", b =>
+                {
+                    b.Property<int>("HomePageSettingID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HomePageSettingID"));
+
+                    b.Property<string>("CatDescription_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CatDescription_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CatTitleMain_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CatTitleMain_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CatTitleTop_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CatTitleTop_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EcomCommentCount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EcomDeliveryMonthly")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EcomStoreLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EcomStoreScore")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExperienceYear")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExportCountryCount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FairDescription_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FairDescription_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FairTitleMain_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FairTitleMain_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FairTitleTop_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FairTitleTop_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FeatTitleMain_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FeatTitleMain_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FeatTitleTop_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FeatTitleTop_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GlobContinent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GlobDealer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GlobExportCountry")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GlobSectorYear")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HeroBadge1_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HeroBadge1_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HeroBadge2_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HeroBadge2_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HeroBadge3_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HeroBadge3_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HeroDescription_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HeroDescription_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HeroImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HeroTitleMain_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HeroTitleMain_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HeroTitleTop_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HeroTitleTop_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdDescription_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdDescription_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdItem1Desc_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdItem1Desc_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdItem1Icon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdItem1Title_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdItem1Title_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdItem2Desc_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdItem2Desc_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdItem2Icon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdItem2Title_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdItem2Title_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdItem3Desc_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdItem3Desc_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdItem3Icon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdItem3Title_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdItem3Title_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdTitleMain_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdTitleMain_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdTitleTop_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdTitleTop_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductTypeCount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("HomePageSettingID");
+
+                    b.ToTable("HomePageSettings");
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.Product", b =>
@@ -381,26 +575,21 @@ namespace PamirPlastik.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("BoxSize")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BoxWeight")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Capacity")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
                     b.Property<string>("FullDescription_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullDescription_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDishwasherSafe")
@@ -413,34 +602,33 @@ namespace PamirPlastik.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("MainImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Material")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name_TR")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
                     b.Property<string>("ProductCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShortDescription_EN")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShortDescription_TR")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slug_EN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slug_TR")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Status")
@@ -461,18 +649,15 @@ namespace PamirPlastik.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductColorID"));
 
-                    b.Property<string>("ColorHex")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ColorName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ColorID")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
 
                     b.HasKey("ProductColorID");
+
+                    b.HasIndex("ColorID");
 
                     b.HasIndex("ProductID");
 
@@ -488,7 +673,6 @@ namespace PamirPlastik.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductImageID"));
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductID")
@@ -510,18 +694,15 @@ namespace PamirPlastik.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SocialMediaID"));
 
                     b.Property<string>("IconClass")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("PlatformName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Url")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SocialMediaID");
@@ -564,11 +745,19 @@ namespace PamirPlastik.Persistence.Migrations
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.ProductColor", b =>
                 {
+                    b.HasOne("PamirPlastik.Domain.Entities.Color", "Color")
+                        .WithMany("ProductColors")
+                        .HasForeignKey("ColorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PamirPlastik.Domain.Entities.Product", "Product")
                         .WithMany("ProductColors")
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Color");
 
                     b.Navigation("Product");
                 });
@@ -594,6 +783,11 @@ namespace PamirPlastik.Persistence.Migrations
             modelBuilder.Entity("PamirPlastik.Domain.Entities.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("PamirPlastik.Domain.Entities.Color", b =>
+                {
+                    b.Navigation("ProductColors");
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.Product", b =>

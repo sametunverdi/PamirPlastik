@@ -48,11 +48,8 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             {
                 var extension = Path.GetExtension(createProductImageDto.ImageFile.FileName);
                 var newImageName = Guid.NewGuid() + extension;
-                var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/products/gallery");
-                if (!Directory.Exists(directoryPath))
-                {
-                    Directory.CreateDirectory(directoryPath);
-                }
+                var directoryPath = Path.Combine((Directory.GetCurrentDirectory() ?? ""), "wwwroot/images/products/gallery");
+                if (directoryPath != null && !Directory.Exists(directoryPath)) { Directory.CreateDirectory(directoryPath); }
                 var location = Path.Combine(directoryPath, newImageName);
                 using (var stream = new FileStream(location, FileMode.Create))
                 {
@@ -67,10 +64,10 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             var responseMessage = await client.PostAsync("https://localhost:7184/api/ProductImages", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "ÃœrÃ¼n resmi baÅŸarÄ±yla eklendi.";
+                TempData["SuccessMessage"] = "Ürün resmi baþarýyla eklendi.";
                 return RedirectToAction("Index");
             }
-            TempData["ErrorMessage"] = "Resim eklenirken bir hata oluÅŸtu.";
+            TempData["ErrorMessage"] = "Resim eklenirken bir hata oluþtu.";
             await GetProductListForDropdown();
             return View(createProductImageDto);
         }
@@ -97,11 +94,8 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             {
                 var extension = Path.GetExtension(updateProductImageDto.ImageFile.FileName);
                 var newImageName = Guid.NewGuid() + extension;
-                var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/products/gallery");
-                if (!Directory.Exists(directoryPath))
-                {
-                    Directory.CreateDirectory(directoryPath);
-                }
+                var directoryPath = Path.Combine((Directory.GetCurrentDirectory() ?? ""), "wwwroot/images/products/gallery");
+                if (directoryPath != null && !Directory.Exists(directoryPath)) { Directory.CreateDirectory(directoryPath); }
                 var location = Path.Combine(directoryPath, newImageName);
                 using (var stream = new FileStream(location, FileMode.Create))
                 {
@@ -120,10 +114,10 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             var responseMessage = await client.PutAsync("https://localhost:7184/api/ProductImages", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "ÃœrÃ¼n resmi baÅŸarÄ±yla gÃ¼ncellendi.";
+                TempData["SuccessMessage"] = "Ürün resmi baþarýyla güncellendi.";
                 return RedirectToAction("Index");
             }
-            TempData["ErrorMessage"] = "Resim gÃ¼ncellenirken bir hata oluÅŸtu.";
+            TempData["ErrorMessage"] = "Resim güncellenirken bir hata oluþtu.";
             await GetProductListForDropdown();
             return View(updateProductImageDto);
         }
@@ -137,7 +131,7 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             {
                 return Json(new { success = true });
             }
-            return Json(new { success = false, message = "Silme iÅŸlemi baÅŸarÄ±sÄ±z." });
+            return Json(new { success = false, message = "Silme iþlemi baþarýsýz." });
         }
 
         private async Task GetProductListForDropdown()

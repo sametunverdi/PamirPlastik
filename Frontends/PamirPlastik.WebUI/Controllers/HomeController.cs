@@ -23,6 +23,7 @@ namespace PamirPlastik.WebUI.Controllers
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var value = Newtonsoft.Json.JsonConvert.DeserializeObject<DTOs.HomePageSettingDtos.ResultHomePageSettingDto>(jsonData);
+                ViewBag.HomePageSetting = value;
                 return View(value);
             }
             return View(new DTOs.HomePageSettingDtos.ResultHomePageSettingDto());

@@ -5,6 +5,7 @@
     ViewData["HideHeader"] = true;
 }
 
+<!-- ======= HERO SECTION ======= -->
 <section class="relative bg-gradient-to-br from-[#8ba1f0] via-[#4A5FC1] to-[#354899] overflow-hidden min-h-[90vh] flex items-center pt-32 pb-16 lg:pt-24 lg:pb-20">
     <div class="absolute inset-0 z-0 overflow-hidden">
         <div class="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-white/5 rounded-full blur-[80px]"></div>
@@ -12,8 +13,9 @@
     </div>
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12 items-center">
+            <!-- Sol: İçerik -->
             <div class="text-white space-y-8">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm font-semibold tracking-wide w-fit">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-semibold tracking-wide w-fit">
                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     @Model.HeroTitleTop_TR
                 </div>
@@ -23,18 +25,17 @@
                 <p class="text-lg md:text-xl text-blue-100 max-w-xl font-medium leading-relaxed">
                     @Model.HeroDescription_TR
                 </p>
-
                 <div class="flex flex-col sm:flex-row gap-4 pt-4">
                     <a href="/Corporate/Catalog" class="flex justify-center items-center gap-2 px-8 py-4 bg-[#ffda44] text-[#0f172a] font-bold text-lg rounded-xl hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(255,218,68,0.4)]">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                         Katalog İndir
                     </a>
                     <a href="/Contact/Index/" class="flex justify-center items-center gap-2 px-8 py-4 bg-transparent text-white font-bold text-lg rounded-xl border border-white/40 hover:bg-white/10 hover:border-white transition-all duration-300">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                         Bize Ulaşın
                     </a>
                 </div>
-
+                <!-- İstatistikler -->
                 <div class="pt-8 flex items-center gap-6 sm:gap-10">
                     <div>
                         <div class="text-3xl font-black text-white">@Model.ExperienceYear</div>
@@ -52,31 +53,46 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Sağ: Görsel + Rozetler -->
             <div class="relative hidden lg:block">
                 <div class="relative z-10 p-2 bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20">
                     <img src="@Model.HeroImageUrl" alt="Pamir Plastik" class="rounded-2xl w-full h-[600px] object-cover shadow-2xl" />
                 </div>
-                <div class="absolute top-10 -left-10 bg-white text-[#0f172a] px-6 py-4 rounded-2xl shadow-xl flex items-center gap-3 z-20 animate-bounce" style="animation-duration: 3s;">
-                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                <!-- Rozet 1 - Sol üst -->
+                <div class="absolute top-10 -left-10 bg-white text-[#0f172a] px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 z-20 animate-bounce" style="animation-duration: 3s;">
+                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                     </div>
                     <div>
-                        <div class="font-black text-sm">@Model.HeroBadge1_TR</div>
-                        <div class="text-xs text-gray-500 font-medium">Sustainable</div>
+                        <div class="font-black text-xs">@(string.IsNullOrEmpty(Model.HeroBadge1_TR) ? "ISO Sertifikalı" : Model.HeroBadge1_TR)</div>
+                        <div class="text-[10px] text-gray-500 font-medium">Sürdürülebilir</div>
                     </div>
                 </div>
-                <div class="absolute bottom-10 -right-10 bg-white text-[#0f172a] px-6 py-4 rounded-2xl shadow-xl flex items-center gap-3 z-20 animate-bounce" style="animation-duration: 4s; animation-delay: 1s;">
-                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <!-- Rozet 2 - Sağ alt -->
+                <div class="absolute bottom-10 -right-10 bg-white text-[#0f172a] px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 z-20 animate-bounce" style="animation-duration: 4s; animation-delay: 1s;">
+                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
                     <div>
-                        <div class="font-black text-sm">@Model.HeroBadge2_TR</div>
-                        <div class="text-xs text-gray-500 font-medium">High Quality</div>
+                        <div class="font-black text-xs">@(string.IsNullOrEmpty(Model.HeroBadge2_TR) ? "Premium Kalite" : Model.HeroBadge2_TR)</div>
+                        <div class="text-[10px] text-gray-500 font-medium">Yüksek Kalite</div>
+                    </div>
+                </div>
+                <!-- Rozet 3 - Sağ orta -->
+                <div class="absolute top-1/2 -right-12 bg-white text-[#0f172a] px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 z-20 animate-bounce" style="animation-duration: 3.5s; animation-delay: 0.5s;">
+                    <div class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <div>
+                        <div class="font-black text-xs">@(string.IsNullOrEmpty(Model.HeroBadge3_TR) ? "Yenilikçi Tasarım" : Model.HeroBadge3_TR)</div>
+                        <div class="text-[10px] text-gray-500 font-medium">Yenilikçi</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Aşağı ok -->
     <div class="absolute bottom-6 w-full flex justify-center z-10 animate-bounce">
         <a href="#kategoriler" class="text-white/60 hover:text-white transition-colors">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
@@ -84,14 +100,105 @@
     </div>
 </section>
 
+<!-- ======= KATEGORİLER ======= -->
 @await Component.InvokeAsync("_DefaultCategoriesComponentPartial")
 
+<!-- ======= ÜRETİM GÜCÜ ======= -->
+<section id="uretim-gucu" class="py-24 relative bg-gradient-to-br from-[#f8faff] to-[#e6ecf8] overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            <!-- Sol: Görsel ve Rozet -->
+            <div class="relative">
+                <div class="rounded-[2.5rem] overflow-hidden bg-white shadow-2xl shadow-blue-900/10 border-4 border-white">
+                    <img loading="lazy" src="@Model.ProdImageUrl" alt="Üretim Gücü" class="w-full h-auto object-cover max-h-[500px]" />
+                </div>
+                <!-- Yıllık Üretim Rozeti -->
+                <div class="absolute -bottom-8 -right-2 md:-right-6 bg-white p-3 pr-5 rounded-2xl shadow-xl flex items-center gap-3 border border-gray-100 z-10">
+                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <div>
+                        <div class="text-lg font-black text-gray-900 leading-tight">10 Milyon+</div>
+                        <div class="text-[9px] uppercase font-bold text-gray-400 tracking-widest mt-0.5">Yıllık Üretim Kapasitesi</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sağ: İçerik -->
+            <div class="space-y-8 lg:pl-8">
+                <div>
+                    <h2 class="text-blue-600 font-bold tracking-widest text-xs uppercase mb-3">
+                        @(string.IsNullOrEmpty(Model.ProdTitleTop_TR) ? "PAMİR PLASTİK GÜVENCESİYLE" : Model.ProdTitleTop_TR)
+                    </h2>
+                    <h3 class="text-4xl md:text-5xl font-black text-gray-900 tracking-tight leading-tight">
+                        @Html.Raw(string.IsNullOrEmpty(Model.ProdTitleMain_TR) ? "Sadece Üretmiyor, <br/><span class=\"text-blue-500/80\">Değer Katıyoruz.</span>" : Model.ProdTitleMain_TR)
+                    </h3>
+                </div>
+
+                <p class="text-gray-600 text-lg font-medium leading-relaxed">
+                    @(string.IsNullOrEmpty(Model.ProdDescription_TR) ? "Sektördeki 25 yıllık deneyimimizle, en son teknolojiye sahip makine parkurumuzda ev aletlerinden ofis kırtasiye ve banyo ürünlerine kadar binlerce ürün üretiyoruz." : Model.ProdDescription_TR)
+                </p>
+
+                <!-- Özellikler Listesi -->
+                <div class="space-y-6 pt-4">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-white shadow-sm border border-gray-100 flex items-center justify-center shrink-0">
+                            <!-- Sabit İkon 1: Fabrika/Üretim -->
+                            <svg class="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.99l1.005.828c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-gray-900 mb-1">@(string.IsNullOrEmpty(Model.ProdItem1Title_TR) ? "Geniş Makine Parkuru" : Model.ProdItem1Title_TR)</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed">@(string.IsNullOrEmpty(Model.ProdItem1Desc_TR) ? "Kendi bünyemizdeki yüksek teknoloji üretim bantlarıyla sınır tanımıyoruz." : Model.ProdItem1Desc_TR)</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-white shadow-sm border border-gray-100 flex items-center justify-center shrink-0">
+                            <!-- Sabit İkon 2: Kalite/Rozet -->
+                            <svg class="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-gray-900 mb-1">@(string.IsNullOrEmpty(Model.ProdItem2Title_TR) ? "Sertifikalı Kalite" : Model.ProdItem2Title_TR)</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed">@(string.IsNullOrEmpty(Model.ProdItem2Desc_TR) ? "Üretimin her aşamasında uluslararası standartlara uygun sürdürülebilir kalite kontrolü." : Model.ProdItem2Desc_TR)</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-white shadow-sm border border-gray-100 flex items-center justify-center shrink-0">
+                            <!-- Sabit İkon 3: Global/Lojistik -->
+                            <svg class="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-gray-900 mb-1">@(string.IsNullOrEmpty(Model.ProdItem3Title_TR) ? "Global Lojistik Ağı" : Model.ProdItem3Title_TR)</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed">@(string.IsNullOrEmpty(Model.ProdItem3Desc_TR) ? "Dünyanın 50'den fazla ülkesine sorunsuz tedarik ve lojistik operasyonu sunuyoruz." : Model.ProdItem3Desc_TR)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-6">
+                    <a href="/About/Index/" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-xl transition-all shadow-lg shadow-blue-600/30 hover:-translate-y-1">
+                        Hakkımızda Daha Fazla
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======= VİTRİN ÜRÜNLER ======= -->
 @await Component.InvokeAsync("_DefaultFeaturedProductsComponentPartial")
 
+<!-- ======= FUARLAR ======= -->
 @await Component.InvokeAsync("_DefaultFairsComponentPartial")
 
-@await Component.InvokeAsync("_AboutMainComponentPartial")
-
+<!-- ======= E-TİCARET BÖLÜMÜ ======= -->
 <section id="ecommerce" class="py-20 bg-gradient-to-br from-orange-500 to-orange-600 relative overflow-hidden">
     <div class="absolute inset-0 z-0">
         <div class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -mt-20 -mr-20"></div>
@@ -100,8 +207,8 @@
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div class="text-white space-y-6">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm font-semibold tracking-wide">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-semibold tracking-wide">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                     E-Ticarette Lider Konum
                 </div>
                 <h3 class="text-3xl md:text-4xl font-extrabold mb-4 leading-tight">
@@ -112,40 +219,40 @@
                 </p>
                 <a href="@Model.EcomStoreLink" target="_blank" class="inline-flex items-center justify-center gap-2 bg-white text-orange-500 px-8 py-4 rounded-xl font-bold text-lg hover:bg-orange-50 hover:scale-105 transition-all shadow-lg">
                     Resmi Mağazamızı Ziyaret Et
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-center transform hover:-translate-y-1 transition-transform">
                     <div class="text-4xl font-black text-white mb-2">@Model.EcomStoreScore</div>
                     <div class="flex justify-center gap-1 mb-2">
-                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        @for (int i = 0; i < 5; i++)
+                        {
+                            <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                        }
                     </div>
-                    <div class="text-orange-100 font-medium text-sm">Mağaza Puanı</div>
+                    <div class="text-orange-100 font-medium text-xs">Mağaza Puanı</div>
                 </div>
                 <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-center transform hover:-translate-y-1 transition-transform">
                     <div class="text-4xl font-black text-white mb-2">@Model.EcomDeliveryMonthly</div>
                     <div class="text-[#ffda44] mb-2">
                         <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
                     </div>
-                    <div class="text-orange-100 font-medium text-sm">Aylık Başarılı Teslimat</div>
+                    <div class="text-orange-100 font-medium text-xs">Aylık Başarılı Teslimat</div>
                 </div>
                 <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-center col-span-2 transform hover:-translate-y-1 transition-transform">
                     <div class="text-4xl font-black text-white mb-2">@Model.EcomCommentCount</div>
                     <div class="text-[#ffda44] mb-2">
                         <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
                     </div>
-                    <div class="text-orange-100 font-medium text-sm">Gerçek Müşteri Değerlendirmesi</div>
+                    <div class="text-orange-100 font-medium text-xs">Gerçek Müşteri Değerlendirmesi</div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+<!-- ======= GLOBAL NETWORK ======= -->
 <section id="global-network" class="py-20 bg-[#f1f5f9] relative overflow-hidden">
     <div class="absolute inset-0 z-0">
         <div class="absolute top-0 right-0 w-96 h-96 bg-blue-200/20 rounded-full blur-3xl -mt-20 -mr-20"></div>
@@ -155,7 +262,7 @@
         <div class="text-center mb-16">
             <h2 class="text-[#4A5FC1] font-bold tracking-widest text-xs uppercase mb-3">Global Güç</h2>
             <h3 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">
-                Dünyanın <span class="text-[#4A5FC1]">Her Yerinde</span> Pamir Plastik
+                Dünyanın Her Yerinde <span class="text-[#4A5FC1]">Pamir Plastik</span>
             </h3>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
@@ -181,13 +288,13 @@
             <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                 <div class="text-center md:text-left">
                     <h4 class="text-2xl md:text-3xl font-bold text-white mb-2">Global İş Ortağımız Olun</h4>
-                    <p class="text-gray-400 text-sm md:text-base">Distribütörlük ve toptan satış fırsatları için bize ulaşın.</p>
+                    <p class="text-gray-400 text-xs md:text-base">Distribütörlük ve toptan satış için bizimle iletişime geçin.</p>
                 </div>
                 <div class="flex gap-4">
                     <a href="/Contact/Index/" class="px-8 py-4 bg-[#4A5FC1] text-white font-bold rounded-2xl hover:bg-blue-600 transition-all shadow-lg shadow-blue-500/20">
                         Teklif Alın
                     </a>
-                    <a href="#" class="px-8 py-4 bg-white/5 text-white border border-white/10 backdrop-blur-md font-bold rounded-2xl hover:bg-white/10 transition-all">
+                    <a href="/Corporate/Catalog" class="px-8 py-4 bg-white/5 text-white border border-white/10 backdrop-blur-md font-bold rounded-2xl hover:bg-white/10 transition-all">
                         Katalog
                     </a>
                 </div>

@@ -42,7 +42,7 @@ namespace PamirPlastik.Domain.Entities
         public int CategoryID { get; set; } // Hangi kategoriye bağlı olduğunu tutan Id
         public Category Category { get; set; } // Ürünün kategorisine erişim yolu
 
-        public List<ProductImage> ProductImages { get; set; } // Ürünün galerisindeki diğer resimler (1'e Çok İlişki)
-        public List<ProductColor> ProductColors { get; set; }
+        public List<ProductImage>? ProductImages { get; set; } // Ürünün galerisindeki diğer resimler (1'e Çok İlişki)
+        public List<ProductColor>? ProductColors { get; set; }
     }
 }

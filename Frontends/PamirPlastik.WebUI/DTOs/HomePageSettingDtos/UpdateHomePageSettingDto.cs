@@ -21,6 +21,12 @@ namespace PamirPlastik.WebUI.DTOs.HomePageSettingDtos
         public string? HeroDescription_EN { get; set; }
 
         public string? HeroImageUrl { get; set; }
+        public string? HeroBadge1_TR { get; set; }
+        public string? HeroBadge1_EN { get; set; }
+        public string? HeroBadge2_TR { get; set; }
+        public string? HeroBadge2_EN { get; set; }
+        public string? HeroBadge3_TR { get; set; }
+        public string? HeroBadge3_EN { get; set; }
 
         public Microsoft.AspNetCore.Http.IFormFile? HeroImageFile { get; set; }
 

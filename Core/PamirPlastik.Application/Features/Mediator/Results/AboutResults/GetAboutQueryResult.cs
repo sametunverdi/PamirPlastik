@@ -1,4 +1,4 @@
-﻿using PamirPlastik.Application.Features.Mediator.Results.AboutFeatureResults;
+using PamirPlastik.Application.Features.Mediator.Results.AboutFeatureResults;
 using PamirPlastik.Application.Features.Mediator.Results.AboutImageResults;
 using System;
 using System.Collections.Generic;
@@ -41,7 +41,7 @@ namespace PamirPlastik.Application.Features.Mediator.Results.AboutResults
         public string MissionDescription_EN { get; set; }
 
         // İŞTE BURASI KANKA: Alt tabloları (Resimler ve Süreçler) liste halinde buraya gömüyoruz
-        public List<GetAboutFeatureQueryResult> Features { get; set; }
-        public List<GetAboutImageQueryResult> Images { get; set; }
+        public List<GetAboutFeatureQueryResult>? Features { get; set; }
+        public List<GetAboutImageQueryResult>? Images { get; set; }
     }
 }

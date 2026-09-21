@@ -1,33 +1,36 @@
 @model List<PamirPlastik.WebUI.DTOs.FairDtos.ResultFairDto>
+@{
+    var settings = ViewBag.HomePageSetting as PamirPlastik.WebUI.DTOs.HomePageSettingDtos.ResultHomePageSettingDto;
+}
 
 <section id="fairs" class="py-24 bg-white relative border-t border-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto mb-16">
-            <h2 class="text-[#2948ff] font-bold tracking-widest text-sm uppercase mb-3">Fuarlar</h2>
+            <h2 class="text-[#4A5FC1] font-bold tracking-widest text-sm uppercase mb-3">@(settings?.FairTitleTop_TR ?? "Fuarlar")</h2>
             <h3 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">
-                Global <span class="text-[#2948ff]">Buluşma</span> Noktalarımız
+                @Html.Raw(settings?.FairTitleMain_TR ?? "Global <span class=\"text-[#4A5FC1]\">Buluşma</span> Noktalarımız")
             </h3>
-            <div class="w-20 h-1.5 bg-gradient-to-r from-[#2948ff] to-blue-300 mx-auto rounded-full mb-6"></div>
+            <div class="w-20 h-1.5 bg-gradient-to-r from-[#4A5FC1] to-blue-300 mx-auto rounded-full mb-6"></div>
             <p class="text-lg text-gray-500 font-medium leading-relaxed px-4 md:px-0">
-                Sektördeki en son yenilikleri yakından takip etmek ve ürünlerimizi dünya ile buluşturmak için uluslararası fuarlarda yerimizi alıyoruz.
+                @(settings?.FairDescription_TR ?? "Sektördeki en son yenilikleri yakından takip etmek ve ürünlerimizi dünya ile buluşturmak için uluslararası fuarlarda yerimizi alıyoruz.")
             </p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @if(Model != null)
+            @if (Model != null && Model.Any())
             {
-                foreach(var fair in Model)
+                foreach (var fair in Model)
                 {
                     <div class="bg-gray-50 rounded-3xl p-8 border border-gray-100 hover:shadow-xl transition-all duration-300 relative overflow-hidden group">
-                        @if(fair.IsFuture)
+                        @if (fair.IsFuture)
                         {
-                            <div class="absolute top-6 right-6 bg-[#2948ff] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg uppercase tracking-wider">Yakında</div>
+                            <div class="absolute top-6 right-6 bg-[#4A5FC1] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg uppercase tracking-wider">Yakında</div>
                         }
                         
                         <div class="mb-6 h-48 rounded-xl overflow-hidden bg-gray-200">
-                            @if(!string.IsNullOrEmpty(fair.Img1))
+                            @if (!string.IsNullOrEmpty(fair.Img1))
                             {
-                                <img src="@fair.Img1" alt="@fair.Name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                <img loading="lazy" src="@fair.Img1" alt="@fair.Name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                             }
                         </div>
                         
@@ -35,20 +38,26 @@
                         
                         <div class="space-y-3">
                             <div class="flex items-center text-gray-500 text-sm">
-                                <svg class="w-5 h-5 mr-3 text-[#2948ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <svg class="w-5 h-5 mr-3 text-[#4A5FC1]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                 @fair.Date
                             </div>
                             <div class="flex items-center text-gray-500 text-sm">
-                                <svg class="w-5 h-5 mr-3 text-[#2948ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                <svg class="w-5 h-5 mr-3 text-[#4A5FC1]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                 @fair.Location
                             </div>
                             <div class="flex items-center text-gray-500 text-sm">
-                                <svg class="w-5 h-5 mr-3 text-[#2948ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                <svg class="w-5 h-5 mr-3 text-[#4A5FC1]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                                 Stand: @fair.Stand
                             </div>
                         </div>
                     </div>
                 }
+            }
+            else
+            {
+                <div class="col-span-3 text-center py-16 text-gray-400">
+                    <p>Henüz fuar bilgisi eklenmemiş.</p>
+                </div>
             }
         </div>
     </div>

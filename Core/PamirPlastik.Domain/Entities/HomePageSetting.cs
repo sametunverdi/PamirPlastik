@@ -21,6 +21,13 @@ namespace PamirPlastik.Domain.Entities
         public string? ExperienceYear { get; set; }
         public string? ProductTypeCount { get; set; }
         public string? ExportCountryCount { get; set; }
+        
+        public string? HeroBadge1_TR { get; set; }
+        public string? HeroBadge1_EN { get; set; }
+        public string? HeroBadge2_TR { get; set; }
+        public string? HeroBadge2_EN { get; set; }
+        public string? HeroBadge3_TR { get; set; }
+        public string? HeroBadge3_EN { get; set; }
 
         // --- Production Power Section ---
         public string? ProdTitleTop_TR { get; set; }

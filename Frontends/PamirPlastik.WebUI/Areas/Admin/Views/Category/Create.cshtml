@@ -1,71 +1,153 @@
 @model PamirPlastik.WebUI.DTOs.CategoryDtos.CreateCategoryDto
 @{
     ViewData["Title"] = "Yeni Kategori Ekle";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+<style>
+    .lang-card { transition: all 0.2s ease; }
+    .field-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; display: block; color: #64748b; }
+    .modern-input {
+        width: 100%; padding: 0.75rem 1rem; border-radius: 0.75rem;
+        border: 1.5px solid #e2e8f0; font-size: 0.875rem; color: #1e293b;
+        background: #f8fafc; transition: all 0.2s;
+    }
+    .modern-input:focus {
+        outline: none; border-color: #6366f1; background: #ffffff;
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    }
+    .toggle-checkbox:checked { right: 0; border-color: #6366f1; }
+    .toggle-checkbox:checked + .toggle-label { background-color: #6366f1; }
+</style>
+
+<div class="mb-6 flex items-center justify-between">
     <div>
         <h1 class="text-2xl font-bold text-slate-800">Yeni Kategori Ekle</h1>
-        <p class="text-slate-500 text-sm mt-1">Sisteme yeni bir ürün kategorisi ekleyin.</p>
+        <p class="text-slate-500 text-sm mt-1">Sisteme yeni bir ürün kategorisi tanımlayın.</p>
     </div>
-    <a href="/Admin/Category" class="inline-flex items-center justify-center px-4 py-2 border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-slate-200">
+    <a href="/Admin/Category/Index" class="inline-flex items-center px-4 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl font-semibold transition-all shadow-sm">
         <i class="fa-solid fa-arrow-left mr-2"></i> Listeye Dön
     </a>
 </div>
 
-<div class="bg-white rounded-lg shadow-sm border border-slate-200">
-    <form method="post" action="/Admin/Category/Create" class="p-6">
+<form method="post" enctype="multipart/form-data" class="max-w-5xl">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <!-- Türkçe Ad -->
-            <div>
-                <label for="Name_TR" class="block text-sm font-medium text-slate-700 mb-1">Kategori Adı (TR) <span class="text-red-500">*</span></label>
-                <input type="text" id="Name_TR" name="Name_TR" required class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors" placeholder="Örn: Mutfak Gereçleri">
-            </div>
+        <!-- Sol Kolon: Ana Bilgiler -->
+        <div class="lg:col-span-2 space-y-6">
             
-            <!-- İngilizce Ad -->
-            <div>
-                <label for="Name_EN" class="block text-sm font-medium text-slate-700 mb-1">Kategori Adı (EN) <span class="text-red-500">*</span></label>
-                <input type="text" id="Name_EN" name="Name_EN" required class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors" placeholder="Örn: Kitchenware">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-indigo-50/50 px-6 py-4 border-b border-indigo-100/50">
+                    <h3 class="font-bold text-indigo-900 flex items-center gap-2"><i class="fa-solid fa-language text-indigo-500"></i> Kategori Bilgileri</h3>
+                </div>
+                <div class="p-6 space-y-6">
+                    
+                    <!-- İsimler -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="field-label">🇹🇷 Kategori Adı (TR)</label>
+                            <input type="text" asp-for="Name_TR" class="modern-input font-bold" placeholder="Örn: Mutfak Gereçleri" required />
+                        </div>
+                        <div>
+                            <label class="field-label">🇬🇧 Kategori Adı (EN)</label>
+                            <input type="text" asp-for="Name_EN" class="modern-input font-bold" placeholder="Örn: Kitchenware" />
+                        </div>
+                    </div>
+
+                    <!-- Açıklamalar -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="field-label">Açıklama (TR)</label>
+                            <textarea asp-for="Description_TR" rows="3" class="modern-input text-sm" placeholder="Kategori hakkında kısa açıklama..."></textarea>
+                        </div>
+                        <div>
+                            <label class="field-label">Açıklama (EN)</label>
+                            <textarea asp-for="Description_EN" rows="3" class="modern-input text-sm" placeholder="Short description about the category..."></textarea>
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <!-- Türkçe Açıklama -->
-            <div>
-                <label for="Description_TR" class="block text-sm font-medium text-slate-700 mb-1">Kısa Açıklama (TR)</label>
-                <textarea id="Description_TR" name="Description_TR" rows="3" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors" placeholder="Kategori için Türkçe kısa açıklama"></textarea>
-            </div>
+        <!-- Sağ Kolon: Ayarlar ve Medya -->
+        <div class="space-y-6">
             
-            <!-- İngilizce Açıklama -->
-            <div>
-                <label for="Description_EN" class="block text-sm font-medium text-slate-700 mb-1">Kısa Açıklama (EN)</label>
-                <textarea id="Description_EN" name="Description_EN" rows="3" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors" placeholder="Kategori için İngilizce kısa açıklama"></textarea>
-            </div>
-        </div>
+            <!-- Görünürlük Ayarları -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-indigo-50/50 px-6 py-4 border-b border-indigo-100/50">
+                    <h3 class="font-bold text-indigo-900 flex items-center gap-2"><i class="fa-solid fa-sliders text-indigo-500"></i> Görünürlük</h3>
+                </div>
+                <div class="p-6 space-y-5">
+                    
+                    <!-- Aktif/Pasif Toggle -->
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="font-bold text-slate-800 text-sm">Genel Durum</div>
+                            <div class="text-xs text-slate-500 mt-0.5">Kategori sitede aktif mi?</div>
+                        </div>
+                        <div class="relative inline-block w-12 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" asp-for="Status" id="toggle-status" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" checked/>
+                            <label for="toggle-status" class="toggle-label block overflow-hidden h-6 rounded-full bg-slate-300 cursor-pointer"></label>
+                        </div>
+                    </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <!-- Görsel URL -->
-            <div>
-                <label for="ImageUrl" class="block text-sm font-medium text-slate-700 mb-1">Kapak Fotoğrafı URL</label>
-                <input type="text" id="ImageUrl" name="ImageUrl" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors" placeholder="/images/categories/mutfak.jpg">
-                <p class="text-xs text-slate-500 mt-1">Görselin tam veya göreceli yolunu giriniz.</p>
-            </div>
-            
-            <!-- Slug -->
-            <div>
-                <label for="Slug" class="block text-sm font-medium text-slate-700 mb-1">SEO URL (Slug)</label>
-                <input type="text" id="Slug" name="Slug" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors" placeholder="mutfak-gerecleri">
-                <p class="text-xs text-slate-500 mt-1">Boş bırakırsanız Türkçe isminden otomatik oluşturulacaktır.</p>
-            </div>
-        </div>
+                    <!-- Ana Sayfada Göster Toggle -->
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+                        <div>
+                            <div class="font-bold text-slate-800 text-sm">Ana Sayfada Göster</div>
+                            <div class="text-xs text-slate-500 mt-0.5">Ana sayfadaki vitrinde çıksın</div>
+                        </div>
+                        <div class="relative inline-block w-12 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" asp-for="ShowOnHome" id="toggle-home" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" checked/>
+                            <label for="toggle-home" class="toggle-label block overflow-hidden h-6 rounded-full bg-slate-300 cursor-pointer"></label>
+                        </div>
+                    </div>
 
-        <div class="pt-4 border-t border-slate-200 flex justify-end gap-3">
-            <a href="/Admin/Category" class="px-5 py-2.5 border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-md text-sm font-medium transition-colors">İptal</a>
-            <button type="submit" class="px-5 py-2.5 bg-primary hover:bg-primary-dark text-white rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50">
-                <i class="fa-solid fa-check mr-2"></i> Kaydet
-            </button>
+                </div>
+            </div>
+
+            <!-- Medya / Görsel -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-indigo-50/50 px-6 py-4 border-b border-indigo-100/50">
+                    <h3 class="font-bold text-indigo-900 flex items-center gap-2"><i class="fa-regular fa-image text-indigo-500"></i> Kapak Görseli</h3>
+                </div>
+                <div class="p-6">
+                    <div class="mt-2 flex justify-center rounded-xl border-2 border-dashed border-slate-300 px-6 py-8 hover:bg-slate-50 transition-colors bg-slate-50/50 mb-4 group">
+                        <div class="text-center">
+                            <i class="fa-solid fa-cloud-arrow-up text-4xl text-indigo-400 mb-3 group-hover:scale-110 transition-transform"></i>
+                            <div class="mt-2 flex text-sm leading-6 text-slate-600 justify-center">
+                                <label for="file-upload" class="relative cursor-pointer rounded-md font-bold text-indigo-600 focus-within:outline-none hover:text-indigo-500">
+                                    <span>Bilgisayardan Seç</span>
+                                    <input id="file-upload" name="ImageFile" type="file" class="sr-only" accept="image/*">
+                                </label>
+                            </div>
+                            <p class="text-xs leading-5 text-slate-500 mt-1">PNG, JPG (Maks 5MB)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEO (Slug) -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-indigo-50/50 px-6 py-4 border-b border-indigo-100/50">
+                    <h3 class="font-bold text-indigo-900 flex items-center gap-2"><i class="fa-solid fa-link text-indigo-500"></i> SEO (Slug)</h3>
+                </div>
+                <div class="p-6">
+                    <label class="field-label">URL Uzantısı</label>
+                    <input type="text" asp-for="Slug" class="modern-input" placeholder="mutfak-gerecleri" />
+                    <div class="text-xs text-slate-400 mt-2"><i class="fa-solid fa-circle-info mr-1"></i> Boş bırakılırsa isimden otomatik üretilir.</div>
+                </div>
+            </div>
+
         </div>
-        
-    </form>
-</div>
+    </div>
+
+    <!-- Kaydet Butonu -->
+    <div class="mt-6 flex justify-end">
+        <button type="submit" class="inline-flex items-center px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-indigo-600/30 hover:-translate-y-1 text-lg">
+            <i class="fa-solid fa-check mr-2"></i> Kategoriyi Kaydet
+        </button>
+    </div>
+</form>

@@ -45,22 +45,22 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
         {
             createProductDto.Status = true;
             
-            // Slug oluÅŸtur
+            // Slug oluþtur
             if (string.IsNullOrEmpty(createProductDto.Slug_TR) && !string.IsNullOrEmpty(createProductDto.Name_TR))
             {
-                createProductDto.Slug_TR = createProductDto.Name_TR.ToLower().Replace(" ", "-").Replace("Ä±", "i").Replace("ÄŸ", "g").Replace("Ã¼", "u").Replace("ÅŸ", "s").Replace("Ã¶", "o").Replace("Ã§", "c");
+                createProductDto.Slug_TR = createProductDto.Name_TR.ToLower().Replace(" ", "-").Replace("ý", "i").Replace("ð", "g").Replace("ü", "u").Replace("þ", "s").Replace("ö", "o").Replace("ç", "c");
             }
             if (string.IsNullOrEmpty(createProductDto.Slug_EN) && !string.IsNullOrEmpty(createProductDto.Name_EN))
             {
                 createProductDto.Slug_EN = createProductDto.Name_EN.ToLower().Replace(" ", "-");
             }
 
-            // Dosya YÃ¼kleme
+            // Dosya Yükleme
             if (imageFile != null && imageFile.Length > 0)
             {
                 var extension = Path.GetExtension(imageFile.FileName);
                 var newImageName = Guid.NewGuid() + extension;
-                var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/products", newImageName);
+                var location = Path.Combine(((Directory.GetCurrentDirectory() ?? "") ?? ""),  "wwwroot/images/products", newImageName);
                 using (var stream = new FileStream(location, FileMode.Create))
                 {
                     await imageFile.CopyToAsync(stream);
@@ -75,11 +75,11 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "ÃœrÃ¼n baÅŸarÄ±yla kaydedildi.";
+                TempData["SuccessMessage"] = "Ürün baþarýyla kaydedildi.";
                 return RedirectToAction("Index", "Product", new { area = "Admin" });
             }
 
-            TempData["ErrorMessage"] = "ÃœrÃ¼n kayÄ±t edilemedi. LÃ¼tfen zorunlu alanlarÄ± kontrol edin.";
+            TempData["ErrorMessage"] = "Ürün kayýt edilemedi. Lütfen zorunlu alanlarý kontrol edin.";
             await GetCategoryListForDropdown();
             return View(createProductDto);
         }
@@ -108,22 +108,22 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UpdateProductDto updateProductDto, IFormFile? imageFile, string? MainImageUrl)
         {
-            // Slug oluÅŸtur
+            // Slug oluþtur
             if (string.IsNullOrEmpty(updateProductDto.Slug_TR) && !string.IsNullOrEmpty(updateProductDto.Name_TR))
             {
-                updateProductDto.Slug_TR = updateProductDto.Name_TR.ToLower().Replace(" ", "-").Replace("Ä±", "i").Replace("ÄŸ", "g").Replace("Ã¼", "u").Replace("ÅŸ", "s").Replace("Ã¶", "o").Replace("Ã§", "c");
+                updateProductDto.Slug_TR = updateProductDto.Name_TR.ToLower().Replace(" ", "-").Replace("ý", "i").Replace("ð", "g").Replace("ü", "u").Replace("þ", "s").Replace("ö", "o").Replace("ç", "c");
             }
             if (string.IsNullOrEmpty(updateProductDto.Slug_EN) && !string.IsNullOrEmpty(updateProductDto.Name_EN))
             {
                 updateProductDto.Slug_EN = updateProductDto.Name_EN.ToLower().Replace(" ", "-");
             }
 
-            // Dosya YÃ¼kleme
+            // Dosya Yükleme
             if (imageFile != null && imageFile.Length > 0)
             {
                 var extension = Path.GetExtension(imageFile.FileName);
                 var newImageName = Guid.NewGuid() + extension;
-                var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/products", newImageName);
+                var location = Path.Combine(((Directory.GetCurrentDirectory() ?? "") ?? ""),  "wwwroot/images/products", newImageName);
                 using (var stream = new FileStream(location, FileMode.Create))
                 {
                     await imageFile.CopyToAsync(stream);
@@ -142,11 +142,11 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "ÃœrÃ¼n baÅŸarÄ±yla gÃ¼ncellendi.";
+                TempData["SuccessMessage"] = "Ürün baþarýyla güncellendi.";
                 return RedirectToAction("Index", "Product", new { area = "Admin" });
             }
 
-            TempData["ErrorMessage"] = "ÃœrÃ¼n gÃ¼ncellenemedi. LÃ¼tfen alanlarÄ± kontrol edin.";
+            TempData["ErrorMessage"] = "Ürün güncellenemedi. Lütfen alanlarý kontrol edin.";
             await GetCategoryListForDropdown();
             return View(updateProductDto);
         }
@@ -175,7 +175,7 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
                 return Json(new { success = true });
             }
 
-            return Json(new { success = false, message = "ÃœrÃ¼n silinemedi." });
+            return Json(new { success = false, message = "Ürün silinemedi." });
         }
 
         private async Task GetCategoryListForDropdown()
@@ -245,11 +245,8 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             if (galleryImages == null || !galleryImages.Any()) return;
 
             var client = _httpClientFactory.CreateClient();
-            var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/products");
-            if (!Directory.Exists(directoryPath))
-            {
-                Directory.CreateDirectory(directoryPath);
-            }
+            var directoryPath = Path.Combine(((Directory.GetCurrentDirectory() ?? "") ?? ""),  "wwwroot/images/products");
+            if (directoryPath != null && !Directory.Exists(directoryPath)) { Directory.CreateDirectory(directoryPath); }
 
             foreach (var file in galleryImages)
             {

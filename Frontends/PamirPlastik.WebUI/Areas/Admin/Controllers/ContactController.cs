@@ -29,7 +29,7 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
                 // Varsayılan olarak sadece ilk iletişim kaydını alıp güncelleyeceğiz (Singleton mantığı)
                 if (values != null && values.Any())
                 {
-                    var contact = values.FirstOrDefault();
+                    var contact = values?.FirstOrDefault();
                     var updateDto = new UpdateContactDto
                     {
                         ContactID = contact.ContactID,
