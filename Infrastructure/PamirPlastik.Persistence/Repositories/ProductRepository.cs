@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PamirPlastik.Application.Interfaces;
 using PamirPlastik.Domain.Entities;
 using PamirPlastik.Persistence.Context;
@@ -19,7 +19,6 @@ namespace PamirPlastik.Persistence.Repositories
 
         public async Task<List<Product>> GetProductsWithCategoryAsync()
         {
-            // .Include(x => x.Category) sayesinde CategoryName null gelmez kanka
             return await _context.Products
                 .Include(x => x.Category)
                 .ToListAsync();
@@ -40,6 +39,13 @@ namespace PamirPlastik.Persistence.Repositories
                 .Include(x => x.ProductColors)
                 .Include(x => x.ProductImages)
                 .FirstOrDefaultAsync(x => x.Slug_TR == slug || x.Slug_EN == slug);
+        }
+
+        public async Task<Product> GetProductByIdWithCategoryAsync(int id)
+        {
+            return await _context.Products
+                .Include(x => x.Category)
+                .FirstOrDefaultAsync(x => x.ProductID == id);
         }
     }
 }

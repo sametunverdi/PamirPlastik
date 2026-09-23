@@ -108,7 +108,17 @@
 @section Scripts {
     <script>
         async function deleteCategory(id) {
-            if (confirm("Bu kategoriyi silmek istediğinize emin misiniz? (Bağlı ürünler varsa hata alabilirsiniz)")) {
+            const swalResult = await Swal.fire({
+            title: 'Emin misiniz?',
+            text: 'Bu kategoriyi silmek istediğinize emin misiniz? (Bağlı ürünler varsa hata alabilirsiniz)',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#64748b',
+            confirmButtonText: 'Evet, Sil!',
+            cancelButtonText: 'İptal'
+        });
+        if (swalResult.isConfirmed) {
                 try {
                     const response = await fetch(`/Admin/Category/DeleteCategory/${id}`, { method: 'POST' });
                     const data = await response.json();

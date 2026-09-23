@@ -70,7 +70,17 @@
 @section Scripts {
     <script>
         function deleteRecord(id, url) {
-            if (confirm('Bu kaydı silmek istediğinize emin misiniz?')) {
+            const swalResult = await Swal.fire({
+            title: 'Emin misiniz?',
+            text: 'Bu kaydı silmek istediğinize emin misiniz?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#64748b',
+            confirmButtonText: 'Evet, Sil!',
+            cancelButtonText: 'İptal'
+        });
+        if (swalResult.isConfirmed) {
                 fetchApi(url + '/' + id, { method: 'POST' })
                     .then(data => {
                         if (data && data.success) {

@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using PamirPlastik.Application.Features.Mediator.Queries.ProductQueries;
 using PamirPlastik.Application.Features.Mediator.Results.ProductResults;
 using PamirPlastik.Application.Interfaces;
@@ -28,7 +28,9 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductHandlers
                 ProductCode = x.ProductCode,
                 IsFeatured = x.IsFeatured,
                 Status = x.Status,
-                CategoryName = x.Category?.Name_TR
+                CategoryName = x.Category?.Name_TR,
+                Slug_TR = x.Slug_TR,
+                Slug_EN = x.Slug_EN
             }).ToList();
         }
     }

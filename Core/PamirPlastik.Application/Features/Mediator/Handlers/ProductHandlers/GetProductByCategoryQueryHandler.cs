@@ -22,10 +22,7 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductHandlers
 
         public async Task<List<GetProductQueryResult>> Handle(GetProductByCategoryQuery request, CancellationToken cancellationToken)
         {
-
             var allValues = await _repository.GetAllAsync();
-
-
             var values = allValues.Where(x => x.CategoryID == request.ID).OrderBy(x => x.Order).ToList();
 
             return values.Select(x => new GetProductQueryResult
@@ -38,7 +35,9 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductHandlers
                 MainImageUrl = x.MainImageUrl,   
                 ProductCode = x.ProductCode,
                 IsFeatured = x.IsFeatured,
-                CategoryName = x.Category != null ? x.Category.Name_TR : "Kategorisiz"
+                CategoryName = x.Category != null ? x.Category.Name_TR : "Kategorisiz",
+                Slug_TR = x.Slug_TR,
+                Slug_EN = x.Slug_EN
             }).ToList();
         }
     }

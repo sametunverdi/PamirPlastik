@@ -1,0 +1,148 @@
+﻿@model List<PamirPlastik.WebUI.DTOs.FairDtos.ResultFairDto>
+@{
+    ViewData["Title"] = "Fuarlarımız";
+    ViewData["PageName"] = "FUARLAR";
+    ViewData["HeaderTitle"] = "GÜNCEL FUAR <br> VE ETKİNLİKLERİMİZ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bg-slate-50 py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h1 class="text-4xl font-black text-slate-900 tracking-tight sm:text-5xl mb-4">Fuarlarımız ve Etkinliklerimiz</h1>
+            <p class="text-lg text-slate-600">Sektördeki yenilikleri yakından takip ediyor, ulusal ve uluslararası fuarlarda yerimizi alıyoruz. Bizi ziyaret ederek ürünlerimizi yakından inceleyebilirsiniz.</p>
+        </div>
+
+        @if (Model == null || !Model.Any())
+        {
+            <div class="text-center py-16 bg-white rounded-3xl shadow-sm border border-slate-100">
+                <i class="fa-regular fa-calendar-xmark text-6xl text-slate-200 mb-4"></i>
+                <h3 class="text-xl font-bold text-slate-800">Şu An Planlanmış Bir Fuar Bulunmuyor</h3>
+                <p class="text-slate-500 mt-2">Gelecek etkinliklerimiz için sayfamızı takip etmeye devam edin.</p>
+            </div>
+        }
+        else
+        {
+            <div class="space-y-12">
+                @foreach (var fair in Model)
+                {
+                    <div class="bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-slate-100 flex flex-col md:flex-row group">
+                        
+                        <!-- Görsel Alanı -->
+                        <div class="md:w-5/12 h-64 md:h-auto relative overflow-hidden bg-slate-100">
+                            @if (!string.IsNullOrEmpty(fair.Img1))
+                            {
+                                <div class="w-full h-full relative group/image">
+                                    <img src="@fair.Img1" alt="@fair.Name" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 @(!string.IsNullOrEmpty(fair.Img2) ? "group-hover/image:opacity-0" : "")" />
+                                    
+                                    @if (!string.IsNullOrEmpty(fair.Img2))
+                                    {
+                                        <img src="@fair.Img2" alt="@fair.Name - Detay" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 opacity-0 group-hover/image:opacity-100 group-hover:scale-105" />
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="w-full h-full flex flex-col items-center justify-center text-slate-300">
+                                    <i class="fa-solid fa-camera text-5xl mb-2"></i>
+                                    <span class="font-medium text-sm">Görsel Bulunmuyor</span>
+                                </div>
+                            }
+                            
+                            <!-- Durum Rozeti -->
+                            <div class="absolute top-4 left-4">
+                                @if (fair.IsFuture)
+                                {
+                                    <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-[#ffda44] text-[#0f172a] shadow-lg shadow-black/5">
+                                        <i class="fa-solid fa-clock mr-1.5"></i> Yaklaşan Etkinlik
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-white/90 backdrop-blur-sm text-slate-700 shadow-lg shadow-black/5 border border-slate-200/50">
+                                        Geçmiş Etkinlik
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                        
+                        <!-- İçerik Alanı -->
+                        <div class="md:w-7/12 p-8 md:p-12 flex flex-col justify-center">
+                            <h3 class="text-2xl md:text-3xl font-black text-slate-900 mb-6 group-hover:text-pamir-brand transition-colors">@fair.Name</h3>
+                            
+                            <div class="space-y-4 mb-8">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-pamir-brand flex-shrink-0">
+                                        <i class="fa-solid fa-calendar-days text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-0.5">Tarih</p>
+                                        <p class="text-lg font-bold text-slate-800">@fair.Date</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-pamir-brand flex-shrink-0">
+                                        <i class="fa-solid fa-location-dot text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-0.5">Lokasyon</p>
+                                        <p class="text-lg font-bold text-slate-800">@fair.Location</p>
+                                    </div>
+                                </div>
+                                
+                                @if (!string.IsNullOrEmpty(fair.Stand))
+                                {
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-pamir-brand flex-shrink-0">
+                                            <i class="fa-solid fa-store text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-0.5">Stant Bilgisi</p>
+                                            <p class="text-lg font-bold text-slate-800">@fair.Stand</p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Sayfalama -->
+            @if (ViewBag.TotalPages > 1)
+            {
+                <div class="mt-16 flex justify-center">
+                    <nav class="inline-flex rounded-xl shadow-sm bg-white overflow-hidden border border-slate-200">
+                        @if (ViewBag.CurrentPage > 1)
+                        {
+                            <a href="/Fair/Index?page=@(ViewBag.CurrentPage - 1)" class="px-5 py-3 border-r border-slate-200 font-bold text-slate-500 hover:bg-slate-50 transition-colors">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </a>
+                        }
+                        
+                        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                        {
+                            if (i == ViewBag.CurrentPage)
+                            {
+                                <span class="px-5 py-3 border-r border-slate-200 font-black bg-indigo-600 text-white cursor-default">@i</span>
+                            }
+                            else
+                            {
+                                <a href="/Fair/Index?page=@i" class="px-5 py-3 border-r border-slate-200 font-bold text-slate-500 hover:bg-slate-50 transition-colors">@i</a>
+                            }
+                        }
+
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                        {
+                            <a href="/Fair/Index?page=@(ViewBag.CurrentPage + 1)" class="px-5 py-3 font-bold text-slate-500 hover:bg-slate-50 transition-colors">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </a>
+                        }
+                    </nav>
+                </div>
+            }
+        }
+    </div>
+</div>
+

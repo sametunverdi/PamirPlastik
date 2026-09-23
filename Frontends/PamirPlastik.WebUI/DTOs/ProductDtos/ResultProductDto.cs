@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace PamirPlastik.WebUI.DTOs.ProductDtos
 {
@@ -29,5 +29,8 @@ namespace PamirPlastik.WebUI.DTOs.ProductDtos
         public List<ResultProductColorDto>? Colors { get; set; }
         public string? MainImageUrl { get; set; }
         public bool IsFeatured { get; set; }
+        public string? Slug_TR { get; set; }
+        public string? Slug_EN { get; set; }
     }
 }
+

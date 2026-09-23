@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +17,9 @@ namespace PamirPlastik.Application.Features.Mediator.Results.ProductResults
         public string ProductCode { get; set; } // PMR-402 gibi
         public bool IsFeatured { get; set; } // Yıldızlı mı?
         public bool Status { get; set; }
-        public string CategoryName { get; set; } // UI'da "Mutfak" yazması için kategori adını da taşıyacağız
+        public string CategoryName { get; set; }
+        public string Slug_TR { get; set; }
+        public string Slug_EN { get; set; } // UI'da "Mutfak" yazması için kategori adını da taşıyacağız
     }
 }
+

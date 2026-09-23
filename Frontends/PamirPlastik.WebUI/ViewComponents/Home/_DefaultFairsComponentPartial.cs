@@ -1,7 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PamirPlastik.WebUI.DTOs.FairDtos;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -24,7 +25,14 @@ namespace PamirPlastik.WebUI.ViewComponents.Home
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultFairDto>>(jsonData);
-                return View(values);
+                
+                if(values != null)
+                {
+                    // Sadece Yaklaşan Fuarları al (IsFuture = true) ve Hepsini göster (Slider olacak)
+                    values = values.Where(x => x.IsFuture).OrderByDescending(x => x.FairID).ToList();
+                }
+
+                return View(values ?? new List<ResultFairDto>());
             }
             return View(new List<ResultFairDto>());
         }

@@ -1,4 +1,4 @@
-ï»¿using MediatR;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PamirPlastik.Application.Features.Mediator.Commands.ProductCommands;
@@ -24,6 +24,14 @@ namespace PamirPlastik.WebApi.Controllers
             return Ok(values);
         }
 
+        [HttpGet("GetBySlug/{slug}")]
+        public async Task<IActionResult> GetProductBySlug(string slug)
+        {
+            var value = await _mediator.Send(new GetProductBySlugQuery(slug));
+            if (value == null) return NotFound();
+            return Ok(value);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct(int id)
         {
@@ -31,7 +39,7 @@ namespace PamirPlastik.WebApi.Controllers
             return Ok(value);
         }
 
-        // Ana sayfadaki vitrin (YÄ±ldÄ±zlÄ±) Ã¼rÃ¼nleri getirecek Ã¶zel endpoint
+        // Ana sayfadaki vitrin (Yýldýzlý) ürünleri getirecek özel endpoint
         [HttpGet("GetFeaturedProducts")]
         public async Task<IActionResult> GetFeaturedProducts()
         {
@@ -42,22 +50,22 @@ namespace PamirPlastik.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProduct(CreateProductCommand command)
         {
-            await _mediator.Send(command);
-            return Ok("ÃœrÃ¼n baÅŸarÄ±yla eklendi!");
+            var id = await _mediator.Send(command);
+            return Ok(id);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveProduct(int id)
         {
             await _mediator.Send(new RemoveProductCommand(id));
-            return Ok("ÃœrÃ¼n baÅŸarÄ±yla silindi!");
+            return Ok("Ürün baþarýyla silindi!");
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateProduct(UpdateProductCommand command)
         {
             await _mediator.Send(command);
-            return Ok("ÃœrÃ¼n baÅŸarÄ±yla gÃ¼ncellendi!");
+            return Ok("Ürün baþarýyla güncellendi!");
         }
         [HttpGet("GetProductsByCategory")]
         public async Task<IActionResult> GetProductsByCategory(int id)

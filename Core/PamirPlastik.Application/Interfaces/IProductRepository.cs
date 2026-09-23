@@ -9,5 +9,7 @@ namespace PamirPlastik.Application.Interfaces
         Task<List<Product>> GetProductsWithCategoryAsync();
         Task<List<Product>> GetFeaturedProductsWithCategoryAsync();
         Task<Product> GetProductBySlugAsync(string slug);
+        Task<Product> GetProductByIdWithCategoryAsync(int id);
     }
 }
+

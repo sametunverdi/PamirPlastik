@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductHandlers
 {
-    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand>
+    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, int>
     {
         private readonly IProductRepository _repository;
         public CreateProductCommandHandler(IProductRepository repository) { _repository = repository; }
 
-        public async Task Handle(CreateProductCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            await _repository.CreateAsync(new Product
+            var product = new Product
             {
                 Name_TR = request.Name_TR,
                 Name_EN = request.Name_EN,
@@ -37,7 +37,9 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductHandlers
                 Status = request.Status,
                 Order = request.Order,
                 CategoryID = request.CategoryId
-            });
+            };
+            await _repository.CreateAsync(product);
+            return product.ProductID;
         }
     }
 }

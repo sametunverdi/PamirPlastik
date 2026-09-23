@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PamirPlastik.Application.Features.Mediator.Commands.ProductCommands
 {
-    public class CreateProductCommand : IRequest
+    public class CreateProductCommand : IRequest<int>
     {
         public string Name_TR { get; set; }
         public string Name_EN { get; set; }
@@ -32,3 +32,4 @@ namespace PamirPlastik.Application.Features.Mediator.Commands.ProductCommands
         public int CategoryId { get; set; } // Hangi kategoriye eklenecek?
     }
 }
+

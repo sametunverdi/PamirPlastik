@@ -1,64 +1,140 @@
-@model List<PamirPlastik.WebUI.DTOs.FairDtos.ResultFairDto>
+﻿@model List<PamirPlastik.WebUI.DTOs.FairDtos.ResultFairDto>
 @{
     var settings = ViewBag.HomePageSetting as PamirPlastik.WebUI.DTOs.HomePageSettingDtos.ResultHomePageSettingDto;
 }
 
-<section id="fairs" class="py-24 bg-white relative border-t border-gray-100">
+<section id="fairs" class="py-24 bg-white relative border-t border-gray-100 overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-            <h2 class="text-[#4A5FC1] font-bold tracking-widest text-sm uppercase mb-3">@(settings?.FairTitleTop_TR ?? "Fuarlar")</h2>
-            <h3 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">
-                @Html.Raw(settings?.FairTitleMain_TR ?? "Global <span class=\"text-[#4A5FC1]\">Buluşma</span> Noktalarımız")
-            </h3>
-            <div class="w-20 h-1.5 bg-gradient-to-r from-[#4A5FC1] to-blue-300 mx-auto rounded-full mb-6"></div>
-            <p class="text-lg text-gray-500 font-medium leading-relaxed px-4 md:px-0">
-                @(settings?.FairDescription_TR ?? "Sektördeki en son yenilikleri yakından takip etmek ve ürünlerimizi dünya ile buluşturmak için uluslararası fuarlarda yerimizi alıyoruz.")
-            </p>
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div class="max-w-2xl text-left">
+                <h2 class="text-[#4A5FC1] font-bold tracking-widest text-sm uppercase mb-3">@(settings?.FairTitleTop_TR ?? "Fuarlar")</h2>
+                <h3 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">
+                    @Html.Raw(settings?.FairTitleMain_TR ?? "Global <span class='text-[#4A5FC1]'>Buluşma</span> Noktalarımız")
+                </h3>
+                <div class="w-20 h-1.5 bg-gradient-to-r from-[#4A5FC1] to-blue-300 rounded-full mb-6"></div>
+                <p class="text-lg text-gray-500 font-medium leading-relaxed">
+                    @(settings?.FairDescription_TR ?? "Sektördeki en son yenilikleri yakından takip etmek ve ürünlerimizi dünya ile buluşturmak için uluslararası fuarlarda yerimizi alıyoruz.")
+                </p>
+            </div>
+            
+            @if (Model != null && Model.Count > 3)
+            {
+                <div class="flex items-center gap-3 pb-4">
+                    <button class="fairs-slider-prev w-12 h-12 rounded-full bg-white border border-gray-200 text-gray-600 flex items-center justify-center hover:bg-[#4A5FC1] hover:text-white hover:border-[#4A5FC1] transition-all shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <button class="fairs-slider-next w-12 h-12 rounded-full bg-white border border-gray-200 text-gray-600 flex items-center justify-center hover:bg-[#4A5FC1] hover:text-white hover:border-[#4A5FC1] transition-all shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                </div>
+            }
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="relative">
             @if (Model != null && Model.Any())
             {
-                foreach (var fair in Model)
-                {
-                    <div class="bg-gray-50 rounded-3xl p-8 border border-gray-100 hover:shadow-xl transition-all duration-300 relative overflow-hidden group">
-                        @if (fair.IsFuture)
+                <div class="swiper fairsSwiper !pb-12 !px-2 !-mx-2">
+                    <div class="swiper-wrapper">
+                        @foreach (var fair in Model)
                         {
-                            <div class="absolute top-6 right-6 bg-[#4A5FC1] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg uppercase tracking-wider">Yakında</div>
+                            <div class="swiper-slide h-auto">
+                                <div class="bg-gray-50 h-full rounded-3xl p-8 border border-gray-100 hover:shadow-xl transition-all duration-300 relative overflow-hidden group flex flex-col">
+                                    @if (fair.IsFuture)
+                                    {
+                                        <div class="absolute top-6 right-6 bg-[#4A5FC1] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg uppercase tracking-wider z-10 shadow-md">Yakında</div>
+                                    }
+                                    
+                                    <div class="mb-6 h-48 rounded-xl overflow-hidden bg-gray-200 relative group/image shrink-0">
+                                        @if (!string.IsNullOrEmpty(fair.Img1))
+                                        {
+                                            <img loading="lazy" src="@fair.Img1" alt="@fair.Name" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 @(!string.IsNullOrEmpty(fair.Img2) ? "group-hover/image:opacity-0" : "")" />
+                                            
+                                            @if (!string.IsNullOrEmpty(fair.Img2))
+                                            {
+                                                <img loading="lazy" src="@fair.Img2" alt="@fair.Name - Detay" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 opacity-0 group-hover/image:opacity-100 group-hover:scale-110" />
+                                            }
+                                        }
+                                    </div>
+                                    
+                                    <h4 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-[#4A5FC1] transition-colors line-clamp-2">@fair.Name</h4>
+                                    
+                                    <div class="space-y-3 mt-auto pt-4">
+                                        <div class="flex items-center text-gray-500 text-sm">
+                                            <svg class="w-5 h-5 mr-3 text-[#4A5FC1] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                            <span class="truncate">@fair.Date</span>
+                                        </div>
+                                        <div class="flex items-center text-gray-500 text-sm">
+                                            <svg class="w-5 h-5 mr-3 text-[#4A5FC1] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                            <span class="truncate">@fair.Location</span>
+                                        </div>
+                                        @if (!string.IsNullOrEmpty(fair.Stand))
+                                        {
+                                            <div class="flex items-center text-gray-500 text-sm">
+                                                <svg class="w-5 h-5 mr-3 text-[#4A5FC1] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                                <span class="truncate">Stand: @fair.Stand</span>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                         }
-                        
-                        <div class="mb-6 h-48 rounded-xl overflow-hidden bg-gray-200">
-                            @if (!string.IsNullOrEmpty(fair.Img1))
-                            {
-                                <img loading="lazy" src="@fair.Img1" alt="@fair.Name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                            }
-                        </div>
-                        
-                        <h4 class="text-xl font-bold text-gray-900 mb-4">@fair.Name</h4>
-                        
-                        <div class="space-y-3">
-                            <div class="flex items-center text-gray-500 text-sm">
-                                <svg class="w-5 h-5 mr-3 text-[#4A5FC1]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                @fair.Date
-                            </div>
-                            <div class="flex items-center text-gray-500 text-sm">
-                                <svg class="w-5 h-5 mr-3 text-[#4A5FC1]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                @fair.Location
-                            </div>
-                            <div class="flex items-center text-gray-500 text-sm">
-                                <svg class="w-5 h-5 mr-3 text-[#4A5FC1]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                                Stand: @fair.Stand
-                            </div>
-                        </div>
                     </div>
-                }
+                    <!-- Swiper Pagination -->
+                    <div class="swiper-pagination fairs-pagination"></div>
+                </div>
             }
             else
             {
-                <div class="col-span-3 text-center py-16 text-gray-400">
-                    <p>Henüz fuar bilgisi eklenmemiş.</p>
+                <div class="text-center py-16 text-gray-400 border-2 border-dashed border-gray-100 rounded-3xl">
+                    <p>Henüz fuar bilgisi eklenmemişş.</p>
                 </div>
             }
         </div>
     </div>
 </section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if(typeof Swiper !== 'undefined') {
+            new Swiper('.fairsSwiper', {
+                slidesPerView: 1,
+                spaceBetween: 32,
+                grabCursor: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                    pauseOnMouseEnter: true
+                },
+                pagination: {
+                    el: '.fairs-pagination',
+                    clickable: true,
+                    dynamicBullets: true
+                },
+                navigation: {
+                    nextEl: '.fairs-slider-next',
+                    prevEl: '.fairs-slider-prev',
+                },
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                    }
+                }
+            });
+        }
+    });
+</script>
+
+<style>
+    .fairs-pagination {
+        bottom: 0 !important;
+    }
+    .fairs-pagination .swiper-pagination-bullet-active {
+        background-color: #4A5FC1 !important;
+    }
+    .fairs-pagination .swiper-pagination-bullet {
+        background-color: #a5b4fc;
+    }
+</style>

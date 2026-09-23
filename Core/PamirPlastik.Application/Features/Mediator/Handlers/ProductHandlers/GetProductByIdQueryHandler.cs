@@ -14,7 +14,7 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductHandlers
 
         public async Task<GetProductByIdQueryResult> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
-            var value = await _repository.GetByIdAsync(request.Id);
+            var value = await _repository.GetProductByIdWithCategoryAsync(request.Id);
             return new GetProductByIdQueryResult
             {
                 ProductID = value.ProductID,
@@ -35,7 +35,8 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.ProductHandlers
                 MainImageUrl = value.MainImageUrl,
                 IsFeatured = value.IsFeatured,
                 Status = value.Status,
-                CategoryId = value.CategoryID
+                CategoryId = value.CategoryID,
+                CategoryName = value.Category?.Name_TR
             };
         }
     }

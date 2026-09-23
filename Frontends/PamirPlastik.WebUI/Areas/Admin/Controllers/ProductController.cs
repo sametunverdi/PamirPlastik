@@ -41,7 +41,7 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateProductDto createProductDto, IFormFile? imageFile)
+        public async Task<IActionResult> Create(CreateProductDto createProductDto, IFormFile? imageFile, List<IFormFile>? galleryImages, List<int> ColorIDs)
         {
             createProductDto.Status = true;
             
@@ -76,6 +76,19 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 
             if (responseMessage.IsSuccessStatusCode)
             {
+                var idStr = await responseMessage.Content.ReadAsStringAsync();
+                if (int.TryParse(idStr, out int newId))
+                {
+                    await HandleGalleryImages(newId, galleryImages);
+                    
+                    if (ColorIDs != null && ColorIDs.Any())
+                    {
+                        var requestObj = new { ProductID = newId, ColorIDs = ColorIDs };
+                        var colorJsonData = JsonConvert.SerializeObject(requestObj);
+                        var colorStringContent = new StringContent(colorJsonData, Encoding.UTF8, "application/json");
+                        await client.PostAsync("https://localhost:7184/api/ProductColors", colorStringContent);
+                    }
+                }
                 TempData["SuccessMessage"] = "Ürün baþarýyla kaydedildi.";
                 return RedirectToAction("Index", "Product", new { area = "Admin" });
             }
@@ -101,6 +114,12 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var value = JsonConvert.DeserializeObject<UpdateProductDto>(jsonData);
+                var imagesResponse = await client.GetAsync($"https://localhost:7184/api/ProductImages/ByProductId/{id}");
+                if (imagesResponse.IsSuccessStatusCode)
+                {
+                    var imagesJson = await imagesResponse.Content.ReadAsStringAsync();
+                    ViewBag.ExistingGalleryImages = JsonConvert.DeserializeObject<System.Collections.Generic.List<PamirPlastik.WebUI.DTOs.ProductDtos.ResultProductImageDto>>(imagesJson);
+                }
                 return View(value);
             }
             return RedirectToAction("Index", "Product", new { area = "Admin" });

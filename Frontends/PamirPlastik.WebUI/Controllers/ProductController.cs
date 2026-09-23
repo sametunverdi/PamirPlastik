@@ -55,10 +55,11 @@ namespace PamirPlastik.WebUI.Controllers
             return View(pagedValues);
         }
 
-        public async Task<IActionResult> Details(int id)
+        [Route("urun/{slug}")]
+        public async Task<IActionResult> Details(string slug)
         {
             var client = _httpClientFactory.CreateClient();
-            var productResponse = await client.GetAsync($"https://localhost:7184/api/Products/{id}");
+            var productResponse = await client.GetAsync($"https://localhost:7184/api/Products/GetBySlug/{slug}");
 
             if (productResponse.IsSuccessStatusCode)
             {
@@ -68,7 +69,7 @@ namespace PamirPlastik.WebUI.Controllers
                 if (product != null)
                 {
                     // Resimleri getir
-                    var imagesResponse = await client.GetAsync($"https://localhost:7184/api/ProductImages/ByProductId/{id}");
+                    var imagesResponse = await client.GetAsync($"https://localhost:7184/api/ProductImages/ByProductId/{product.ProductID}");
                     if (imagesResponse.IsSuccessStatusCode)
                     {
                         var imagesJson = await imagesResponse.Content.ReadAsStringAsync();
@@ -77,7 +78,7 @@ namespace PamirPlastik.WebUI.Controllers
 
                     // Renkleri getir
                     var colorsResponse = await client.GetAsync($"https://localhost:7184/api/Colors");
-                    var productColorsResponse = await client.GetAsync($"https://localhost:7184/api/ProductColors/{id}");
+                    var productColorsResponse = await client.GetAsync($"https://localhost:7184/api/ProductColors/{product.ProductID}");
 
                     if (colorsResponse.IsSuccessStatusCode && productColorsResponse.IsSuccessStatusCode)
                     {

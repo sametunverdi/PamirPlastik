@@ -1,23 +1,28 @@
-@model List<PamirPlastik.WebUI.DTOs.FairDtos.ResultFairDto>
+﻿@model List<PamirPlastik.WebUI.DTOs.FairDtos.ResultFairDto>
 @{
     ViewData["Title"] = "Fuarlar";
 }
 
-<div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-    <h1 class="text-2xl font-bold text-slate-800">Fuarlar</h1>
-    <a href="/Admin/Fair/Create" class="inline-flex items-center justify-center px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50">
-        <i class="fa-solid fa-plus mr-2"></i> Yeni Fuar Ekle
+<div class="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+        <h1 class="text-3xl font-black text-slate-900 tracking-tight mb-1">Fuarlar & Etkinlikler</h1>
+        <p class="text-slate-500 font-medium">Katıldığınız veya katılacağınız tüm fuarları buradan yönetebilirsiniz.</p>
+    </div>
+    <a href="/Admin/Fair/Create" class="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow-md shadow-indigo-200 transition-all focus:outline-none focus:ring-4 focus:ring-indigo-100 hover:-translate-y-0.5">
+        <i class="fa-solid fa-calendar-plus mr-2.5"></i> Yeni Fuar Ekle
     </a>
 </div>
 
-<div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+<div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
     @if (Model == null || !Model.Any())
     {
-        <div class="text-center py-16 px-4">
-            <i class="fa-regular fa-calendar-alt text-5xl mb-4 text-slate-300"></i>
-            <h3 class="text-lg font-medium text-slate-900 mb-1">Fuar Bulunamadı</h3>
-            <p class="text-slate-500 mb-6">Sistemde henüz bir fuar kaydı oluşturulmamış.</p>
-            <a href="/Admin/Fair/Create" class="inline-flex items-center px-4 py-2 border border-primary text-primary hover:bg-blue-50 rounded-md font-medium transition-colors">
+        <div class="text-center py-20 px-4">
+            <div class="w-24 h-24 bg-slate-50 text-slate-300 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fa-regular fa-calendar-alt text-4xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">Fuar Bulunamadı</h3>
+            <p class="text-slate-500 mb-8 max-w-sm mx-auto">Sistemde henüz bir fuar kaydı oluşturulmamış. Etkinliklerinizi yönetmeye başlamak için ilk fuarı şimdi ekleyin.</p>
+            <a href="/Admin/Fair/Create" class="inline-flex items-center px-5 py-2.5 border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 rounded-xl font-bold transition-colors">
                 İlk Fuarı Ekle
             </a>
         </div>
@@ -27,37 +32,73 @@
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse whitespace-nowrap lg:whitespace-normal">
                 <thead>
-                    <tr class="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider border-b border-slate-200">
-                        <th class="px-6 py-3 font-semibold">Fuar Adı</th>
-                        <th class="px-6 py-3 font-semibold">Tarih</th>
-                        <th class="px-6 py-3 font-semibold">Lokasyon</th>
-                        <th class="px-6 py-3 font-semibold">Durum</th>
-                        <th class="px-6 py-3 font-semibold text-right">İşlemler</th>
+                    <tr class="bg-slate-50/80 text-slate-500 text-xs uppercase tracking-wider border-b border-slate-200">
+                        <th class="px-6 py-4 font-bold w-16 text-center">Görsel</th>
+                        <th class="px-6 py-4 font-bold">Fuar Adıı & Stant</th>
+                        <th class="px-6 py-4 font-bold">Lokasyon</th>
+                        <th class="px-6 py-4 font-bold text-center">Tarih</th>
+                        <th class="px-6 py-4 font-bold text-center">Durum</th>
+                        <th class="px-6 py-4 font-bold text-right">İşlemler</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-200 text-sm">
+                <tbody class="divide-y divide-slate-100 text-sm">
                     @foreach (var item in Model)
                     {
-                        <tr class="hover:bg-teal-50 transition-colors bg-white text-slate-700" id="row-@item.FairID">
-                            <td class="px-6 py-4 font-semibold text-slate-900">@item.Name</td>
-                            <td class="px-6 py-4">@item.Date</td>
-                            <td class="px-6 py-4">@item.Location</td>
-                            <td class="px-6 py-4">
-                                @if (item.IsFuture)
+                        <tr class="hover:bg-indigo-50/30 transition-colors bg-white text-slate-700 group" id="row-@item.FairID">
+                            
+                            <td class="px-6 py-4 text-center">
+                                @if (!string.IsNullOrEmpty(item.Img1))
                                 {
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 border border-amber-200">Yaklaşan Fuar</span>
+                                    <img src="@item.Img1" alt="Fuar" class="w-14 h-14 rounded-xl object-cover border border-slate-200 shadow-sm mx-auto" />
                                 }
                                 else
                                 {
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">Geçmiş Fuar</span>
+                                    <div class="w-14 h-14 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-400 mx-auto">
+                                        <i class="fa-solid fa-image"></i>
+                                    </div>
                                 }
                             </td>
+
+                            <td class="px-6 py-4">
+                                <div class="font-bold text-slate-900 text-base mb-1">@item.Name</div>
+                                <div class="flex items-center gap-2">
+                                    <span class="inline-flex items-center gap-1 font-mono text-[11px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200">
+                                        <i class="fa-solid fa-store text-slate-400"></i> Stant: @item.Stand
+                                    </span>
+                                </div>
+                            </td>
+
+                            <td class="px-6 py-4">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-100">
+                                    <i class="fa-solid fa-location-dot text-[10px]"></i> @item.Location
+                                </span>
+                            </td>
+
+                            <td class="px-6 py-4 text-center font-semibold">
+                                @item.Date
+                            </td>
+
+                            <td class="px-6 py-4 text-center">
+                                @if (item.IsFuture)
+                                {
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-700 border border-amber-200">
+                                        Yaklaşan Fuar
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-500 border border-slate-200">
+                                        Geçmiş Fuar
+                                    </span>
+                                }
+                            </td>
+
                             <td class="px-6 py-4 text-right">
-                                <div class="flex justify-end gap-2">
-                                    <a href="/Admin/Fair/Edit/@item.FairID" class="w-8 h-8 rounded-md flex items-center justify-center text-teal hover:bg-teal-50 transition-colors focus:outline-none focus:ring-2 focus:ring-teal/50" title="Düzenle">
+                                <div class="flex justify-end gap-2 opacity-100 lg:opacity-60 lg:group-hover:opacity-100 transition-opacity">
+                                    <a href="/Admin/Fair/Edit/@item.FairID" class="w-9 h-9 rounded-xl flex items-center justify-center text-indigo-600 hover:bg-indigo-100 transition-colors bg-indigo-50" title="Düzenle">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <button type="button" class="w-8 h-8 rounded-md flex items-center justify-center text-red-600 hover:bg-red-50 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/50" title="Sil" onclick="deleteFair(@item.FairID)">
+                                    <button type="button" class="w-9 h-9 rounded-xl flex items-center justify-center text-rose-600 hover:bg-rose-100 transition-colors bg-rose-50" title="Sil" onclick="deleteFair(@item.FairID)">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </button>
                                 </div>
@@ -73,13 +114,23 @@
 @section Scripts {
     <script>
         async function deleteFair(id) {
-            if (confirm("Bu fuar kaydını silmek istediğinize emin misiniz?")) {
+            const swalResult = await Swal.fire({
+            title: 'Emin misiniz?',
+            text: 'Bu fuar kaydını silmek istediğinize emin misiniz? Bu işlem geri alınamaz.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#64748b',
+            confirmButtonText: 'Evet, Sil!',
+            cancelButtonText: 'İptal'
+        });
+        if (swalResult.isConfirmed) {
                 try {
-                    const response = await fetch(`/Admin/Fair/DeleteFair/${id}`, { method: 'POST' });
+                    const response = await fetch('/Admin/Fair/DeleteFair/' + id, { method: 'POST' });
                     const data = await response.json();
                     if (data.success) {
                         if(typeof showToast === 'function') showToast("Fuar başarıyla silindi", "success");
-                        const row = document.getElementById(`row-${id}`);
+                        const row = document.getElementById('row-' + id);
                         if (row) row.remove();
                     } else {
                         if(typeof showToast === 'function') showToast(data.message || "Silme işlemi başarısız oldu", "error");
@@ -91,3 +142,4 @@
         }
     </script>
 }
+
