@@ -48,6 +48,9 @@ namespace PamirPlastik.Persistence.Context
                 .HasForeignKey(z => z.ProductID)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<ProductColor>()
+                .HasKey(pc => new { pc.ProductID, pc.ColorID });
+
             base.OnModelCreating(modelBuilder);
         }
     }

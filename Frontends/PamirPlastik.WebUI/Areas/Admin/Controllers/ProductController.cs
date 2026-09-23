@@ -73,6 +73,7 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync("https://localhost:7184/api/Products", stringContent);
 
+
             if (responseMessage.IsSuccessStatusCode)
             {
                 TempData["SuccessMessage"] = "Ürün baþarýyla kaydedildi.";
@@ -106,7 +107,7 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UpdateProductDto updateProductDto, IFormFile? imageFile, string? MainImageUrl)
+        public async Task<IActionResult> Edit(UpdateProductDto updateProductDto, IFormFile? imageFile, string? MainImageUrl, List<int> ColorIDs)
         {
             // Slug oluþtur
             if (string.IsNullOrEmpty(updateProductDto.Slug_TR) && !string.IsNullOrEmpty(updateProductDto.Name_TR))
@@ -140,8 +141,17 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responseMessage = await client.PutAsync("https://localhost:7184/api/Products", stringContent);
 
+
             if (responseMessage.IsSuccessStatusCode)
             {
+                if (ColorIDs != null)
+                {
+                    var colorCommand = new { ProductID = updateProductDto.ProductID, ColorIDs = ColorIDs };
+                    var colorJson = JsonConvert.SerializeObject(colorCommand);
+                    var colorContent = new StringContent(colorJson, System.Text.Encoding.UTF8, "application/json");
+                    await client.PostAsync("https://localhost:7184/api/ProductColors", colorContent);
+                }
+
                 TempData["SuccessMessage"] = "Ürün baþarýyla güncellendi.";
                 return RedirectToAction("Index", "Product", new { area = "Admin" });
             }

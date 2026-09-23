@@ -1,4 +1,4 @@
-@model List<PamirPlastik.WebUI.DTOs.ProductDtos.ResultProductDto>
+﻿@model List<PamirPlastik.WebUI.DTOs.ProductDtos.ResultProductDto>
 @{
     ViewData["Title"] = "Ürün Kataloğu - Pamir Plastik";
     ViewData["Description"] = "Mutfak gereçlerinden banyo aksesuarlarına kadar 150'den fazla dayanıklı ve şık plastik ürünümüzü keşfedin.";
@@ -32,7 +32,7 @@
                                     <span class="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-md text-[#0f172a] text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-sm">Ürün</span>
 
                                     @* Kanka buralar senin orijinal isimlendirmelerin, dokunmadım *@
-                                    <img src="@item.ImageUrl" loading="lazy" alt="@item.Name_TR" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                    <img src="@item.MainImageUrl" loading="lazy" alt="@item.Name_TR" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
 
                                     <div class="absolute inset-0 bg-[#0f172a]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
                                         <a href="/Product/Details/@item.ProductID" class="w-12 h-12 bg-[#ffda44] text-[#0f172a] rounded-xl flex items-center justify-center shadow-xl hover:scale-110 transition-all">
@@ -43,7 +43,7 @@
 
                                 <div class="px-2">
                                     <h4 class="text-xl font-black text-gray-900 mb-2 group-hover:text-pamir-brand transition-colors tracking-tighter leading-none uppercase">@item.Name_TR</h4>
-                                    <p class="text-gray-400 text-xs font-medium leading-relaxed mb-6 line-clamp-2">@item.Description_TR</p>
+                                    <p class="text-gray-400 text-xs font-medium leading-relaxed mb-6 line-clamp-2">@item.ShortDescription_TR</p>
 
                                     <div class="flex items-center justify-between pt-4 border-t border-gray-50">
                                         <span class="text-[10px] font-black text-gray-300 uppercase tracking-widest">Kod: @item.ProductCode</span>

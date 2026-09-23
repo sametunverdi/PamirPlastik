@@ -1,4 +1,4 @@
-@model PamirPlastik.WebUI.DTOs.ProductDtos.UpdateProductDto
+﻿@model PamirPlastik.WebUI.DTOs.ProductDtos.UpdateProductDto
 @{
     ViewData["Title"] = "Ürün Düzenle";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -121,6 +121,10 @@
                         <div>
                             <label class="field-label">Hammadde</label>
                             <input type="text" asp-for="Material" class="modern-input" placeholder="Örn: PP" />
+                        </div>
+                        <div>
+                            <label class="field-label">Koli Ölçüsü</label>
+                            <input type="text" asp-for="BoxSize" class="modern-input" placeholder="Örn: 60x40x40" />
                         </div>
                         <div>
                             <label class="field-label">Koli Ağırlığı</label>
@@ -283,6 +287,30 @@
 
 @section Scripts {
     <script>
+
+        // Ana resim önizleme
+        document.getElementById("main-file-upload").addEventListener("change", function(e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.querySelector("img[src='@Model.MainImageUrl']");
+                    if (img) {
+                        img.src = e.target.result;
+                    } else {
+                        let previewDiv = document.getElementById("main-preview-container");
+                        if (!previewDiv) {
+                            previewDiv = document.createElement("div");
+                            previewDiv.id = "main-preview-container";
+                            previewDiv.className = "mt-4 relative rounded-lg overflow-hidden border border-slate-200";
+                            document.getElementById("main-file-upload").closest(".text-center").appendChild(previewDiv);
+                        }
+                        previewDiv.innerHTML = `<img src="${e.target.result}" class="w-full h-32 object-contain" />`;
+                    }
+                }
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
         // Çoklu resim önizleme
         document.getElementById('gallery-upload').addEventListener('change', function(e) {
             const preview = document.getElementById('gallery-preview');
@@ -301,3 +329,5 @@
         });
     </script>
 }
+
+

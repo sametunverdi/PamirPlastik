@@ -3,7 +3,6 @@ namespace PamirPlastik.Domain.Entities
 {
     public class ProductColor
     {
-        public int ProductColorID { get; set; }
         public int ProductID { get; set; }
         public Product Product { get; set; }
         

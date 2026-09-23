@@ -7,8 +7,10 @@ namespace PamirPlastik.WebUI.DTOs.ProductDtos
         public int ProductID { get; set; }
         public string? Name_TR { get; set; }
         public string? Name_EN { get; set; }
-        public string? Description_TR { get; set; }
-        public string? Description_EN { get; set; }
+        public string? ShortDescription_TR { get; set; }
+        public string? ShortDescription_EN { get; set; }
+        public string? FullDescription_TR { get; set; }
+        public string? FullDescription_EN { get; set; }
         public decimal Price { get; set; }
         public string? ImageUrl { get; set; }
         public string? ProductCode { get; set; } 
