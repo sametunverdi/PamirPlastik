@@ -1,11 +1,9 @@
-ï»¿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using PamirPlastik.WebUI.DTOs.CategoryDtos;
 using PamirPlastik.WebUI.DTOs.ProductDtos;
 using System.Text;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
 
 namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 {
@@ -47,27 +45,25 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
         {
             createProductDto.Status = true;
             
-            // Slug oluï¿½tur
+            // Slug oluþtur
             if (string.IsNullOrEmpty(createProductDto.Slug_TR) && !string.IsNullOrEmpty(createProductDto.Name_TR))
             {
-                createProductDto.Slug_TR = createProductDto.Name_TR.ToLower().Replace(" ", "-").Replace("ï¿½", "i").Replace("ï¿½", "g").Replace("ï¿½", "u").Replace("ï¿½", "s").Replace("ï¿½", "o").Replace("ï¿½", "c");
+                createProductDto.Slug_TR = createProductDto.Name_TR.ToLower().Replace(" ", "-").Replace("ý", "i").Replace("ð", "g").Replace("ü", "u").Replace("þ", "s").Replace("ö", "o").Replace("ç", "c");
             }
             if (string.IsNullOrEmpty(createProductDto.Slug_EN) && !string.IsNullOrEmpty(createProductDto.Name_EN))
             {
                 createProductDto.Slug_EN = createProductDto.Name_EN.ToLower().Replace(" ", "-");
             }
 
-            // Dosya Yï¿½kleme
+            // Dosya Yükleme
             if (imageFile != null && imageFile.Length > 0)
             {
                 var extension = Path.GetExtension(imageFile.FileName);
                 var newImageName = Guid.NewGuid() + extension;
                 var location = Path.Combine(((Directory.GetCurrentDirectory() ?? "") ?? ""),  "wwwroot/images/products", newImageName);
-                using (var image = await Image.LoadAsync(imageFile.OpenReadStream()))
+                using (var stream = new FileStream(location, FileMode.Create))
                 {
-                    if (image.Width > 1200) { image.Mutate(x => x.Resize(1200, 0)); }
-                    var encoder = new SixLabors.ImageSharp.Formats.Jpeg.JpegEncoder { Quality = 75 };
-                    await image.SaveAsync(location, encoder);
+                    await imageFile.CopyToAsync(stream);
                 }
                 createProductDto.MainImageUrl = "/images/products/" + newImageName;
             }
@@ -93,11 +89,11 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
                         await client.PostAsync("https://localhost:7184/api/ProductColors", colorStringContent);
                     }
                 }
-                TempData["SuccessMessage"] = "ï¿½rï¿½n baï¿½arï¿½yla kaydedildi.";
+                TempData["SuccessMessage"] = "Ürün baþarýyla kaydedildi.";
                 return RedirectToAction("Index", "Product", new { area = "Admin" });
             }
 
-            TempData["ErrorMessage"] = "ï¿½rï¿½n kayï¿½t edilemedi. Lï¿½tfen zorunlu alanlarï¿½ kontrol edin.";
+            TempData["ErrorMessage"] = "Ürün kayýt edilemedi. Lütfen zorunlu alanlarý kontrol edin.";
             await GetCategoryListForDropdown();
             return View(createProductDto);
         }
@@ -132,27 +128,25 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UpdateProductDto updateProductDto, IFormFile? imageFile, string? MainImageUrl, List<int> ColorIDs)
         {
-            // Slug oluï¿½tur
+            // Slug oluþtur
             if (string.IsNullOrEmpty(updateProductDto.Slug_TR) && !string.IsNullOrEmpty(updateProductDto.Name_TR))
             {
-                updateProductDto.Slug_TR = updateProductDto.Name_TR.ToLower().Replace(" ", "-").Replace("ï¿½", "i").Replace("ï¿½", "g").Replace("ï¿½", "u").Replace("ï¿½", "s").Replace("ï¿½", "o").Replace("ï¿½", "c");
+                updateProductDto.Slug_TR = updateProductDto.Name_TR.ToLower().Replace(" ", "-").Replace("ý", "i").Replace("ð", "g").Replace("ü", "u").Replace("þ", "s").Replace("ö", "o").Replace("ç", "c");
             }
             if (string.IsNullOrEmpty(updateProductDto.Slug_EN) && !string.IsNullOrEmpty(updateProductDto.Name_EN))
             {
                 updateProductDto.Slug_EN = updateProductDto.Name_EN.ToLower().Replace(" ", "-");
             }
 
-            // Dosya Yï¿½kleme
+            // Dosya Yükleme
             if (imageFile != null && imageFile.Length > 0)
             {
                 var extension = Path.GetExtension(imageFile.FileName);
                 var newImageName = Guid.NewGuid() + extension;
                 var location = Path.Combine(((Directory.GetCurrentDirectory() ?? "") ?? ""),  "wwwroot/images/products", newImageName);
-                using (var image = await Image.LoadAsync(imageFile.OpenReadStream()))
+                using (var stream = new FileStream(location, FileMode.Create))
                 {
-                    if (image.Width > 1200) { image.Mutate(x => x.Resize(1200, 0)); }
-                    var encoder = new SixLabors.ImageSharp.Formats.Jpeg.JpegEncoder { Quality = 75 };
-                    await image.SaveAsync(location, encoder);
+                    await imageFile.CopyToAsync(stream);
                 }
                 updateProductDto.MainImageUrl = "/images/products/" + newImageName;
             }
@@ -177,11 +171,11 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
                     await client.PostAsync("https://localhost:7184/api/ProductColors", colorContent);
                 }
 
-                TempData["SuccessMessage"] = "ï¿½rï¿½n baï¿½arï¿½yla gï¿½ncellendi.";
+                TempData["SuccessMessage"] = "Ürün baþarýyla güncellendi.";
                 return RedirectToAction("Index", "Product", new { area = "Admin" });
             }
 
-            TempData["ErrorMessage"] = "ï¿½rï¿½n gï¿½ncellenemedi. Lï¿½tfen alanlarï¿½ kontrol edin.";
+            TempData["ErrorMessage"] = "Ürün güncellenemedi. Lütfen alanlarý kontrol edin.";
             await GetCategoryListForDropdown();
             return View(updateProductDto);
         }
@@ -210,7 +204,7 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
                 return Json(new { success = true });
             }
 
-            return Json(new { success = false, message = "ï¿½rï¿½n silinemedi." });
+            return Json(new { success = false, message = "Ürün silinemedi." });
         }
 
         private async Task GetCategoryListForDropdown()
@@ -291,12 +285,10 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
                     var newImageName = Guid.NewGuid() + extension;
                     var location = Path.Combine(directoryPath, newImageName);
                     
-                    using (var image = await Image.LoadAsync(file.OpenReadStream()))
-                {
-                    if (image.Width > 1200) { image.Mutate(x => x.Resize(1200, 0)); }
-                    var encoder = new SixLabors.ImageSharp.Formats.Jpeg.JpegEncoder { Quality = 75 };
-                    await image.SaveAsync(location, encoder);
-                }
+                    using (var stream = new FileStream(location, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
 
                     var imageUrl = "/images/products/" + newImageName;
                     var requestObj = new { ProductID = productId, ImageUrl = imageUrl };

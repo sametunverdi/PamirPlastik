@@ -1,10 +1,8 @@
-ï»¿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using PamirPlastik.WebUI.DTOs.ProductDtos;
 using System.Text;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
 
 namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 {
@@ -53,11 +51,9 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
                 var directoryPath = Path.Combine((Directory.GetCurrentDirectory() ?? ""), "wwwroot/images/products/gallery");
                 if (directoryPath != null && !Directory.Exists(directoryPath)) { Directory.CreateDirectory(directoryPath); }
                 var location = Path.Combine(directoryPath, newImageName);
-                using (var image = await Image.LoadAsync(createProductImageDto.ImageFile.OpenReadStream()))
+                using (var stream = new FileStream(location, FileMode.Create))
                 {
-                    if (image.Width > 1200) { image.Mutate(x => x.Resize(1200, 0)); }
-                    var encoder = new SixLabors.ImageSharp.Formats.Jpeg.JpegEncoder { Quality = 75 };
-                    await image.SaveAsync(location, encoder);
+                    await createProductImageDto.ImageFile.CopyToAsync(stream);
                 }
                 createProductImageDto.ImageUrl = "/images/products/gallery/" + newImageName;
             }
@@ -68,10 +64,10 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             var responseMessage = await client.PostAsync("https://localhost:7184/api/ProductImages", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "ï¿½rï¿½n resmi baï¿½arï¿½yla eklendi.";
+                TempData["SuccessMessage"] = "Ürün resmi baþarýyla eklendi.";
                 return RedirectToAction("Index");
             }
-            TempData["ErrorMessage"] = "Resim eklenirken bir hata oluï¿½tu.";
+            TempData["ErrorMessage"] = "Resim eklenirken bir hata oluþtu.";
             await GetProductListForDropdown();
             return View(createProductImageDto);
         }
@@ -101,11 +97,9 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
                 var directoryPath = Path.Combine((Directory.GetCurrentDirectory() ?? ""), "wwwroot/images/products/gallery");
                 if (directoryPath != null && !Directory.Exists(directoryPath)) { Directory.CreateDirectory(directoryPath); }
                 var location = Path.Combine(directoryPath, newImageName);
-                using (var image = await Image.LoadAsync(updateProductImageDto.ImageFile.OpenReadStream()))
+                using (var stream = new FileStream(location, FileMode.Create))
                 {
-                    if (image.Width > 1200) { image.Mutate(x => x.Resize(1200, 0)); }
-                    var encoder = new SixLabors.ImageSharp.Formats.Jpeg.JpegEncoder { Quality = 75 };
-                    await image.SaveAsync(location, encoder);
+                    await updateProductImageDto.ImageFile.CopyToAsync(stream);
                 }
                 updateProductImageDto.ImageUrl = "/images/products/gallery/" + newImageName;
             }
@@ -120,10 +114,10 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             var responseMessage = await client.PutAsync("https://localhost:7184/api/ProductImages", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "ï¿½rï¿½n resmi baï¿½arï¿½yla gï¿½ncellendi.";
+                TempData["SuccessMessage"] = "Ürün resmi baþarýyla güncellendi.";
                 return RedirectToAction("Index");
             }
-            TempData["ErrorMessage"] = "Resim gï¿½ncellenirken bir hata oluï¿½tu.";
+            TempData["ErrorMessage"] = "Resim güncellenirken bir hata oluþtu.";
             await GetProductListForDropdown();
             return View(updateProductImageDto);
         }
@@ -137,7 +131,7 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             {
                 return Json(new { success = true });
             }
-            return Json(new { success = false, message = "Silme iï¿½lemi baï¿½arï¿½sï¿½z." });
+            return Json(new { success = false, message = "Silme iþlemi baþarýsýz." });
         }
 
         private async Task GetProductListForDropdown()
