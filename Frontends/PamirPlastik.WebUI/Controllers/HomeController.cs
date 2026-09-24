@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PamirPlastik.WebUI.Models;
 using System.Diagnostics;
+using System.IO;
 
 namespace PamirPlastik.WebUI.Controllers
 {
@@ -17,6 +18,23 @@ namespace PamirPlastik.WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
+            // Ziyaretçi Sayacı (Basit dosya tabanlı sistem)
+            try
+            {
+                string countFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "visitor_count.txt");
+                int visitorCount = 0; // Sitenin geçmişini yansıtacak güzel bir başlangıç rakamı
+                if (System.IO.File.Exists(countFilePath))
+                {
+                    string countStr = System.IO.File.ReadAllText(countFilePath);
+                    if (int.TryParse(countStr, out int currentCount))
+                    {
+                        visitorCount = currentCount + 1;
+                    }
+                }
+                System.IO.File.WriteAllText(countFilePath, visitorCount.ToString());
+            }
+            catch { }
+
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("https://localhost:7184/api/HomePageSettings/1");
             if (responseMessage.IsSuccessStatusCode)

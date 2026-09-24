@@ -45,6 +45,12 @@
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        #sidebar nav::-webkit-scrollbar { width: 4px; }
+        #sidebar nav::-webkit-scrollbar-track { background: transparent; }
+        #sidebar nav::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        #sidebar nav::-webkit-scrollbar-thumb:hover { background: #ffda44; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans flex h-screen overflow-hidden selection:bg-primary selection:text-white">
     
@@ -52,7 +58,7 @@
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
 
     <!-- Sidebar -->
-    <aside id="sidebar" class="bg-[#1e293b] text-slate-300 w-64 flex-shrink-0 flex flex-col fixed lg:static inset-y-0 left-0 z-50 transform -translate-x-full lg:translate-x-0 transition-all duration-300 ease-in-out shadow-2xl border-r border-slate-700">
+    <aside id="sidebar" class="bg-gradient-to-b from-[#0f172a] via-[#151f32] to-[#050505] text-slate-300 w-64 flex-shrink-0 flex flex-col fixed lg:static inset-y-0 left-0 z-50 transform -translate-x-full lg:translate-x-0 transition-all duration-300 ease-in-out shadow-[10px_0_20px_rgba(0,0,0,0.5)] border-r border-slate-700/50">
         <!-- Logo -->
         <div class="h-20 flex items-center justify-center border-b border-slate-700 bg-[#0f172a]">
             <a href="/Admin">
@@ -73,8 +79,8 @@
                         isActive = currentUrl == path || currentUrl.StartsWith(path + "/");
                     }
                     return isActive 
-                        ? "flex items-center px-4 py-2.5 bg-[#4A5FC1]/20 text-white rounded-lg font-bold transition-all border-l-4 border-[#ffda44]" 
-                        : "flex items-center px-4 py-2.5 rounded-lg hover:bg-slate-800 hover:text-white transition-all font-medium text-slate-400 group border-l-4 border-transparent";
+                        ? "flex items-center px-4 py-2.5 bg-gradient-to-r from-primary-dark/60 to-primary/10 text-white rounded-xl font-bold transition-all shadow-[0_0_15px_rgba(79,70,229,0.15)] border-l-4 border-[#ffda44]" 
+                        : "flex items-center px-4 py-2.5 rounded-xl hover:bg-slate-800/50 hover:text-white transition-all font-medium text-slate-400 group border-l-4 border-transparent hover:border-slate-600";
                 }
                 
                 string GetIconClass(string path) {
@@ -84,7 +90,7 @@
                     } else {
                         isActive = currentUrl == path || currentUrl.StartsWith(path + "/");
                     }
-                    return isActive ? "text-[#4A5FC1] w-5 text-center mr-3" : "text-slate-500 w-5 text-center mr-3 group-hover:text-slate-300 transition-colors";
+                    return isActive ? "text-[#ffda44] w-5 text-center mr-3 drop-shadow-[0_0_8px_rgba(255,218,68,0.6)]" : "text-slate-500 w-5 text-center mr-3 group-hover:text-white group-hover:-translate-y-1 group-hover:scale-110 transition-all duration-300";
                 }
             }
 
@@ -97,7 +103,10 @@
 
             <!-- ANA SAYFA YÖNETİMİ -->
             <div>
-                <h3 class="px-4 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Ana Sayfa Yönetimi</h3>
+                <div class="relative mt-8 mb-4">
+                <h3 class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Ana Sayfa Yönetimi</h3>
+                <div class="absolute bottom-0 left-4 w-[80%] h-[1px] bg-gradient-to-r from-[#ffda44]/40 via-slate-700/50 to-transparent"></div>
+            </div>
                 <div class="space-y-1">
                     <a href="/Admin/HomePageSetting/Edit" class="@GetLinkClass("/admin/homepagesetting")">
                         <i class="fa-solid fa-home @GetIconClass("/admin/homepagesetting")"></i> <span class="text-sm tracking-wide">Ana Sayfa Ayarları</span>
@@ -110,7 +119,10 @@
 
             <!-- ÜRÜN YÖNETİMİ -->
             <div>
-                <h3 class="px-4 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Ürün Yönetimi</h3>
+                <div class="relative mt-8 mb-4">
+                <h3 class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Ürün Yönetimi</h3>
+                <div class="absolute bottom-0 left-4 w-[80%] h-[1px] bg-gradient-to-r from-[#ffda44]/40 via-slate-700/50 to-transparent"></div>
+            </div>
                 <div class="space-y-1">
                     <a href="/Admin/Category" class="@GetLinkClass("/admin/category")">
                         <i class="fa-solid fa-tags @GetIconClass("/admin/category")"></i> <span class="text-sm tracking-wide">Kategoriler</span>
@@ -126,7 +138,10 @@
 
             <!-- KURUMSAL YÖNETİM -->
             <div>
-                <h3 class="px-4 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Kurumsal Yönetim</h3>
+                <div class="relative mt-8 mb-4">
+                <h3 class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Kurumsal Yönetim</h3>
+                <div class="absolute bottom-0 left-4 w-[80%] h-[1px] bg-gradient-to-r from-[#ffda44]/40 via-slate-700/50 to-transparent"></div>
+            </div>
                 <div class="space-y-1">
                     <a href="/Admin/About" class="@GetLinkClass("/admin/about")">
                         <i class="fa-solid fa-building @GetIconClass("/admin/about")"></i> <span class="text-sm tracking-wide">Kurumsal Ayarlar</span>
@@ -138,7 +153,10 @@
 
             <!-- İLETİŞİM & SİSTEM -->
             <div>
-                <h3 class="px-4 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">İletişim & Sistem</h3>
+                <div class="relative mt-8 mb-4">
+                <h3 class="px-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">İletişim & Sistem</h3>
+                <div class="absolute bottom-0 left-4 w-[80%] h-[1px] bg-gradient-to-r from-[#ffda44]/40 via-slate-700/50 to-transparent"></div>
+            </div>
                 <div class="space-y-1">
                     <a href="/Admin/Contact" class="@GetLinkClass("/admin/contact")">
                         <i class="fa-solid fa-address-book @GetIconClass("/admin/contact")"></i> <span class="text-sm tracking-wide">İletişim Bilgileri</span>
@@ -149,8 +167,11 @@
                                           <a href="/Admin/Message" class="@GetLinkClass("/admin/message")">
                           <i class="fa-solid fa-envelope @GetIconClass("/admin/message")"></i> <span class="text-sm tracking-wide">Gelen Mesajlar</span>
                       </a>
-                      <a 
-                      <hr class="border-gray-700/50 my-2 mx-4" />
+                    <a href="/Admin/JobApplication" class="@GetLinkClass("/admin/jobapplication")">
+                        <i class="fa-solid fa-briefcase @GetIconClass("/admin/jobapplication")"></i> <span class="text-sm tracking-wide">İş Başvuruları</span>
+                    </a>
+                    
+                    <hr class="border-gray-700/50 my-2 mx-4" />
                       <a href="/Admin/DeveloperSetting" class="@GetLinkClass("/admin/developersetting")">
                           <i class="fa-solid fa-code @GetIconClass("/admin/developersetting")"></i> <span class="text-sm tracking-wide text-[#dc2626] font-bold">Geliştirici Ayarları</span>
                       </a>

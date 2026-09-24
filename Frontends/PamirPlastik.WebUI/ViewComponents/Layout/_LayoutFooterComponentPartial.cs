@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using PamirPlastik.WebUI.DTOs.ContactDtos;
 using PamirPlastik.WebUI.DTOs.SocialMediaDtos;
 using PamirPlastik.WebUI.DTOs.DeveloperSettingDtos;
+using PamirPlastik.WebUI.DTOs.CategoryDtos;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -41,7 +42,20 @@ namespace PamirPlastik.WebUI.ViewComponents.Layout
                 ViewBag.DeveloperSetting = valuesDev?.FirstOrDefault();
             }
 
-            // 3. Fetch Social Media
+            // 3. Fetch Categories (ShowOnHome)
+            var responseCategory = await client.GetAsync("https://localhost:7184/api/Categories");
+            if (responseCategory.IsSuccessStatusCode)
+            {
+                var jsonCategory = await responseCategory.Content.ReadAsStringAsync();
+                var valuesCategory = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonCategory);
+                ViewBag.FooterCategories = valuesCategory?.Where(x => x.ShowOnHome && x.Status).ToList() ?? new List<ResultCategoryDto>();
+            }
+            else 
+            {
+                ViewBag.FooterCategories = new List<ResultCategoryDto>();
+            }
+
+            // 4. Fetch Social Media
             var responseSocial = await client.GetAsync("https://localhost:7184/api/SocialMedias");
             if (responseSocial.IsSuccessStatusCode)
             {

@@ -141,43 +141,6 @@
     </div>
 </div>
 
-<!-- Sosyal Medya Hesapları Kısalyolu -->
-<div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-hidden">
-    <div class="p-8">
-        <div class="flex justify-between items-center mb-6 pb-3 border-b border-slate-100">
-            <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
-                <i class="fa-solid fa-share-nodes text-pamir-brand"></i> Sosyal Medya Hesapları
-
-            </h3>
-            <a href="/Admin/SosyalMedia/Create" class="px-4 py-2 bg-[#0f172a] text-white rounded-xl text-sm font-bold hover:bg-pamir-brand transition-colors">
-                <i class="fa-solid fa-plus mr-1"></i> Yeni Ekle
-            </a>
-        </div>
-        
-        <div class="flex flex-wrap gap-4">
-            @if(ViewBag.SocialMedias != null && ((IEnumerable<PamirPlastik.WebUI.DTOs.SocialMediaDtos.ResultSocialMediaDto>)ViewBag.SocialMedias).Any())
-            {
-                foreach(var sm in (ViewBag.SocialMedias as IEnumerable<PamirPlastik.WebUI.DTOs.SocialMediaDtos.ResultSocialMediaDto>))
-                {
-                    <a href="/Admin/SocialMedia/Edit/@sm.SocialMediaID" class="group flex items-center gap-3 px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl hover:border-pamir-brand transition-all">
-                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-600 group-hover:text-pamir-brand shadow-sm">
-                            <i class="@sm.IconClass text-lg"></i>
-                        </div>
-                        <div>
-                            <p class="text-sm font-bold text-slate-800">@sm.PlatformName</p>
-                            <p class="text-xs text-slate-500 font-medium">@(sm.IsActive ? "Aktif" : "Pasif")</p>
-                        </div>
-                    </a>
-                }
-            }
-            else
-            {
-                <p class="text-sm text-slate-500">Henüz sosyal medya hesabı eklenmemiş.</p>
-            }
-        </div>
-    </div>
-</div>
-
 <script>
     @if (TempData["SuccessMessage"] != null)
     {

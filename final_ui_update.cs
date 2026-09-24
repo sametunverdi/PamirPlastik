@@ -1,4 +1,14 @@
-﻿@{
+﻿using System;
+using System.IO;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        string path = @"c:\Users\Samet\Desktop\Project\PamirPlastik\Frontends\PamirPlastik.WebUI\Areas\Admin\Views\Dashboard\Index.cshtml";
+        string content = @"
+@{
     ViewData["Title"] = "Dashboard";
 }
 
@@ -23,177 +33,125 @@
     </div>
 </div>
 
-<!-- 12 GRADIENT CARDS -->
+<!-- 8 FIRE CARDS -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-
+    
     <!-- Toplam Ürün -->
-    <div class="relative bg-gradient-to-r from-blue-500 to-cyan-400 rounded-3xl p-6 overflow-hidden shadow-lg group hover:-translate-y-2 transition-transform duration-300">
-        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500"></div>
-        <div class="relative z-10 flex justify-between items-start text-white">
+    <div class="relative bg-gradient-to-br from-[#0f172a] to-[#1e293b] rounded-3xl p-6 overflow-hidden border border-slate-700/50 shadow-[0_10px_30px_rgba(0,0,0,0.2)] group hover:-translate-y-2 transition-all duration-300">
+        <div class="absolute -right-6 -top-6 w-32 h-32 bg-blue-500/20 blur-3xl rounded-full group-hover:bg-blue-500/30 transition-all"></div>
+        <div class="relative z-10 flex justify-between items-start">
             <div>
-                <p class="font-black text-[11px] uppercase tracking-[0.2em] mb-2 opacity-80">Toplam Ürün</p>
-                <h3 class="text-4xl font-black drop-shadow-md">@ViewBag.ProductCount</h3>
+                <p class="text-slate-400 font-bold text-[11px] uppercase tracking-[0.2em] mb-2">Toplam Ürün</p>
+                <h3 class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">@ViewBag.ProductCount</h3>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shadow-inner">
-                <i class="fa-solid fa-box text-xl"></i>
-            </div>
-        </div>
-    </div>
-
-    <!-- Aktif Ürünler -->
-    <div class="relative bg-gradient-to-r from-emerald-400 to-teal-500 rounded-3xl p-6 overflow-hidden shadow-lg group hover:-translate-y-2 transition-transform duration-300">
-        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500"></div>
-        <div class="relative z-10 flex justify-between items-start text-white">
-            <div>
-                <p class="font-black text-[11px] uppercase tracking-[0.2em] mb-2 opacity-80">Aktif Ürünler</p>
-                <h3 class="text-4xl font-black drop-shadow-md">@ViewBag.ActiveProductCount</h3>
-            </div>
-            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shadow-inner">
+            <div class="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.3)]">
                 <i class="fa-solid fa-box-open text-xl"></i>
             </div>
         </div>
     </div>
 
     <!-- Kategoriler -->
-    <div class="relative bg-gradient-to-r from-purple-500 to-indigo-500 rounded-3xl p-6 overflow-hidden shadow-lg group hover:-translate-y-2 transition-transform duration-300">
-        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500"></div>
-        <div class="relative z-10 flex justify-between items-start text-white">
+    <div class="relative bg-gradient-to-br from-[#0f172a] to-[#1e293b] rounded-3xl p-6 overflow-hidden border border-slate-700/50 shadow-[0_10px_30px_rgba(0,0,0,0.2)] group hover:-translate-y-2 transition-all duration-300">
+        <div class="absolute -right-6 -top-6 w-32 h-32 bg-purple-500/20 blur-3xl rounded-full group-hover:bg-purple-500/30 transition-all"></div>
+        <div class="relative z-10 flex justify-between items-start">
             <div>
-                <p class="font-black text-[11px] uppercase tracking-[0.2em] mb-2 opacity-80">Toplam Kategori</p>
-                <h3 class="text-4xl font-black drop-shadow-md">@ViewBag.CategoryCount</h3>
+                <p class="text-slate-400 font-bold text-[11px] uppercase tracking-[0.2em] mb-2">Kategoriler</p>
+                <h3 class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">@ViewBag.CategoryCount</h3>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shadow-inner">
+            <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.3)]">
                 <i class="fa-solid fa-layer-group text-xl"></i>
             </div>
         </div>
     </div>
 
-    <!-- Aktif Kategoriler -->
-    <div class="relative bg-gradient-to-r from-violet-400 to-fuchsia-500 rounded-3xl p-6 overflow-hidden shadow-lg group hover:-translate-y-2 transition-transform duration-300">
-        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500"></div>
-        <div class="relative z-10 flex justify-between items-start text-white">
-            <div>
-                <p class="font-black text-[11px] uppercase tracking-[0.2em] mb-2 opacity-80">Aktif Kategori</p>
-                <h3 class="text-4xl font-black drop-shadow-md">@ViewBag.ActiveCategoryCount</h3>
-            </div>
-            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shadow-inner">
-                <i class="fa-solid fa-tags text-xl"></i>
-            </div>
-        </div>
-    </div>
-
     <!-- Tüm Mesajlar -->
-    <div class="relative bg-gradient-to-r from-cyan-500 to-blue-600 rounded-3xl p-6 overflow-hidden shadow-lg group hover:-translate-y-2 transition-transform duration-300">
-        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500"></div>
-        <div class="relative z-10 flex justify-between items-start text-white">
+    <div class="relative bg-gradient-to-br from-[#0f172a] to-[#1e293b] rounded-3xl p-6 overflow-hidden border border-slate-700/50 shadow-[0_10px_30px_rgba(0,0,0,0.2)] group hover:-translate-y-2 transition-all duration-300">
+        <div class="absolute -right-6 -top-6 w-32 h-32 bg-cyan-500/20 blur-3xl rounded-full group-hover:bg-cyan-500/30 transition-all"></div>
+        <div class="relative z-10 flex justify-between items-start">
             <div>
-                <p class="font-black text-[11px] uppercase tracking-[0.2em] mb-2 opacity-80">Tüm Mesajlar</p>
-                <h3 class="text-4xl font-black drop-shadow-md">@ViewBag.TotalContactMessageCount</h3>
+                <p class="text-slate-400 font-bold text-[11px] uppercase tracking-[0.2em] mb-2">Toplam Mesaj</p>
+                <h3 class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-300">@ViewBag.TotalContactMessageCount</h3>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shadow-inner">
-                <i class="fa-solid fa-envelope text-xl"></i>
-            </div>
-        </div>
-    </div>
-
-    <!-- Okunmamış Mesajlar -->
-    <div class="relative bg-gradient-to-r from-rose-500 to-red-600 rounded-3xl p-6 overflow-hidden shadow-lg group hover:-translate-y-2 transition-transform duration-300">
-        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500"></div>
-        <div class="relative z-10 flex justify-between items-start text-white">
-            <div>
-                <p class="font-black text-[11px] uppercase tracking-[0.2em] mb-2 opacity-80">Okunmamış Mesaj</p>
-                <h3 class="text-4xl font-black drop-shadow-md">@ViewBag.UnreadMessageCount</h3>
-            </div>
-            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shadow-inner">
-                <i class="fa-solid fa-envelope-open-text text-xl"></i>
+            <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
+                <i class="fa-solid fa-comments text-xl"></i>
             </div>
         </div>
     </div>
 
     <!-- İş Başvuruları -->
-    <div class="relative bg-gradient-to-r from-pink-500 to-rose-400 rounded-3xl p-6 overflow-hidden shadow-lg group hover:-translate-y-2 transition-transform duration-300">
-        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500"></div>
-        <div class="relative z-10 flex justify-between items-start text-white">
+    <div class="relative bg-gradient-to-br from-[#0f172a] to-[#1e293b] rounded-3xl p-6 overflow-hidden border border-slate-700/50 shadow-[0_10px_30px_rgba(0,0,0,0.2)] group hover:-translate-y-2 transition-all duration-300">
+        <div class="absolute -right-6 -top-6 w-32 h-32 bg-pink-500/20 blur-3xl rounded-full group-hover:bg-pink-500/30 transition-all"></div>
+        <div class="relative z-10 flex justify-between items-start">
             <div>
-                <p class="font-black text-[11px] uppercase tracking-[0.2em] mb-2 opacity-80">İş Başvuruları</p>
-                <h3 class="text-4xl font-black drop-shadow-md">@ViewBag.TotalJobApplicationCount</h3>
+                <p class="text-slate-400 font-bold text-[11px] uppercase tracking-[0.2em] mb-2">İş Başvuruları</p>
+                <h3 class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400">@ViewBag.TotalJobApplicationCount</h3>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shadow-inner">
+            <div class="w-12 h-12 rounded-2xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 shadow-[0_0_15px_rgba(236,72,153,0.3)]">
                 <i class="fa-solid fa-user-tie text-xl"></i>
             </div>
         </div>
     </div>
 
     <!-- Renk Seçenekleri -->
-    <div class="relative bg-gradient-to-r from-orange-400 to-amber-500 rounded-3xl p-6 overflow-hidden shadow-lg group hover:-translate-y-2 transition-transform duration-300">
-        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500"></div>
-        <div class="relative z-10 flex justify-between items-start text-white">
+    <div class="relative bg-gradient-to-br from-[#0f172a] to-[#1e293b] rounded-3xl p-6 overflow-hidden border border-slate-700/50 shadow-[0_10px_30px_rgba(0,0,0,0.2)] group hover:-translate-y-2 transition-all duration-300">
+        <div class="absolute -right-6 -top-6 w-32 h-32 bg-emerald-500/20 blur-3xl rounded-full group-hover:bg-emerald-500/30 transition-all"></div>
+        <div class="relative z-10 flex justify-between items-start">
             <div>
-                <p class="font-black text-[11px] uppercase tracking-[0.2em] mb-2 opacity-80">Renk Seçeneği</p>
-                <h3 class="text-4xl font-black drop-shadow-md">@ViewBag.TotalColorCount</h3>
+                <p class="text-slate-400 font-bold text-[11px] uppercase tracking-[0.2em] mb-2">Renk Seçeneği</p>
+                <h3 class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-300">@ViewBag.TotalColorCount</h3>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shadow-inner">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
                 <i class="fa-solid fa-palette text-xl"></i>
             </div>
         </div>
     </div>
 
     <!-- Toplam Fuar -->
-    <div class="relative bg-gradient-to-r from-slate-600 to-slate-800 rounded-3xl p-6 overflow-hidden shadow-lg group hover:-translate-y-2 transition-transform duration-300">
-        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500"></div>
-        <div class="relative z-10 flex justify-between items-start text-white">
+    <div class="relative bg-gradient-to-br from-[#0f172a] to-[#1e293b] rounded-3xl p-6 overflow-hidden border border-slate-700/50 shadow-[0_10px_30px_rgba(0,0,0,0.2)] group hover:-translate-y-2 transition-all duration-300">
+        <div class="absolute -right-6 -top-6 w-32 h-32 bg-teal-500/20 blur-3xl rounded-full group-hover:bg-teal-500/30 transition-all"></div>
+        <div class="relative z-10 flex justify-between items-start">
             <div>
-                <p class="font-black text-[11px] uppercase tracking-[0.2em] mb-2 opacity-80">Toplam Fuar</p>
-                <h3 class="text-4xl font-black drop-shadow-md">@ViewBag.TotalFairCount</h3>
+                <p class="text-slate-400 font-bold text-[11px] uppercase tracking-[0.2em] mb-2">Etkinlik/Fuar</p>
+                <h3 class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-300">@ViewBag.TotalFairCount</h3>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shadow-inner">
-                <i class="fa-solid fa-calendar-days text-xl"></i>
+            <div class="w-12 h-12 rounded-2xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 shadow-[0_0_15px_rgba(20,184,166,0.3)]">
+                <i class="fa-solid fa-calendar-alt text-xl"></i>
             </div>
         </div>
     </div>
 
-    <!-- Yaklaşan Fuarlar -->
-    <div class="relative bg-gradient-to-r from-indigo-500 to-blue-600 rounded-3xl p-6 overflow-hidden shadow-lg group hover:-translate-y-2 transition-transform duration-300">
-        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500"></div>
-        <div class="relative z-10 flex justify-between items-start text-white">
+    <!-- Okunmamış Mesajlar -->
+    <a href="/Admin/Message" class="block relative bg-gradient-to-br from-[#0f172a] to-[#1e293b] rounded-3xl p-6 overflow-hidden border border-red-500/30 shadow-[0_10px_30px_rgba(220,38,38,0.15)] group hover:-translate-y-2 transition-all duration-300 cursor-pointer">
+        <div class="absolute -right-6 -top-6 w-32 h-32 bg-red-500/20 blur-3xl rounded-full group-hover:bg-red-500/40 transition-all"></div>
+        <div class="relative z-10 flex justify-between items-start">
             <div>
-                <p class="font-black text-[11px] uppercase tracking-[0.2em] mb-2 opacity-80">Yaklaşan Fuar</p>
-                <h3 class="text-4xl font-black drop-shadow-md">@ViewBag.UpcomingFairCount</h3>
+                <p class="text-slate-400 font-bold text-[11px] uppercase tracking-[0.2em] mb-2">Bekleyen Mesaj</p>
+                <h3 class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-400">@ViewBag.UnreadMessageCount</h3>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shadow-inner">
-                <i class="fa-solid fa-rocket text-xl"></i>
+            <div class="relative w-12 h-12 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.4)]">
+                <i class="fa-solid fa-envelope-open-text text-xl group-hover:scale-110 transition-transform"></i>
+                @if(ViewBag.UnreadMessageCount > 0)
+                {
+                    <div class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
+                    <div class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 border border-[#0f172a] rounded-full"></div>
+                }
             </div>
         </div>
-    </div>
+    </a>
 
     <!-- Sosyal Medya -->
-    <div class="relative bg-gradient-to-r from-sky-400 to-indigo-500 rounded-3xl p-6 overflow-hidden shadow-lg group hover:-translate-y-2 transition-transform duration-300">
-        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500"></div>
-        <div class="relative z-10 flex justify-between items-start text-white">
+    <div class="relative bg-gradient-to-br from-[#0f172a] to-[#1e293b] rounded-3xl p-6 overflow-hidden border border-slate-700/50 shadow-[0_10px_30px_rgba(0,0,0,0.2)] group hover:-translate-y-2 transition-all duration-300">
+        <div class="absolute -right-6 -top-6 w-32 h-32 bg-amber-500/20 blur-3xl rounded-full group-hover:bg-amber-500/30 transition-all"></div>
+        <div class="relative z-10 flex justify-between items-start">
             <div>
-                <p class="font-black text-[11px] uppercase tracking-[0.2em] mb-2 opacity-80">Sosyal Medya</p>
-                <h3 class="text-4xl font-black drop-shadow-md">@ViewBag.TotalSocialMediaCount</h3>
+                <p class="text-slate-400 font-bold text-[11px] uppercase tracking-[0.2em] mb-2">Sosyal Medya</p>
+                <h3 class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-300">@ViewBag.TotalSocialMediaCount</h3>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shadow-inner">
-                <i class="fa-solid fa-share-nodes text-xl"></i>
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.3)]">
+                <i class="fa-solid fa-hashtag text-xl"></i>
             </div>
         </div>
     </div>
-
-    <!-- Canlı Ziyaretçi -->
-    <div class="relative bg-gradient-to-r from-amber-400 to-red-500 rounded-3xl p-6 overflow-hidden shadow-lg group hover:-translate-y-2 transition-transform duration-300">
-        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-500"></div>
-        <div class="relative z-10 flex justify-between items-start text-white">
-            <div>
-                <p class="font-black text-[11px] uppercase tracking-[0.2em] mb-2 opacity-80">Toplam Ziyaretçi</p>
-                <h3 class="text-4xl font-black drop-shadow-md">@ViewBag.TotalVisitorCount</h3>
-            </div>
-            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shadow-inner flex-col">
-                <i class="fa-solid fa-eye text-xl"></i>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <!-- CHARTS SECTION -->
@@ -227,13 +185,13 @@
     <div class="bg-gradient-to-br from-[#0f172a] to-[#1e293b] rounded-3xl p-8 shadow-xl border border-slate-700/50">
         <h3 class="text-lg font-black text-white mb-6"><i class="fa-solid fa-bolt text-yellow-400 mr-2"></i>Hızlı İşlem Merkezi</h3>
         <div class="grid grid-cols-2 gap-4">
+            <a href="/Admin/Product/Create" class="flex flex-col items-center justify-center gap-3 bg-white/5 hover:bg-white/10 p-6 rounded-2xl border border-white/10 transition-colors group">
+                <div class="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform"><i class="fa-solid fa-box-open text-xl"></i></div>
+                <span class="text-slate-300 font-bold text-sm">Yeni Ürün Ekle</span>
+            </a>
             <a href="/Admin/Category/Create" class="flex flex-col items-center justify-center gap-3 bg-white/5 hover:bg-white/10 p-6 rounded-2xl border border-white/10 transition-colors group">
                 <div class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform"><i class="fa-solid fa-layer-group text-xl"></i></div>
                 <span class="text-slate-300 font-bold text-sm">Kategori Aç</span>
-            </a>
-            <a href="/Admin/Fair/Create" class="flex flex-col items-center justify-center gap-3 bg-white/5 hover:bg-white/10 p-6 rounded-2xl border border-white/10 transition-colors group">
-                <div class="w-12 h-12 bg-teal-500/20 rounded-full flex items-center justify-center text-teal-400 group-hover:scale-110 transition-transform"><i class="fa-solid fa-calendar-plus text-xl"></i></div>
-                <span class="text-slate-300 font-bold text-sm">Fuar Ekle</span>
             </a>
             <a href="/Admin/Message" class="flex flex-col items-center justify-center gap-3 bg-white/5 hover:bg-white/10 p-6 rounded-2xl border border-white/10 transition-colors group">
                 <div class="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center text-red-400 group-hover:scale-110 transition-transform"><i class="fa-solid fa-envelope text-xl"></i></div>
@@ -390,3 +348,7 @@
         });
     });
 </script>
+";
+        File.WriteAllText(path, content.Replace(""", "\""), Encoding.UTF8);
+    }
+}

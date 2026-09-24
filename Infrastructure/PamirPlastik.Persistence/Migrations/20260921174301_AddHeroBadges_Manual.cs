@@ -10,13 +10,9 @@ namespace PamirPlastik.Persistence.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "ColorHex",
-                table: "ProductColors");
+            // Drop ColorHex fixed
 
-            migrationBuilder.DropColumn(
-                name: "ColorName",
-                table: "ProductColors");
+            // Drop ColorName fixed
 
             migrationBuilder.AlterColumn<string>(
                 name: "Url",

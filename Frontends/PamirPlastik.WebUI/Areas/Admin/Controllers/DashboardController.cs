@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using PamirPlastik.WebUI.DTOs.CategoryDtos;
-using PamirPlastik.WebUI.DTOs.ContactDtos;
-using PamirPlastik.WebUI.DTOs.ContactMessageDtos;
-using PamirPlastik.WebUI.DTOs.ProductDtos;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 {
@@ -19,10 +19,23 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
+            // Canlı Ziyaretçi Sayacını Oku (WebUI anasayfasından besleniyor)
+            try
+            {
+                string countFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "visitor_count.txt");
+                if (System.IO.File.Exists(countFilePath))
+                {
+                    ViewBag.TotalVisitorCount = System.IO.File.ReadAllText(countFilePath);
+                }
+                else 
+                {
+                    ViewBag.TotalVisitorCount = "0";
+                }
+            }
+            catch { ViewBag.TotalVisitorCount = "0"; }
+
             var client = _httpClientFactory.CreateClient();
             
-
-
             try 
             {
                 var response = await client.GetAsync("https://localhost:7184/api/Statistics");
@@ -33,10 +46,23 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
                     
                     if (stats != null)
                     {
-                        ViewBag.ProductCount = stats.TotalProductCount;
+                                                ViewBag.ProductCount = stats.TotalProductCount;
+                        ViewBag.ActiveProductCount = stats.ActiveProductCount;
                         ViewBag.CategoryCount = stats.TotalCategoryCount;
+                        ViewBag.ActiveCategoryCount = stats.ActiveCategoryCount;
                         ViewBag.UnreadMessageCount = stats.UnreadMessageCount;
                         ViewBag.UpcomingFairCount = stats.UpcomingFairCount;
+                        
+                        ViewBag.TotalFairCount = stats.TotalFairCount;
+                        ViewBag.TotalJobApplicationCount = stats.TotalJobApplicationCount;
+                        ViewBag.TotalContactMessageCount = stats.TotalContactMessageCount;
+                        ViewBag.TotalColorCount = stats.TotalColorCount;
+                        ViewBag.TotalSocialMediaCount = stats.TotalSocialMediaCount;
+
+                        ViewBag.CategoryNames = JsonConvert.SerializeObject(stats.CategoryNames);
+                        ViewBag.CategoryProductCounts = JsonConvert.SerializeObject(stats.CategoryProductCounts);
+                        ViewBag.Last7Days = JsonConvert.SerializeObject(stats.Last7Days);
+                        ViewBag.Last7DaysMessageCounts = JsonConvert.SerializeObject(stats.Last7DaysMessageCounts);
                     }
                 }
             } 

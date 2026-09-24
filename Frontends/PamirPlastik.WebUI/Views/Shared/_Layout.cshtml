@@ -96,14 +96,14 @@
                     </a>
 
                     <div class="relative group cursor-pointer border-l-2 border-gray-200 pl-6 flex items-center gap-1 font-bold text-gray-700 py-2">
-                        <span class="group-hover:text-[#ffda44] transition-colors">TR</span>
+                        <img src="https://flagcdn.com/w20/tr.png" width="20" class="rounded-[2px] shadow-sm" alt="TR">
                         <svg class="w-4 h-4 transition-transform group-hover:rotate-180 text-[#ffda44]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                         <div class="absolute right-0 top-full mt-0 w-32 bg-white shadow-xl border border-gray-100 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
                             <div class="py-2">
-                                <a href="?lang=tr" class="block px-4 py-2 text-sm font-bold text-pamir-brand bg-blue-50/50">TR - Türkçe</a>
-                                <a href="?lang=en" class="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-[#ffda44] transition-colors">EN - English</a>
+                                <a href="?lang=tr" class="block px-4 py-2 text-sm font-bold text-pamir-brand bg-blue-50/50 flex items-center gap-2"><img src="https://flagcdn.com/w20/tr.png" width="20" class="rounded-[2px] shadow-sm" alt="TR"> Türkçe</a>
+                                <a href="?lang=en" class="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-[#ffda44] transition-colors flex items-center gap-2"><img src="https://flagcdn.com/w20/gb.png" width="20" class="rounded-[2px] shadow-sm" alt="EN"> English</a>
                             </div>
                         </div>
                     </div>
@@ -195,6 +195,15 @@
                 </div>
                 <svg class="w-5 h-5 text-white/50 group-hover:text-[#ffda44] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </a>
+            <a href="/Contact/Index?openJobModal=true" class="group flex items-center justify-between py-4 px-5 rounded-2xl bg-gray-50 hover:bg-[#0f172a] transition-all duration-300">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-pamir-brand shadow-sm group-hover:bg-[#ffda44] group-hover:text-[#0f172a] transition-all">
+                        <i class="fa-solid fa-briefcase text-lg"></i>
+                    </div>
+                    <span class="text-base font-extrabold text-gray-800 group-hover:text-white transition-colors">İş Başvurusu</span>
+                </div>
+                <svg class="w-5 h-5 text-gray-300 group-hover:text-[#ffda44] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </a>
 
             <details class="group mt-6">
                 <summary class="flex items-center justify-between py-4 px-5 cursor-pointer bg-white border border-gray-100 rounded-2xl transition-all hover:border-[#ffda44]">
@@ -202,28 +211,18 @@
                         <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-pamir-brand">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
                         </div>
-                        <span class="text-sm font-bold text-gray-600 uppercase">Dil / Language: <span class="text-pamir-brand">TR</span></span>
+                        <span class="text-sm font-bold text-gray-600 uppercase flex items-center gap-2">Dil: <img src="https://flagcdn.com/w20/tr.png" width="20" class="rounded-[2px] shadow-sm" alt="TR"></span>
                     </div>
                     <svg class="w-5 h-5 text-gray-400 transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </summary>
                 <div class="px-5 py-2 space-y-1 mt-2">
-                    <a href="?lang=tr" class="block py-3 px-4 text-sm font-bold text-pamir-brand bg-blue-50 rounded-xl border-l-4 border-pamir-brand">Türkçe</a>
-                    <a href="?lang=en" class="block py-3 px-4 text-sm font-bold text-gray-500 hover:text-pamir-brand transition-colors">English</a>
+                    <a href="?lang=tr" class="flex items-center gap-3 py-3 px-4 text-sm font-bold text-pamir-brand bg-blue-50 rounded-xl border-l-4 border-pamir-brand"><img src="https://flagcdn.com/w20/tr.png" width="20" class="rounded-[2px] shadow-sm" alt="TR"> Türkçe</a>
+                    <a href="?lang=en" class="flex items-center gap-3 py-3 px-4 text-sm font-bold text-gray-500 hover:text-pamir-brand transition-colors"><img src="https://flagcdn.com/w20/gb.png" width="20" class="rounded-[2px] shadow-sm" alt="EN"> English</a>
                 </div>
             </details>
         </div>
 
-        <div class="px-6 py-8 border-t border-gray-50 bg-white">
-            <a href="tel:+902125550123" class="relative group flex items-center justify-center gap-3 w-full py-5 bg-[#0f172a] text-white rounded-[1.5rem] font-black shadow-xl shadow-blue-900/10 overflow-hidden transition-all active:scale-95">
-                <div class="absolute inset-0 bg-gradient-to-r from-pamir-brand to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div class="relative flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-[#ffda44] flex items-center justify-center text-[#0f172a]">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                    </div>
-                    <span class="tracking-tight text-lg">Hemen Bizi Arayın</span>
-                </div>
-            </a>
-        </div>
+        
     </div>
 
     <main class="flex-grow">
