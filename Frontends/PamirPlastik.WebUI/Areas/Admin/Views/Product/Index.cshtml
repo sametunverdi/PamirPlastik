@@ -1,9 +1,11 @@
-@model List<PamirPlastik.WebUI.DTOs.ProductDtos.ResultProductDto>
+﻿@model List<PamirPlastik.WebUI.DTOs.ProductDtos.ResultProductDto>
 @{
     ViewData["Title"] = "Ürünler";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
+<!-- Alpine.js (Filtreleme ve Sayfalama için) -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js" defer></script>
 <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
     <div>
         <h1 class="text-2xl font-bold text-slate-800">Ürünler</h1>
@@ -14,7 +16,7 @@
     </a>
 </div>
 
-<div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+<div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden" x-data="productTable()">
     @if (Model == null || !Model.Any())
     {
         <div class="text-center py-20 px-4">
@@ -30,8 +32,36 @@
     }
     else
     {
-        <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse whitespace-nowrap lg:whitespace-normal">
+        <!-- TOOLBAR: SEARCH & CATEGORY FILTERS -->
+        <div class="p-4 border-b border-slate-200 bg-slate-50/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            
+            <!-- CATEGORY TABS -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide flex-1">
+                <button type="button" @@click="setCategory('All')" 
+                        :class="category === 'All' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'" 
+                        class="px-4 py-2 text-sm font-semibold border rounded-lg whitespace-nowrap transition-all">
+                    Tümü
+                </button>
+                <template x-for="cat in categories" :key="cat">
+                    <button type="button" @@click="setCategory(cat)" 
+                            :class="category === cat ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'" 
+                            class="px-4 py-2 text-sm font-semibold border rounded-lg whitespace-nowrap transition-all"
+                            x-text="cat"></button>
+                </template>
+            </div>
+
+            <!-- SEARCH BAR -->
+            <div class="relative w-full md:w-64 flex-shrink-0">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <i class="fa-solid fa-magnifying-glass text-slate-400"></i>
+                </div>
+                <input type="text" x-model="search" placeholder="Ürün Adı veya Kodu..." class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-shadow bg-white">
+            </div>
+        </div>
+
+        <!-- PRODUCT TABLE -->
+        <div class="overflow-x-auto min-h-[400px]">
+            <table class="w-full text-left border-collapse whitespace-nowrap lg:whitespace-normal" x-show="totalItems > 0">
                 <thead>
                     <tr class="bg-slate-50/80 text-slate-500 text-xs uppercase tracking-wider border-b border-slate-200">
                         <th class="px-6 py-4 font-bold w-16 text-center">Görsel</th>
@@ -45,7 +75,11 @@
                 <tbody class="divide-y divide-slate-100 text-sm">
                     @foreach (var item in Model)
                     {
-                        <tr class="hover:bg-indigo-50/30 transition-colors bg-white text-slate-700 group" id="row-@item.ProductID">
+                        <tr class="product-row hover:bg-indigo-50/30 transition-colors bg-white text-slate-700 group" 
+                            id="row-@item.ProductID"
+                            data-category="@(string.IsNullOrEmpty(item.CategoryName) ? "Kategorisiz" : item.CategoryName)" 
+                            data-name="@(item.Name_TR?.ToLower())" 
+                            data-code="@(item.ProductCode?.ToLower())">
                             
                             <td class="px-6 py-4 text-center">
                                 @if (!string.IsNullOrEmpty(item.MainImageUrl))
@@ -122,12 +156,131 @@
                     }
                 </tbody>
             </table>
+            
+            <!-- EMPTY STATE FOR SEARCH -->
+            <div x-show="totalItems === 0" class="py-12 text-center" style="display: none;">
+                <div class="text-slate-400 mb-2"><i class="fa-solid fa-magnifying-glass text-3xl"></i></div>
+                <h4 class="text-slate-600 font-bold">Sonuç Bulunamadı</h4>
+                <p class="text-slate-400 text-sm">Arama kriterlerinize uyan ürün bulunmuyor.</p>
+            </div>
+        </div>
+
+        <!-- PAGINATION FOOTER -->
+        <div x-show="totalItems > 0" class="border-t border-slate-200 p-4 bg-slate-50/50 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-sm text-slate-500 font-medium">
+                Toplam <span class="font-bold text-slate-800" x-text="totalItems"></span> ürün arasından 
+                <span class="font-bold text-slate-800" x-text="(page - 1) * perPage + 1"></span> - 
+                <span class="font-bold text-slate-800" x-text="Math.min(page * perPage, totalItems)"></span> arası gösteriliyor
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <button @@click="prevPage()" :disabled="page === 1" 
+                        :class="page === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-slate-200'"
+                        class="px-3 py-1.5 border border-slate-300 bg-white text-slate-600 rounded-lg text-sm font-semibold transition-colors">
+                    Önceki
+                </button>
+                
+                <!-- Page Indicator -->
+                <div class="px-4 py-1.5 text-sm font-bold text-slate-700">
+                    <span x-text="page"></span> / <span x-text="totalPages"></span>
+                </div>
+                
+                <button @@click="nextPage()" :disabled="page === totalPages || totalPages === 0" 
+                        :class="page === totalPages || totalPages === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-slate-200'"
+                        class="px-3 py-1.5 border border-slate-300 bg-white text-slate-600 rounded-lg text-sm font-semibold transition-colors">
+                    Sonraki
+                </button>
+            </div>
         </div>
     }
 </div>
 
 @section Scripts {
     <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('productTable', () => ({
+                search: '',
+                category: 'All',
+                page: 1,
+                perPage: 10,
+                categories: [],
+                totalItems: 0,
+                
+                init() {
+                    // Sayfa yüklendiğinde mevcut kategorileri DOM'dan topla
+                    const rows = Array.from(document.querySelectorAll('.product-row'));
+                    const cats = new Set();
+                    rows.forEach(r => {
+                        const cat = r.getAttribute('data-category');
+                        if (cat && cat !== '') cats.add(cat);
+                    });
+                    this.categories = Array.from(cats).sort();
+                    
+                    // İlk güncellemeyi yap
+                    this.updateView();
+                    
+                    // Arama veya kategori değiştiğinde sayfayı 1'e alıp güncelle
+                    this.$watch('search', () => { this.page = 1; this.updateView(); });
+                    this.$watch('category', () => { this.page = 1; this.updateView(); });
+                    
+                    // Sayfa değiştiğinde sadece görünümü güncelle
+                    this.$watch('page', () => this.updateView());
+                },
+                
+                setCategory(cat) {
+                    this.category = cat;
+                },
+                
+                get totalPages() {
+                    return Math.max(1, Math.ceil(this.totalItems / this.perPage));
+                },
+                
+                prevPage() {
+                    if (this.page > 1) this.page--;
+                },
+                
+                nextPage() {
+                    if (this.page < this.totalPages) this.page++;
+                },
+                
+                updateView() {
+                    const rows = Array.from(document.querySelectorAll('.product-row'));
+                    const searchLower = this.search.toLowerCase();
+                    let visibleRows = [];
+                    
+                    // 1. Aşama: Arama ve Kategori Filtrelemesi
+                    rows.forEach(row => {
+                        const name = row.getAttribute('data-name') || '';
+                        const code = row.getAttribute('data-code') || '';
+                        const cat = row.getAttribute('data-category') || '';
+                        
+                        const matchesSearch = name.includes(searchLower) || code.includes(searchLower);
+                        const matchesCat = this.category === 'All' || cat === this.category;
+                        
+                        if (matchesSearch && matchesCat) {
+                            visibleRows.push(row);
+                        } else {
+                            row.style.display = 'none'; // Filtreye uymayanları gizle
+                        }
+                    });
+                    
+                    this.totalItems = visibleRows.length;
+                    
+                    // 2. Aşama: Sayfalama (Pagination)
+                    const start = (this.page - 1) * this.perPage;
+                    const end = start + this.perPage;
+                    
+                    visibleRows.forEach((row, index) => {
+                        if (index >= start && index < end) {
+                            row.style.display = ''; // Sayfada gösterilecekleri aç
+                        } else {
+                            row.style.display = 'none'; // Diğer sayfalardakileri gizle
+                        }
+                    });
+                }
+            }));
+        });
+
         async function deleteProduct(id) {
             const swalResult = await Swal.fire({
             title: 'Emin misiniz?',
@@ -141,12 +294,12 @@
         });
         if (swalResult.isConfirmed) {
                 try {
-                    const response = await fetch(`/Admin/Product/DeleteProduct/${id}`, { method: 'POST' });
+                    const response = await fetch('/Admin/Product/DeleteProduct/' + id, { method: 'POST' });
                     const data = await response.json();
                     if (data.success) {
                         if(typeof showToast === 'function') showToast("Ürün başarıyla silindi", "success");
-                        const row = document.getElementById(`row-${id}`);
-                        if (row) row.remove();
+                        // Sayfayı yenile ki Alpine JS sayıyı vs güncellesin
+                        setTimeout(() => window.location.reload(), 1000);
                     } else {
                         if(typeof showToast === 'function') showToast(data.message || "Silme işlemi başarısız oldu", "error");
                     }

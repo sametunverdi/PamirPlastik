@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="utf-8" />
@@ -127,14 +127,10 @@
                 <h3 class="px-4 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Kurumsal Yönetim</h3>
                 <div class="space-y-1">
                     <a href="/Admin/About" class="@GetLinkClass("/admin/about")">
-                        <i class="fa-solid fa-building @GetIconClass("/admin/about")"></i> <span class="text-sm tracking-wide">Hakkımızda Metinleri</span>
+                        <i class="fa-solid fa-building @GetIconClass("/admin/about")"></i> <span class="text-sm tracking-wide">Kurumsal Ayarlar</span>
                     </a>
-                    <a href="/Admin/AboutFeature" class="@GetLinkClass("/admin/aboutfeature")">
-                        <i class="fa-solid fa-list-check @GetIconClass("/admin/aboutfeature")"></i> <span class="text-sm tracking-wide">Misyon & Özellikler</span>
-                    </a>
-                    <a href="/Admin/AboutImage" class="@GetLinkClass("/admin/aboutimage")">
-                        <i class="fa-solid fa-images @GetIconClass("/admin/aboutimage")"></i> <span class="text-sm tracking-wide">Kurumsal Galeri</span>
-                    </a>
+                    
+                    
                 </div>
             </div>
 
@@ -148,9 +144,12 @@
                     <a href="/Admin/SocialMedia" class="@GetLinkClass("/admin/socialmedia")">
                         <i class="fa-brands fa-instagram @GetIconClass("/admin/socialmedia")"></i> <span class="text-sm tracking-wide">Sosyal Medya</span>
                     </a>
-                    <a href="/Admin/Message" class="@GetLinkClass("/admin/message")">
-                        <i class="fa-solid fa-envelope @GetIconClass("/admin/message")"></i> <span class="text-sm tracking-wide">Gelen Mesajlar</span>
-                    </a>
+                                          <a href="/Admin/Message" class="@GetLinkClass("/admin/message")">
+                          <i class="fa-solid fa-envelope @GetIconClass("/admin/message")"></i> <span class="text-sm tracking-wide">Gelen Mesajlar</span>
+                      </a>
+                      <a href="/Admin/JobApplication" class="@GetLinkClass("/admin/jobapplication")">
+                          <i class="fa-solid fa-briefcase @GetIconClass("/admin/jobapplication")"></i> <span class="text-sm tracking-wide">İş Başvuruları</span>
+                        </a>
                 </div>
             </div>
         </nav>
@@ -165,12 +164,9 @@
                     <i class="fa-solid fa-bars text-xl"></i>
                 </button>
                 
-                <!-- Search Bar -->
-                <div class="relative w-full max-w-md hidden sm:block group">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <i class="fa-solid fa-search text-slate-400 group-focus-within:text-primary transition-colors"></i>
-                    </div>
-                    <input type="text" id="globalSearchInput" onkeyup="filterTable()" class="block w-full py-2.5 pl-10 pr-4 text-sm text-slate-900 border border-slate-200 rounded-xl bg-slate-50 hover:bg-white focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-sm" placeholder="Sayfada hızlı ara...">
+                <!-- Page Title -->
+                <div class="hidden sm:block ml-4">
+                    <h2 class="text-xl font-bold text-slate-800">@ViewData["Title"]</h2>
                 </div>
             </div>
             <div class="flex items-center gap-4 ml-4">

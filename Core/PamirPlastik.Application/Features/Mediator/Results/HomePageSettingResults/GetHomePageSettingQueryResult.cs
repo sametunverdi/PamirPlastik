@@ -1,4 +1,4 @@
-﻿namespace PamirPlastik.Application.Features.Mediator.Results.HomePageSettingResults
+namespace PamirPlastik.Application.Features.Mediator.Results.HomePageSettingResults
 {
     public class GetHomePageSettingQueryResult
     {
@@ -49,6 +49,7 @@
         public string? GlobContinent { get; set; }
         public string? GlobDealer { get; set; }
         public string? GlobSectorYear { get; set; }
+        public string? CatalogPdfUrl { get; set; }
         public string? CatTitleTop_TR { get; set; }
         public string? CatTitleTop_EN { get; set; }
         public string? CatTitleMain_TR { get; set; }

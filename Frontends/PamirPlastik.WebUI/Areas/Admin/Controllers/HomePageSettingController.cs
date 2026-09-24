@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+ï»¿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PamirPlastik.WebUI.DTOs.HomePageSettingDtos;
 using System.Text;
@@ -66,6 +66,22 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
                 updateHomePageSettingDto.ProdImageUrl = "/images/homepagesetting/" + newImageName;
             }
 
+            if (updateHomePageSettingDto.CatalogPdfFile != null)
+            {
+                var extension = Path.GetExtension(updateHomePageSettingDto.CatalogPdfFile.FileName);
+                var newFileName = Guid.NewGuid() + extension;
+                var location = Path.Combine((Directory.GetCurrentDirectory() ?? ""), "wwwroot/catalogs/", newFileName);
+                
+                var directory = Path.GetDirectoryName(location);
+                if (directory != null && !Directory.Exists(directory)) { Directory.CreateDirectory(directory); }
+
+                using (var stream = new FileStream(location, FileMode.Create))
+                {
+                    await updateHomePageSettingDto.CatalogPdfFile.CopyToAsync(stream);
+                }
+                updateHomePageSettingDto.CatalogPdfUrl = "/catalogs/" + newFileName;
+            }
+
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(updateHomePageSettingDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
@@ -74,13 +90,12 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             var responseMessage = await client.PutAsync("https://localhost:7184/api/HomePageSettings", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "Ana sayfa ayarlarý baþarýyla güncellendi.";
+                TempData["SuccessMessage"] = "Ana sayfa ayarlarÄ± baÅŸarÄ±yla gÃ¼ncellendi.";
                 return RedirectToAction("Edit", "HomePageSetting", new { area = "Admin" });
             }
             
-            TempData["ErrorMessage"] = "Ana sayfa ayarlarý güncellenirken bir hata oluþtu.";
+            TempData["ErrorMessage"] = "Ana sayfa ayarlarÄ± gÃ¼ncellenirken bir hata oluÅŸtu.";
             return View(updateHomePageSettingDto);
         }
     }
 }
-

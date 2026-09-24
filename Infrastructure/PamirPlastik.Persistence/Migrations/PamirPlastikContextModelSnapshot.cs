@@ -193,6 +193,9 @@ namespace PamirPlastik.Persistence.Migrations
                     b.Property<string>("Name_TR")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("ShowOnHome")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
 
@@ -388,6 +391,9 @@ namespace PamirPlastik.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CatTitleTop_TR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CatalogPdfUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EcomCommentCount")
@@ -643,23 +649,15 @@ namespace PamirPlastik.Persistence.Migrations
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.ProductColor", b =>
                 {
-                    b.Property<int>("ProductColorID")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("ProductID")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductColorID"));
 
                     b.Property<int>("ColorID")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductColorID");
+                    b.HasKey("ProductID", "ColorID");
 
                     b.HasIndex("ColorID");
-
-                    b.HasIndex("ProductID");
 
                     b.ToTable("ProductColors");
                 });

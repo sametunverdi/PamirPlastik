@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PamirPlastik.WebUI.DTOs.AboutDtos;
 using System.Text;
@@ -44,10 +44,10 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             var responseMessage = await client.PostAsync("https://localhost:7184/api/AboutFeatures", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "Özellik eklendi.";
-                return RedirectToAction("Index");
+                TempData["SuccessMessage"] = "İşlem başarıyla gerçekleşti.";
+                return RedirectToAction("Index", "About", new { area = "Admin", tab = "features" });
             }
-            TempData["ErrorMessage"] = "Özellik eklenirken bir hata oluştu.";
+            TempData["ErrorMessage"] = "İşlem sırasında bir hata oluştu.";
             return View(createAboutFeatureDto);
         }
 
@@ -55,14 +55,29 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7184/api/AboutFeatures/{id}");
+            var responseMessage = await client.GetAsync("https://localhost:7184/api/AboutFeatures");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var value = JsonConvert.DeserializeObject<UpdateAboutFeatureDto>(jsonData);
-                return View(value);
+                var values = JsonConvert.DeserializeObject<List<ResultAboutFeatureDto>>(jsonData);
+                var target = values?.FirstOrDefault(x => x.Id == id);
+                if (target != null)
+                {
+                    var updateDto = new UpdateAboutFeatureDto
+                    {
+                        Id = target.Id,
+                        AboutId = 1,
+                        FeatureType = target.FeatureType,
+                        ValueOrIcon = target.ValueOrIcon,
+                        Title_TR = target.Title_TR,
+                        Title_EN = target.Title_EN,
+                        Description_TR = target.Description_TR,
+                        Description_EN = target.Description_EN
+                    };
+                    return View(updateDto);
+                }
             }
-            return RedirectToAction("Index");
+            TempData["ErrorMessage"] = "Debug: Özellik Bulunamadı! Aranan ID: " + id; return RedirectToAction("Index", "About", new { area = "Admin", tab = "features" });
         }
 
         [HttpPost]
@@ -75,10 +90,10 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             var responseMessage = await client.PutAsync("https://localhost:7184/api/AboutFeatures", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "Özellik güncellendi.";
-                return RedirectToAction("Index");
+                TempData["SuccessMessage"] = "İşlem başarıyla gerçekleşti.";
+                return RedirectToAction("Index", "About", new { area = "Admin", tab = "features" });
             }
-            TempData["ErrorMessage"] = "Özellik güncellenirken bir hata oluştu.";
+            TempData["ErrorMessage"] = "İşlem sırasında bir hata oluştu.";
             return View(updateAboutFeatureDto);
         }
 

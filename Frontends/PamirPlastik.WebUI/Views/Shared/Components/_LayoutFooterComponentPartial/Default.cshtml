@@ -1,4 +1,4 @@
-@model List<PamirPlastik.WebUI.DTOs.SocialMediaDtos.ResultSocialMediaDto>
+﻿@model List<PamirPlastik.WebUI.DTOs.SocialMediaDtos.ResultSocialMediaDto>
 @{
     var contact = ViewBag.Contact as PamirPlastik.WebUI.DTOs.ContactDtos.ResultContactDto;
 }
@@ -15,8 +15,7 @@
 
             <div class="space-y-8 text-left">
                 <a href="/" class="flex flex-col items-start group">
-                    <span class="text-4xl font-black text-white tracking-tighter leading-none transition-transform group-hover:scale-105">PAMİR</span>
-                    <span class="text-[11px] font-bold text-blue-100 tracking-[0.4em] uppercase opacity-90">Plastik</span>
+                    <img src="/images/logo-white.png" alt="Pamir Plastik" class="h-28 w-auto transition-transform group-hover:scale-105" />
                 </a>
                 <p class="text-blue-50/90 text-sm leading-relaxed max-w-xs font-medium">
                     @(contact?.Title_TR ?? "25 yıllık üretim gücümüzle, yarının dünyası için sürdürülebilir plastik çözümleri üretiyoruz.")

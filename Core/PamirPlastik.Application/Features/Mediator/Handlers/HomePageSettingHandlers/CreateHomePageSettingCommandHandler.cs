@@ -117,6 +117,7 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.HomePageSettingHan
                 GlobDealer = request.GlobDealer,
 
                 GlobSectorYear = request.GlobSectorYear,
+                CatalogPdfUrl = request.CatalogPdfUrl,
 
                 CatTitleTop_TR = request.CatTitleTop_TR,
 

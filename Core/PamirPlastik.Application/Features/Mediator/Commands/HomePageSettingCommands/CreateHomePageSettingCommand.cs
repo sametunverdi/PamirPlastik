@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 namespace PamirPlastik.Application.Features.Mediator.Commands.HomePageSettingCommands
 {
     public class CreateHomePageSettingCommand : IRequest
@@ -50,6 +50,7 @@ namespace PamirPlastik.Application.Features.Mediator.Commands.HomePageSettingCom
         public string? GlobContinent { get; set; }
         public string? GlobDealer { get; set; }
         public string? GlobSectorYear { get; set; }
+        public string? CatalogPdfUrl { get; set; }
         public string? CatTitleTop_TR { get; set; }
         public string? CatTitleTop_EN { get; set; }
         public string? CatTitleMain_TR { get; set; }

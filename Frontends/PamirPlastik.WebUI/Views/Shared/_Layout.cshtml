@@ -96,7 +96,7 @@
 
     <header id="main-header" class="sticky top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20 transition-all duration-300" id="nav-container">
+            <div class="flex justify-between items-center h-28 transition-all duration-300" id="nav-container">
 
                 <nav class="hidden lg:flex w-5/12 justify-start space-x-8">
                     <a href="/" class="relative group py-2 font-semibold text-gray-700 hover:text-[#ffda44] transition-colors">Ana Sayfa<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ffda44] shadow-[0_0_10px_#ffda44] transition-all duration-300 group-hover:w-full"></span>
@@ -109,8 +109,7 @@
 
                 <div class="flex lg:w-2/12 justify-center flex-shrink-0">
                     <a href="/" class="flex flex-col items-center group">
-                        <span class="text-3xl font-extrabold text-pamir-brand tracking-tighter leading-none transform group-hover:scale-105 transition-transform duration-300">PAMİR</span>
-                        <span class="text-[10px] font-bold text-gray-400 tracking-[0.3em] uppercase group-hover:text-[#ffda44] transition-colors">Plastik</span>
+                        <img id="header-logo" src="/images/logo-blue.png" alt="Pamir Plastik" class="h-20 lg:h-24 w-auto transform group-hover:scale-105 transition-all duration-300" />
                     </a>
                 </div>
 
@@ -276,8 +275,7 @@
 
                 <div class="space-y-8 text-left">
                     <a href="/" class="flex flex-col items-start group">
-                        <span class="text-4xl font-black text-white tracking-tighter leading-none transition-transform group-hover:scale-105">PAMİR</span>
-                        <span class="text-[11px] font-bold text-blue-100 tracking-[0.4em] uppercase opacity-90">Plastik</span>
+                        <img src="/images/logo-white.png" alt="Pamir Plastik" class="h-24 w-auto transition-transform group-hover:scale-105" />
                     </a>
                     <p class="text-blue-50/90 text-sm leading-relaxed max-w-xs font-medium">
                         25 yıllık üretim gücümüzle, yarının dünyası için sürdürülebilir plastik çözümleri üretiyoruz.
@@ -348,15 +346,24 @@
             // Navbar Scroll
             const header = document.getElementById("main-header");
             const navContainer = document.getElementById("nav-container");
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 40) {
-                    header.classList.add("nav-scrolled", "py-0");
-                    navContainer.classList.replace("h-20", "h-16");
-                } else {
-                    header.classList.remove("nav-scrolled", "py-0");
-                    navContainer.classList.replace("h-16", "h-20");
-                }
-            });
+            const logo = document.getElementById("header-logo");
+              window.addEventListener('scroll', function() {
+                  if (window.scrollY > 40) {
+                      header.classList.add("nav-scrolled", "py-0");
+                      navContainer.classList.replace("h-28", "h-20");
+                      if(logo) {
+                          logo.classList.replace("h-20", "h-14");
+                          logo.classList.replace("lg:h-24", "lg:h-16");
+                      }
+                  } else {
+                      header.classList.remove("nav-scrolled", "py-0");
+                      navContainer.classList.replace("h-20", "h-28");
+                      if(logo) {
+                          logo.classList.replace("h-14", "h-20");
+                          logo.classList.replace("lg:h-16", "lg:h-24");
+                      }
+                  }
+              });
 
             // Mobil Menü
             const openBtn = document.getElementById('mobile-menu-btn');

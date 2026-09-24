@@ -1,154 +1,410 @@
-@model PamirPlastik.WebUI.DTOs.AboutDtos.UpdateAboutDto
+﻿@model PamirPlastik.WebUI.DTOs.AboutDtos.UpdateAboutDto
 @{
-    ViewData["Title"] = "Hakkımızda Ayarları";
+    ViewData["Title"] = "Kurumsal Ayarlar";
 }
 
-<div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-    <div>
-        <h1 class="text-2xl font-bold text-slate-800">Hakkımızda Sayfası İçerikleri</h1>
-        <p class="text-slate-500 text-sm mt-1">Sitenin Kurumsal / Hakkımızda sayfasındaki metinleri yönetin.</p>
-    </div>
-</div>
+<!-- Alpine.js (Sekmeler için gerekli) -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js" defer></script>
 
-@if (TempData["Success"] != null)
-{
-    <div class="mb-6 p-4 rounded-md bg-green-50 border border-green-200 flex items-start">
-        <i class="fa-solid fa-circle-check text-green-500 mt-0.5 mr-3"></i>
-        <div class="text-sm font-medium text-green-800">@TempData["Success"]</div>
+<div x-data="{ tab: new URLSearchParams(location.search).get('tab') || 'texts', showFeatureModal: false, showImageModal: false }" class="pb-20">
+    <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-800">Kurumsal Sayfa Yönetimi (Dashboard)</h1>
+            <p class="text-slate-500 text-sm mt-1">Hakkımızda sayfası, vizyon, misyon, özellikler ve görselleri tek ekrandan yönetin.</p>
+        </div>
     </div>
-}
-@if (TempData["Error"] != null)
-{
-    <div class="mb-6 p-4 rounded-md bg-red-50 border border-red-200 flex items-start">
-        <i class="fa-solid fa-circle-exclamation text-red-500 mt-0.5 mr-3"></i>
-        <div class="text-sm font-medium text-red-800">@TempData["Error"]</div>
-    </div>
-}
 
-<div class="bg-white rounded-lg shadow-sm border border-slate-200">
-    <form method="post" action="/Admin/About/Index" class="p-6">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-3 text-emerald-700">
+            <i class="fa-solid fa-circle-check text-xl"></i>
+            <div class="text-sm font-medium">@TempData["SuccessMessage"]</div>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex items-center gap-3 text-red-700">
+            <i class="fa-solid fa-circle-exclamation text-xl"></i>
+            <div class="text-sm font-medium">@TempData["ErrorMessage"]</div>
+        </div>
+    }
+
+    <!-- Tabs Container -->
+    <div class="flex flex-wrap gap-2 mb-6 border-b border-slate-200 pb-4">
+        <button @@click="tab = 'texts'" :class="tab === 'texts' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'" class="px-5 py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-2">
+            <i class="fa-solid fa-align-left"></i> Temel Metinler
+        </button>
+        <button @@click="tab = 'vision'" :class="tab === 'vision' ? 'bg-teal-600 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'" class="px-5 py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-2">
+            <i class="fa-solid fa-bullseye"></i> Vizyon & Misyon
+        </button>
+        <button @@click="tab = 'features'" :class="tab === 'features' ? 'bg-amber-500 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'" class="px-5 py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-2">
+            <i class="fa-solid fa-list-check"></i> İstatistikler
+        </button>
+        <button @@click="tab = 'images'" :class="tab === 'images' ? 'bg-pink-600 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'" class="px-5 py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-2">
+            <i class="fa-solid fa-images"></i> Görseller (Galeri)
+        </button>
+    </div>
+
+    <!-- MAIN FORM FOR ABOUT (Texts & Vision) -->
+    <form method="post" action="/Admin/About/Index">
         <input type="hidden" name="Id" value="@Model?.Id" />
-
-        <!-- SEO Bölümü -->
-        <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200 text-primary">SEO Ayarları</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">SEO Başlığı (TR)</label>
-                <input type="text" name="SeoTitle_TR" value="@Model?.SeoTitle_TR" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">SEO Başlığı (EN)</label>
-                <input type="text" name="SeoTitle_EN" value="@Model?.SeoTitle_EN" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">SEO Açıklaması (TR)</label>
-                <textarea name="SeoDescription_TR" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.SeoDescription_TR</textarea>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">SEO Açıklaması (EN)</label>
-                <textarea name="SeoDescription_EN" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.SeoDescription_EN</textarea>
-            </div>
-        </div>
-
-        <!-- Üst Başlık ve Slogan (Hero) -->
-        <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200 text-primary">Giriş Bölümü</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Ana Başlık (TR)</label>
-                <input type="text" name="MainTitle_TR" value="@Model?.MainTitle_TR" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Ana Başlık (EN)</label>
-                <input type="text" name="MainTitle_EN" value="@Model?.MainTitle_EN" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Alt Başlık (TR)</label>
-                <textarea name="SubTitle_TR" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.SubTitle_TR</textarea>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Alt Başlık (EN)</label>
-                <textarea name="SubTitle_EN" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.SubTitle_EN</textarea>
-            </div>
-        </div>
-
-        <!-- Uzun Açıklamalar -->
-        <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200 text-primary">Hakkımızda Detaylı Yazılar</h3>
-        <div class="grid grid-cols-1 gap-6 mb-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-1">Açıklama Paragrafı 1 (TR)</label>
-                    <textarea name="Description1_TR" rows="5" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.Description1_TR</textarea>
+        
+        <!-- TAB 1: Texts & SEO -->
+        <div x-show="tab === 'texts'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-6">
+                <div class="bg-slate-50 px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+                    <h3 class="font-bold text-slate-800 flex items-center gap-2"><i class="fa-solid fa-pen-nib text-indigo-500"></i> Ana Metinler</h3>
                 </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-1">Açıklama Paragrafı 1 (EN)</label>
-                    <textarea name="Description1_EN" rows="5" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.Description1_EN</textarea>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-1">Açıklama Paragrafı 2 (TR)</label>
-                    <textarea name="Description2_TR" rows="5" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.Description2_TR</textarea>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-1">Açıklama Paragrafı 2 (EN)</label>
-                    <textarea name="Description2_EN" rows="5" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.Description2_EN</textarea>
-                </div>
-            </div>
-        </div>
+                <div class="p-6">
+                    <input type="hidden" name="SeoTitle_TR" value="@Model?.SeoTitle_TR" />
+                     <input type="hidden" name="SeoTitle_EN" value="@Model?.SeoTitle_EN" />
+                     <input type="hidden" name="SeoDescription_TR" value="@Model?.SeoDescription_TR" />
+                     <input type="hidden" name="SeoDescription_EN" value="@Model?.SeoDescription_EN" />
 
-        <!-- Vurgulu Slogan (Alıntı Kutusu) -->
-        <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200 text-amber-dark">Vurgulu Söz / Slogan Kutu</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Vurgulu Yazı (TR)</label>
-                <textarea name="HighlightQuote_TR" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.HighlightQuote_TR</textarea>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Vurgulu Yazı (EN)</label>
-                <textarea name="HighlightQuote_EN" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-colors">@Model?.HighlightQuote_EN</textarea>
-            </div>
-        </div>
-
-        <!-- Vizyon & Misyon -->
-        <h3 class="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-200 text-teal">Vizyon ve Misyon</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div class="bg-slate-50 p-4 rounded-md border border-slate-200">
-                <h4 class="font-medium text-slate-800 mb-4 flex items-center"><i class="fa-solid fa-eye text-teal mr-2"></i> Vizyon</h4>
-                <div class="mb-4">
-                    <label class="block text-xs font-medium text-slate-500 mb-1">Başlık (TR/EN)</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <input type="text" name="VisionTitle_TR" value="@Model?.VisionTitle_TR" placeholder="TR Başlık" class="w-full px-3 py-1.5 border border-slate-300 rounded-md text-sm">
-                        <input type="text" name="VisionTitle_EN" value="@Model?.VisionTitle_EN" placeholder="EN Başlık" class="w-full px-3 py-1.5 border border-slate-300 rounded-md text-sm">
+                    <h4 class="font-bold text-slate-700 mb-4 pb-2 border-b border-slate-100"><i class="fa-solid fa-heading text-slate-400 mr-2"></i> Sayfa Başlıkları ve Açıklamalar</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Ana Başlık (TR)</label>
+                            <input type="text" name="MainTitle_TR" value="@Model?.MainTitle_TR" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Ana Başlık (EN)</label>
+                            <input type="text" name="MainTitle_EN" value="@Model?.MainTitle_EN" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Alt Başlık (TR)</label>
+                            <textarea name="SubTitle_TR" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">@Model?.SubTitle_TR</textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Alt Başlık (EN)</label>
+                            <textarea name="SubTitle_EN" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">@Model?.SubTitle_EN</textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Açıklama 1 (TR)</label>
+                            <textarea name="Description1_TR" rows="4" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">@Model?.Description1_TR</textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Açıklama 1 (EN)</label>
+                            <textarea name="Description1_EN" rows="4" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">@Model?.Description1_EN</textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Açıklama 2 (TR)</label>
+                            <textarea name="Description2_TR" rows="4" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">@Model?.Description2_TR</textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Açıklama 2 (EN)</label>
+                            <textarea name="Description2_EN" rows="4" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">@Model?.Description2_EN</textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Vurgulu Slogan Kutu (TR)</label>
+                            <textarea name="HighlightQuote_TR" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">@Model?.HighlightQuote_TR</textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Vurgulu Slogan Kutu (EN)</label>
+                            <textarea name="HighlightQuote_EN" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">@Model?.HighlightQuote_EN</textarea>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <label class="block text-xs font-medium text-slate-500 mb-1">Açıklamalar (TR/EN)</label>
-                    <textarea name="VisionDescription_TR" rows="3" placeholder="TR Açıklama" class="w-full px-3 py-1.5 border border-slate-300 rounded-md text-sm mb-2">@Model?.VisionDescription_TR</textarea>
-                    <textarea name="VisionDescription_EN" rows="3" placeholder="EN Açıklama" class="w-full px-3 py-1.5 border border-slate-300 rounded-md text-sm">@Model?.VisionDescription_EN</textarea>
-                </div>
-            </div>
-            
-            <div class="bg-slate-50 p-4 rounded-md border border-slate-200">
-                <h4 class="font-medium text-slate-800 mb-4 flex items-center"><i class="fa-solid fa-bullseye text-amber-dark mr-2"></i> Misyon</h4>
-                <div class="mb-4">
-                    <label class="block text-xs font-medium text-slate-500 mb-1">Başlık (TR/EN)</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <input type="text" name="MissionTitle_TR" value="@Model?.MissionTitle_TR" placeholder="TR Başlık" class="w-full px-3 py-1.5 border border-slate-300 rounded-md text-sm">
-                        <input type="text" name="MissionTitle_EN" value="@Model?.MissionTitle_EN" placeholder="EN Başlık" class="w-full px-3 py-1.5 border border-slate-300 rounded-md text-sm">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-medium text-slate-500 mb-1">Açıklamalar (TR/EN)</label>
-                    <textarea name="MissionDescription_TR" rows="3" placeholder="TR Açıklama" class="w-full px-3 py-1.5 border border-slate-300 rounded-md text-sm mb-2">@Model?.MissionDescription_TR</textarea>
-                    <textarea name="MissionDescription_EN" rows="3" placeholder="EN Açıklama" class="w-full px-3 py-1.5 border border-slate-300 rounded-md text-sm">@Model?.MissionDescription_EN</textarea>
-                </div>
             </div>
         </div>
 
-        <div class="pt-4 border-t border-slate-200 flex justify-end">
-            <button type="submit" class="px-6 py-2.5 bg-primary hover:bg-primary-dark text-white rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-sm">
-                <i class="fa-solid fa-check mr-2"></i> İçerikleri Kaydet
-            </button>
+        <!-- TAB 2: Vision & Mission -->
+        <div x-show="tab === 'vision'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-6">
+                <div class="bg-teal-50 px-6 py-4 border-b border-teal-100 flex items-center justify-between">
+                    <h3 class="font-bold text-teal-900 flex items-center gap-2"><i class="fa-solid fa-bullseye text-teal-500"></i> Vizyon ve Misyon</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-slate-800 mb-4 flex items-center text-lg"><i class="fa-solid fa-eye text-teal-600 mr-3"></i> Vizyon</h4>
+                            <div class="mb-4">
+                                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">Başlık (TR/EN)</label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <input type="text" name="VisionTitle_TR" value="@Model?.VisionTitle_TR" placeholder="TR" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" />
+                                    <input type="text" name="VisionTitle_EN" value="@Model?.VisionTitle_EN" placeholder="EN" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">Açıklama (TR/EN)</label>
+                                <textarea name="VisionDescription_TR" rows="4" placeholder="TR Açıklama" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm mb-3">@Model?.VisionDescription_TR</textarea>
+                                <textarea name="VisionDescription_EN" rows="4" placeholder="EN Açıklama" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">@Model?.VisionDescription_EN</textarea>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-slate-800 mb-4 flex items-center text-lg"><i class="fa-solid fa-rocket text-amber-500 mr-3"></i> Misyon</h4>
+                            <div class="mb-4">
+                                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">Başlık (TR/EN)</label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <input type="text" name="MissionTitle_TR" value="@Model?.MissionTitle_TR" placeholder="TR" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" />
+                                    <input type="text" name="MissionTitle_EN" value="@Model?.MissionTitle_EN" placeholder="EN" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm" />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase">Açıklama (TR/EN)</label>
+                                <textarea name="MissionDescription_TR" rows="4" placeholder="TR Açıklama" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm mb-3">@Model?.MissionDescription_TR</textarea>
+                                <textarea name="MissionDescription_EN" rows="4" placeholder="EN Açıklama" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">@Model?.MissionDescription_EN</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SAVE BUTTON FOR TEXTS/VISION -->
+        <div x-show="tab === 'texts' || tab === 'vision'" class="sticky bottom-4 z-10">
+            <div class="bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg border border-slate-200 flex justify-end">
+                <button type="submit" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold transition-all shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-save"></i> Metinleri Kaydet
+                </button>
+            </div>
         </div>
     </form>
+
+    <!-- TAB 3: Features / Stats -->
+    <div x-show="tab === 'features'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;">
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-6">
+            <div class="bg-amber-50 px-6 py-4 border-b border-amber-100 flex items-center justify-between">
+                <h3 class="font-bold text-amber-900 flex items-center gap-2"><i class="fa-solid fa-list-check text-amber-500"></i> İstatistikler ve Özellikler</h3>
+                <button type="button" @@click="showFeatureModal = true" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg font-semibold text-sm transition-colors flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-plus"></i> Yeni Ekle
+                </button>
+            </div>
+            <div class="p-0">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200 text-slate-500 text-xs uppercase tracking-wider">
+                            <th class="p-4 font-semibold">Tip & Değer</th>
+                            <th class="p-4 font-semibold">Başlık (TR/EN)</th>
+                            
+                            <th class="p-4 font-semibold text-right">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        @if (ViewBag.Features != null)
+                        {
+                            foreach (var feature in ViewBag.Features)
+                            {
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-500 flex items-center justify-center text-lg">
+                                                <i class="fa-solid fa-list"></i>
+                                            </div>
+                                            <div class="flex flex-col">
+                                                <span class="font-bold text-slate-700">@feature.ValueOrIcon</span>
+                                                <span class="text-xs text-slate-400">@feature.FeatureType</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="font-semibold text-slate-800">@feature.Title_TR</div>
+                                        <div class="text-xs text-slate-500">@feature.Title_EN</div>
+                                    </td>
+                                    <td class="p-4 text-right">
+                                        <a href="/Admin/AboutFeature/Edit/@feature.Id" class="inline-flex items-center justify-center w-8 h-8 rounded-md bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-colors mr-2">
+                                            <i class="fa-solid fa-pen text-sm"></i>
+                                        </a>
+                                        <button type="button" onclick="deleteFeature(@feature.Id)" class="inline-flex items-center justify-center w-8 h-8 rounded-md bg-red-50 text-red-600 hover:bg-red-100 transition-colors">
+                                            <i class="fa-solid fa-trash text-sm"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: Images -->
+    <div x-show="tab === 'images'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;">
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-6">
+            <div class="bg-pink-50 px-6 py-4 border-b border-pink-100 flex items-center justify-between">
+                <h3 class="font-bold text-pink-900 flex items-center gap-2"><i class="fa-solid fa-images text-pink-500"></i> Galeri Görselleri</h3>
+                <button type="button" @@click="showImageModal = true" class="px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-lg font-semibold text-sm transition-colors flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-upload"></i> Yeni Görsel Yükle
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    @if (ViewBag.Images != null)
+                    {
+                        foreach (var img in ViewBag.Images)
+                        {
+                            <div class="group relative rounded-xl overflow-hidden shadow-sm border border-slate-200 bg-slate-50">
+                                <div class="aspect-video w-full overflow-hidden">
+                                    <img src="@img.ImageUrl" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Galeri" />
+                                </div>
+                                <div class="p-3 border-t border-slate-200 flex items-center justify-between">
+                                    <span class="text-xs font-semibold text-slate-500">@img.AltText_TR</span>
+                                    <div class="flex gap-1">
+                                        <a href="/Admin/AboutImage/Edit/@img.Id" class="w-7 h-7 rounded bg-slate-100 hover:bg-emerald-100 text-slate-500 hover:text-emerald-600 flex items-center justify-center transition-colors">
+                                            <i class="fa-solid fa-pen text-xs"></i>
+                                        </a>
+                                        <button type="button" onclick="deleteImage(@img.Id)" class="w-7 h-7 rounded bg-slate-100 hover:bg-red-100 text-slate-500 hover:text-red-600 flex items-center justify-center transition-colors">
+                                            <i class="fa-solid fa-trash text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: YENİ ÖZELLİK EKLE -->
+    <div x-show="showFeatureModal" class="fixed inset-0 z-[100] flex items-center justify-center" style="display: none;">
+        <!-- Backdrop -->
+        <div @@click="showFeatureModal = false" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" x-show="showFeatureModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
+        
+        <!-- Modal Content -->
+        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-4 overflow-hidden" x-show="showFeatureModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+            <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                <h3 class="font-bold text-lg text-slate-800">Yeni Özellik/İstatistik Ekle</h3>
+                <button type="button" @@click="showFeatureModal = false" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <form method="post" action="/Admin/AboutFeature/Create">
+                <div class="p-6">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Başlık (TR)</label>
+                            <input type="text" name="Title_TR" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Başlık (EN)</label>
+                            <input type="text" name="Title_EN" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" />
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Açıklama (TR)</label>
+                            <textarea name="Description_TR" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Açıklama (EN)</label>
+                            <textarea name="Description_EN" rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"></textarea>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Özellik Tipi</label>
+                            <input type="text" name="FeatureType" placeholder="Örn: Stat veya İlke" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Değer veya İkon</label>
+                            <input type="text" name="ValueOrIcon" placeholder="Örn: 250+ veya fa-star" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" />
+                        </div>
+                    </div>
+                </div>
+                <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex justify-end gap-3">
+                    <button type="button" @@click="showFeatureModal = false" class="px-5 py-2.5 rounded-lg font-medium text-slate-600 bg-white border border-slate-200 hover:bg-slate-50">İptal</button>
+                    <button type="submit" class="px-5 py-2.5 rounded-lg font-bold text-white bg-amber-500 hover:bg-amber-600 shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-plus"></i> Ekle
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: YENİ GÖRSEL YÜKLE -->
+    <div x-show="showImageModal" class="fixed inset-0 z-[100] flex items-center justify-center" style="display: none;">
+        <!-- Backdrop -->
+        <div @@click="showImageModal = false" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" x-show="showImageModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
+        
+        <!-- Modal Content -->
+        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden" x-show="showImageModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+            <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                <h3 class="font-bold text-lg text-slate-800">Galeriye Görsel Ekle</h3>
+                <button type="button" @@click="showImageModal = false" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <form method="post" action="/Admin/AboutImage/Create" enctype="multipart/form-data">
+                <div class="p-6">
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Görsel Seçin</label>
+                        <input type="file" name="ImageFile" required accept="image/*" class="w-full px-4 py-2 border border-slate-300 rounded-lg cursor-pointer bg-slate-50" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Alt Metin (TR)</label>
+                        <input type="text" name="AltText_TR" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-pink-500 outline-none mb-3" />
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Alt Metin (EN)</label>
+                        <input type="text" name="AltText_EN" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-pink-500 outline-none" />
+                    </div>
+                </div>
+                <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex justify-end gap-3">
+                    <button type="button" @@click="showImageModal = false" class="px-5 py-2.5 rounded-lg font-medium text-slate-600 bg-white border border-slate-200 hover:bg-slate-50">İptal</button>
+                    <button type="submit" class="px-5 py-2.5 rounded-lg font-bold text-white bg-pink-600 hover:bg-pink-700 shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-upload"></i> Yükle
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </div>
+
+@section Scripts {
+    <script>
+        function deleteFeature(id) {
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Bu özelliği silmek istediğinize emin misiniz?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: 'Evet, Sil!',
+                cancelButtonText: 'İptal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('/Admin/AboutFeature/Delete/' + id, {
+                        method: 'POST'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            window.location.reload();
+                        } else {
+                            Swal.fire('Hata!', 'Silme işlemi başarısız oldu.', 'error');
+                        }
+                    });
+                }
+            })
+        }
+
+        function deleteImage(id) {
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Bu görseli galeriden silmek istediğinize emin misiniz?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: 'Evet, Sil!',
+                cancelButtonText: 'İptal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('/Admin/AboutImage/Delete/' + id, {
+                        method: 'POST'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            window.location.reload();
+                        } else {
+                            Swal.fire('Hata!', 'Silme işlemi başarısız oldu.', 'error');
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+}

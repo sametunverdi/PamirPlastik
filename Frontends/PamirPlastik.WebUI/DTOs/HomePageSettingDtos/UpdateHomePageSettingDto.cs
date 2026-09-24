@@ -1,4 +1,4 @@
-namespace PamirPlastik.WebUI.DTOs.HomePageSettingDtos
+﻿namespace PamirPlastik.WebUI.DTOs.HomePageSettingDtos
 
 {
 
@@ -97,6 +97,9 @@ namespace PamirPlastik.WebUI.DTOs.HomePageSettingDtos
         public string? GlobDealer { get; set; }
 
         public string? GlobSectorYear { get; set; }
+
+        public string? CatalogPdfUrl { get; set; }
+        public Microsoft.AspNetCore.Http.IFormFile? CatalogPdfFile { get; set; }
 
         public string? CatTitleTop_TR { get; set; }
 

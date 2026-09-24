@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PamirPlastik.WebUI.DTOs.AboutDtos;
 using System.Text;
@@ -15,11 +15,37 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [HttpGet]
+                [HttpGet]
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
+            
+            // 1. Fetch About Data
             var responseMessage = await client.GetAsync("https://localhost:7184/api/Abouts");
+            
+            // 2. Fetch Features
+            var featuresResponse = await client.GetAsync("https://localhost:7184/api/AboutFeatures");
+            if (featuresResponse.IsSuccessStatusCode)
+            {
+                var featuresJson = await featuresResponse.Content.ReadAsStringAsync();
+                ViewBag.Features = JsonConvert.DeserializeObject<List<ResultAboutFeatureDto>>(featuresJson);
+            }
+            else
+            {
+                ViewBag.Features = new List<ResultAboutFeatureDto>();
+            }
+
+            // 3. Fetch Images
+            var imagesResponse = await client.GetAsync("https://localhost:7184/api/AboutImages");
+            if (imagesResponse.IsSuccessStatusCode)
+            {
+                var imagesJson = await imagesResponse.Content.ReadAsStringAsync();
+                ViewBag.Images = JsonConvert.DeserializeObject<List<ResultAboutImageDto>>(imagesJson);
+            }
+            else
+            {
+                ViewBag.Images = new List<ResultAboutImageDto>();
+            }
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -84,7 +110,7 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
                 var responseMessage = await client.PostAsync("https://localhost:7184/api/Abouts", stringContent);
                 if (responseMessage.IsSuccessStatusCode)
                 {
-                    TempData["SuccessMessage"] = "Hakkımızda bilgileri başarıyla oluşturuldu.";
+                    TempData["SuccessMessage"] = "Hakkımızda bilgileri başarıyla güncellendi.";
                     return RedirectToAction("Index");
                 }
             }

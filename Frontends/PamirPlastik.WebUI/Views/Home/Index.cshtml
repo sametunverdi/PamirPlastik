@@ -1,4 +1,4 @@
-@model PamirPlastik.WebUI.DTOs.HomePageSettingDtos.ResultHomePageSettingDto
+﻿@model PamirPlastik.WebUI.DTOs.HomePageSettingDtos.ResultHomePageSettingDto
 @{
     ViewData["Title"] = "Plastik Üretiminde Global Çözüm Ortağınız";
     ViewData["Description"] = "Pamir Plastik, 25 yıllık tecrübesiyle dünya standartlarında mutfak ve ev gereçleri üreten lider bir markadır.";
@@ -26,7 +26,7 @@
                     @Model.HeroDescription_TR
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                    <a href="/Corporate/Catalog" class="flex justify-center items-center gap-2 px-8 py-4 bg-[#ffda44] text-[#0f172a] font-bold text-lg rounded-xl hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(255,218,68,0.4)]">
+                    <a href="@(Model.CatalogPdfUrl ?? "#")" target="_blank" class="flex justify-center items-center gap-2 px-8 py-4 bg-[#ffda44] text-[#0f172a] font-bold text-lg rounded-xl hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(255,218,68,0.4)]">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                         Katalog İndir
                     </a>
@@ -276,25 +276,25 @@
             </div>
             <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center">
                 <div class="text-4xl font-black text-gray-900 mb-1">@Model.GlobDealer</div>
-                <div class="text-[#4A5FC1] text-[10px] font-bold uppercase tracking-wider">Global Bayi</div>
+                <div class="text-[#4A5FC1] text-[10px] font-bold uppercase tracking-wider">Ürün Çeşidi</div>
             </div>
             <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center">
                 <div class="text-4xl font-black text-gray-900 mb-1">@Model.GlobSectorYear</div>
                 <div class="text-[#4A5FC1] text-[10px] font-bold uppercase tracking-wider">Sektör Yılı</div>
             </div>
         </div>
-        <div class="relative bg-[#0f172a] rounded-[2.5rem] p-8 md:p-12 overflow-hidden shadow-2xl">
+        <div class="relative bg-gradient-to-r from-slate-900 via-[#1a237e] to-[#4A5FC1] rounded-[2.5rem] p-8 md:p-12 overflow-hidden shadow-2xl">
             <div class="absolute top-0 right-0 w-64 h-full bg-[#4A5FC1]/10 skew-x-12 translate-x-10"></div>
             <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                 <div class="text-center md:text-left">
-                    <h4 class="text-2xl md:text-3xl font-bold text-white mb-2">Global İş Ortağımız Olun</h4>
-                    <p class="text-gray-400 text-xs md:text-base">Distribütörlük ve toptan satış için bizimle iletişime geçin.</p>
+                    <h4 class="text-2xl md:text-3xl font-bold text-white mb-2">Online Kataloğumuzu İnceleyin</h4>
+                    <p class="text-gray-400 text-xs md:text-base">Tüm ürün gruplarımızı ve teknik detayları içeren güncel kataloğumuza ulaşın.</p>
                 </div>
                 <div class="flex gap-4">
                     <a href="/Contact/Index/" class="px-8 py-4 bg-[#4A5FC1] text-white font-bold rounded-2xl hover:bg-blue-600 transition-all shadow-lg shadow-blue-500/20">
                         Teklif Alın
                     </a>
-                    <a href="/Corporate/Catalog" class="px-8 py-4 bg-white/5 text-white border border-white/10 backdrop-blur-md font-bold rounded-2xl hover:bg-white/10 transition-all">
+                    <a href="@(Model.CatalogPdfUrl ?? "#")" target="_blank" class="px-8 py-4 bg-white/5 text-white border border-white/10 backdrop-blur-md font-bold rounded-2xl hover:bg-white/10 transition-all">
                         Katalog
                     </a>
                 </div>

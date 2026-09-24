@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PamirPlastik.WebUI.DTOs.ContactMessageDtos;
 using System.Net.Http;
@@ -32,10 +32,13 @@ namespace PamirPlastik.WebUI.Controllers
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync("https://localhost:7184/api/ContactMessages", stringContent);
 
+            
             if (responseMessage.IsSuccessStatusCode)
             {
+                TempData["SuccessMessage"] = "Mesajınız başarıla gönderildi. En kısa sürede size dönüş yapacağız.";
                 return RedirectToAction("Index");
             }
+            TempData["ErrorMessage"] = "Mesajınız gönderilirken bir hata oluştu.";
             return View();
         }
     }

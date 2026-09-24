@@ -72,6 +72,7 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.HomePageSettingHan
                 GlobContinent = value.GlobContinent,
                 GlobDealer = value.GlobDealer,
                 GlobSectorYear = value.GlobSectorYear,
+                CatalogPdfUrl = value.CatalogPdfUrl,
                 CatTitleTop_TR = value.CatTitleTop_TR,
                 CatTitleTop_EN = value.CatTitleTop_EN,
                 CatTitleMain_TR = value.CatTitleMain_TR,

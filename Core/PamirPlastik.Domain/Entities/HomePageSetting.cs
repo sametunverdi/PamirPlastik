@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -67,6 +67,8 @@ namespace PamirPlastik.Domain.Entities
         public string? GlobContinent { get; set; }
         public string? GlobDealer { get; set; }
         public string? GlobSectorYear { get; set; }
+
+        public string? CatalogPdfUrl { get; set; }
 
         // --- Categories Component Titles ---
         public string? CatTitleTop_TR { get; set; }

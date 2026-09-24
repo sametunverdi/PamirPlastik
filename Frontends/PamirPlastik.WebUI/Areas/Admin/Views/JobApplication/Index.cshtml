@@ -1,0 +1,117 @@
+@model List<PamirPlastik.WebUI.DTOs.JobApplicationDtos.ResultJobApplicationDto>
+@{
+    ViewData["Title"] = "İş Başvuruları";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="bg-white rounded-2xl p-6 shadow-sm">
+    <div class="flex justify-between items-center mb-6">
+        <div>
+            <h4 class="text-lg font-bold text-slate-800">İş Başvuruları</h4>
+            <p class="text-sm text-slate-500">Kariyer formundan gelen tüm iş başvuruları ve CV'ler.</p>
+        </div>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left">
+            <thead class="text-xs text-slate-500 bg-slate-50 border-b border-slate-100 uppercase">
+                <tr>
+                    <th class="px-6 py-4 font-semibold">Tarih</th>
+                    <th class="px-6 py-4 font-semibold">Ad Soyad</th>
+                    <th class="px-6 py-4 font-semibold">İletişim</th>
+                    <th class="px-6 py-4 font-semibold">Mesaj</th>
+                    <th class="px-6 py-4 font-semibold text-right">CV (PDF)</th>
+                    <th class="px-6 py-4 font-semibold text-center">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+                        <td class="px-6 py-4 font-medium text-slate-600">@item.ApplicationDate.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td class="px-6 py-4 font-bold text-slate-800">@item.FirstName @item.LastName</td>
+                        <td class="px-6 py-4">
+                            <div class="text-slate-800">@item.Email</div>
+                            <div class="text-xs text-slate-500 mt-1">@item.Phone</div>
+                        </td>
+                        <td class="px-6 py-4 text-slate-600 max-w-xs truncate" title="@item.Message">
+                            @(string.IsNullOrEmpty(item.Message) ? "-" : item.Message)
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            @if (!string.IsNullOrEmpty(item.CvPdfUrl))
+                            {
+                                <a href="@item.CvPdfUrl" target="_blank" class="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-600 rounded-lg font-semibold hover:bg-indigo-100 transition-colors">
+                                    <i class="fa-solid fa-file-pdf"></i> İndir
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="text-xs text-slate-400">Yüklenmedi</span>
+                            }
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <a href="/Admin/JobApplication/DeleteApplication/@item.JobApplicationID" onclick="deleteAlert(event, this.href)" class="w-8 h-8 rounded-lg bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors mx-auto">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+                @if(!Model.Any())
+                {
+                    <tr>
+                        <td colspan="6" class="px-6 py-8 text-center text-slate-500 font-medium bg-slate-50/50 rounded-xl">
+                            <i class="fa-solid fa-inbox text-3xl mb-3 text-slate-300 block"></i>
+                            Henüz hiç iş başvurusu bulunmuyor.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    function deleteAlert(e, url) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Emin misiniz?',
+            text: 'Bu iş başvurusunu kalıcı olarak silmek istediğinize emin misiniz?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#64748b',
+            confirmButtonText: 'Evet, Sil!',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+    }
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <text>
+        Swal.fire({
+            title: 'Başarılı!',
+            text: @Html.Raw(Json.Serialize(TempData["SuccessMessage"])),
+            icon: 'success',
+            confirmButtonText: 'Tamam',
+            confirmButtonColor: '#0f172a'
+        });
+        </text>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <text>
+        Swal.fire({
+            title: 'Hata!',
+            text: @Html.Raw(Json.Serialize(TempData["ErrorMessage"])),
+            icon: 'error',
+            confirmButtonText: 'Tamam',
+            confirmButtonColor: '#ef4444'
+        });
+        </text>
+    }
+</script>

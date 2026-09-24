@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PamirPlastik.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,6 +17,7 @@ namespace PamirPlastik.Persistence.Context
 
         // Mevcut Tabloların
         public DbSet<About> Abouts { get; set; }
+        public DbSet<JobApplication> JobApplications { get; set; }
         public DbSet<AboutFeature> AboutFeatures { get; set; }
         public DbSet<AboutImage> AboutImages { get; set; }
         public DbSet<Contact> Contacts { get; set; }

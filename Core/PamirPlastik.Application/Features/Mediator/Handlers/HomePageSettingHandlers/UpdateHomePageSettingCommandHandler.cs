@@ -1,4 +1,4 @@
-using MediatR;
+﻿using MediatR;
 
 using PamirPlastik.Application.Features.Mediator.Commands.HomePageSettingCommands;
 
@@ -115,6 +115,7 @@ namespace PamirPlastik.Application.Features.Mediator.Handlers.HomePageSettingHan
             value.GlobDealer = request.GlobDealer;
 
             value.GlobSectorYear = request.GlobSectorYear;
+            value.CatalogPdfUrl = request.CatalogPdfUrl;
 
             value.CatTitleTop_TR = request.CatTitleTop_TR;
 

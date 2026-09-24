@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PamirPlastik.WebUI.DTOs.AboutDtos;
 using System.Text;
@@ -59,10 +59,10 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             var responseMessage = await client.PostAsync("https://localhost:7184/api/AboutImages", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "Resim ba�ar�yla eklendi.";
-                return RedirectToAction("Index");
+                TempData["SuccessMessage"] = "İşlem başarıyla gerçekleşti.";
+                return RedirectToAction("Index", "About", new { area = "Admin", tab = "images" });
             }
-            TempData["ErrorMessage"] = "Resim eklenirken bir hata olu�tu.";
+            TempData["ErrorMessage"] = "İşlem sırasında bir hata oluştu.";
             return View(createAboutImageDto);
         }
 
@@ -70,14 +70,27 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7184/api/AboutImages/{id}");
+            var responseMessage = await client.GetAsync("https://localhost:7184/api/AboutImages");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var value = JsonConvert.DeserializeObject<UpdateAboutImageDto>(jsonData);
-                return View(value);
+                var values = JsonConvert.DeserializeObject<List<ResultAboutImageDto>>(jsonData);
+                var target = values?.FirstOrDefault(x => x.Id == id);
+                if (target != null)
+                {
+                    var updateDto = new UpdateAboutImageDto
+                    {
+                        Id = target.Id,
+                        AboutId = 1,
+                        ImageUrl = target.ImageUrl,
+                        AltText_TR = target.AltText_TR,
+                        AltText_EN = target.AltText_EN
+                    };
+                    return View(updateDto);
+                }
             }
-            return RedirectToAction("Index");
+            TempData["ErrorMessage"] = "Debug: Bulunamadı! Aranan ID: " + id;
+            return RedirectToAction("Index", "About", new { area = "Admin", tab = "images" });
         }
 
         [HttpPost]
@@ -109,10 +122,10 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             var responseMessage = await client.PutAsync("https://localhost:7184/api/AboutImages", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "Resim ba�ar�yla g�ncellendi.";
-                return RedirectToAction("Index");
+                TempData["SuccessMessage"] = "İşlem başarıyla gerçekleşti.";
+                return RedirectToAction("Index", "About", new { area = "Admin", tab = "images" });
             }
-            TempData["ErrorMessage"] = "Resim g�ncellenirken bir hata olu�tu.";
+            TempData["ErrorMessage"] = "İşlem sırasında bir hata oluştu.";
             return View(updateAboutImageDto);
         }
 
@@ -125,7 +138,7 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             {
                 return Json(new { success = true });
             }
-            return Json(new { success = false, message = "Silme i�lemi ba�ar�s�z." });
+            return Json(new { success = false, message = "Silme i�lemi ba�ar�s�z." });
         }
     }
 }
