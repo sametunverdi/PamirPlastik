@@ -98,7 +98,7 @@ namespace PamirPlastik.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Abouts");
+                    b.ToTable("Abouts", (string)null);
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.AboutFeature", b =>
@@ -137,7 +137,7 @@ namespace PamirPlastik.Persistence.Migrations
 
                     b.HasIndex("AboutId");
 
-                    b.ToTable("AboutFeatures");
+                    b.ToTable("AboutFeatures", (string)null);
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.AboutImage", b =>
@@ -167,7 +167,7 @@ namespace PamirPlastik.Persistence.Migrations
 
                     b.HasIndex("AboutId");
 
-                    b.ToTable("AboutImages");
+                    b.ToTable("AboutImages", (string)null);
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.Category", b =>
@@ -204,7 +204,7 @@ namespace PamirPlastik.Persistence.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.Color", b =>
@@ -226,7 +226,7 @@ namespace PamirPlastik.Persistence.Migrations
 
                     b.HasKey("ColorID");
 
-                    b.ToTable("Colors");
+                    b.ToTable("Colors", (string)null);
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.Contact", b =>
@@ -296,7 +296,7 @@ namespace PamirPlastik.Persistence.Migrations
 
                     b.HasKey("ContactID");
 
-                    b.ToTable("Contacts");
+                    b.ToTable("Contacts", (string)null);
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.ContactMessage", b =>
@@ -330,7 +330,7 @@ namespace PamirPlastik.Persistence.Migrations
 
                     b.HasKey("ContactMessageID");
 
-                    b.ToTable("ContactMessages");
+                    b.ToTable("ContactMessages", (string)null);
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.Fair", b =>
@@ -364,7 +364,7 @@ namespace PamirPlastik.Persistence.Migrations
 
                     b.HasKey("FairID");
 
-                    b.ToTable("Fairs");
+                    b.ToTable("Fairs", (string)null);
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.HomePageSetting", b =>
@@ -566,7 +566,7 @@ namespace PamirPlastik.Persistence.Migrations
 
                     b.HasKey("HomePageSettingID");
 
-                    b.ToTable("HomePageSettings");
+                    b.ToTable("HomePageSettings", (string)null);
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.Product", b =>
@@ -644,7 +644,7 @@ namespace PamirPlastik.Persistence.Migrations
 
                     b.HasIndex("CategoryID");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.ProductColor", b =>
@@ -659,7 +659,7 @@ namespace PamirPlastik.Persistence.Migrations
 
                     b.HasIndex("ColorID");
 
-                    b.ToTable("ProductColors");
+                    b.ToTable("ProductColors", (string)null);
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.ProductImage", b =>
@@ -680,7 +680,7 @@ namespace PamirPlastik.Persistence.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("ProductImages");
+                    b.ToTable("ProductImages", (string)null);
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.SocialMedia", b =>
@@ -705,7 +705,7 @@ namespace PamirPlastik.Persistence.Migrations
 
                     b.HasKey("SocialMediaID");
 
-                    b.ToTable("SocialMedias");
+                    b.ToTable("SocialMedias", (string)null);
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.AboutFeature", b =>

@@ -1,4 +1,4 @@
-﻿@model List<PamirPlastik.WebUI.DTOs.ContactMessageDtos.ResultContactMessageDto>
+@model List<PamirPlastik.WebUI.DTOs.ContactMessageDtos.ResultContactMessageDto>
 @{
     ViewData["Title"] = "Mesajlar";
 }
@@ -45,14 +45,14 @@
                     {
                         <tr class="hover:bg-teal-50 transition-colors @(!item.IsRead ? "bg-white font-semibold" : "bg-white/50 text-slate-600")" id="row-@item.ContactMessageID">
                             <td class="px-6 py-4">
-                                <div class="text-slate-900">@item.FullName ?? ""</div>
-                                <div class="text-xs text-slate-500 font-normal mt-0.5">@item.Company ?? ""</div>
+                                <div class="text-slate-900">@item.FullName</div>
+                                <div class="text-xs text-slate-500 font-normal mt-0.5">@item.Company</div>
                             </td>
                             <td class="px-6 py-4">
-                                <div class="text-slate-700">@item.Email ?? ""</div>
+                                <div class="text-slate-700">@item.Email</div>
                             </td>
-                            <td class="px-6 py-4 max-w-[200px] truncate" title="@item.Subject ?? """>
-                                @item.Subject ?? ""
+                            <td class="px-6 py-4 max-w-[200px] truncate" title="@item.Subject">
+                                @item.Subject
                             </td>
                             <td class="px-6 py-4 text-slate-500">
                                 @item.SendDate.ToString("dd MMM yyyy, HH:mm")

@@ -43,10 +43,10 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             var responseMessage = await client.PostAsync("https://localhost:7184/api/SocialMedias", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "Sosyal medya hesabı eklendi.";
+                TempData["SuccessMessage"] = "Sosyal medya hesab\u0131 ba\u015Far\u0131yla eklendi.";
                 return RedirectToAction("Index");
             }
-            TempData["ErrorMessage"] = "Sosyal medya hesabı eklenirken bir hata oluştu.";
+            TempData["ErrorMessage"] = "Sosyal medya hesab\u0131 eklenirken bir hata olu\u015Ftu.";
             return View(createSocialMediaDto);
         }
 
@@ -73,23 +73,26 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
             var responseMessage = await client.PutAsync("https://localhost:7184/api/SocialMedias", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "Sosyal medya hesabı güncellendi.";
+                TempData["SuccessMessage"] = "Sosyal medya hesab\u0131 ba\u015Far\u0131yla g\u00FCncellendi.";
                 return RedirectToAction("Index");
             }
-            TempData["ErrorMessage"] = "Sosyal medya hesabı güncellenirken bir hata oluştu.";
+            TempData["ErrorMessage"] = "Sosyal medya hesab\u0131 g\u00FCncellenirken bir hata olu\u015Ftu.";
             return View(updateSocialMediaDto);
         }
 
-        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.DeleteAsync($"https://localhost:7184/api/SocialMedias/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
-                return Json(new { success = true });
+                TempData["SuccessMessage"] = "Sosyal medya hesab\u0131 ba\u015Far\u0131yla silindi.";
             }
-            return Json(new { success = false, message = "Silme işlemi başarısız." });
+            else
+            {
+                TempData["ErrorMessage"] = "Silme i\u015Flemi ba\u015Far\u0131s\u0131z oldu.";
+            }
+            return RedirectToAction("Index");
         }
     }
 }

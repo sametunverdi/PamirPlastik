@@ -76,10 +76,91 @@
                 © @DateTime.Now.Year PAMİR PLASTİK. TÜM HAKLARI SAKLIDIR.
             </p>
             <div class="flex gap-8 text-[11px] font-black text-blue-100/60 uppercase tracking-[0.2em]">
-                <a href="#" class="hover:text-[#ffda44] transition-colors">KVKK</a>
-                <a href="#" class="hover:text-[#ffda44] transition-colors">Çerezler</a>
-                <a href="https://sametaku.com" target="_blank" class="text-white/40 hover:text-[#ffda44] transition-colors">Designed by AKU</a>
+                <button onclick="document.getElementById('kvkkModal').classList.remove('hidden')" class="hover:text-[#ffda44] transition-colors outline-none cursor-pointer">KVKK</button>
+                <button onclick="document.getElementById('cookieModal').classList.remove('hidden')" class="hover:text-[#ffda44] transition-colors outline-none cursor-pointer">Çerezler</button>
+                
             </div>
         </div>
     </div>
 </footer>
+<!-- ⚡ AKU CODE Özel Geliştirici Şeridi (The Very Bottom) ⚡ -->
+@{
+    var dev = ViewBag.DeveloperSetting as PamirPlastik.WebUI.DTOs.DeveloperSettingDtos.ResultDeveloperSettingDto;
+    var devText = dev?.SignatureText ?? "Bu web projesi gururla";
+    var devName = dev?.DeveloperName ?? "AKU CODE";
+    var devUrl = dev?.DeveloperUrl ?? "https://sametaku.com";
+}
+<div class="bg-gradient-to-r from-[#050505] via-[#2a0404] to-[#050505] border-t border-[#dc2626]/30 py-3 relative overflow-hidden">
+    <!-- Subtle Red Glow -->
+    <div class="absolute inset-0 flex justify-center pointer-events-none">
+        <div class="w-[300px] h-full bg-[#dc2626]/20 blur-xl"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-center gap-3 relative z-10 text-center">
+        <span class="text-gray-400 text-xs font-medium tracking-wide">
+            @devText
+        </span>
+        
+        <a href="@devUrl" target="_blank" title="Web Tasarım & Yazılım: @devName" class="group flex items-center gap-2 bg-black hover:bg-[#dc2626] px-3 py-1 rounded-full border border-[#dc2626]/50 hover:border-[#dc2626] shadow-[0_0_10px_rgba(220,38,38,0.3)] hover:shadow-[0_0_20px_rgba(220,38,38,0.6)] transition-all duration-500">
+            <i class="fa-solid fa-fire text-[10px] text-[#dc2626] group-hover:text-white transition-colors"></i>
+            <span class="text-[10px] font-black text-white tracking-[0.2em] uppercase transition-colors">@devName</span>
+        </a>
+        
+        <span class="text-gray-400 text-xs font-medium tracking-wide">
+            taraf&#305;ndan tasarlanm&#305;&#351; ve kodlanm&#305;&#351;t&#305;r.
+        </span>
+    </div>
+</div>
+
+<!-- KVKK Modal -->
+<div id="kvkkModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm transition-all">
+    <div class="bg-white text-slate-800 w-[90%] max-w-2xl max-h-[80vh] rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+        <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+            <h3 class="font-bold text-lg text-pamir-brand">KVKK Aydınlatma Metni</h3>
+            <button onclick="document.getElementById('kvkkModal').classList.add('hidden')" class="text-slate-400 hover:text-red-500 transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+        <div class="p-6 overflow-y-auto text-sm text-slate-600 space-y-4">
+            <p><strong>Değerli Ziyaretçimiz,</strong></p>
+            <p>Pamir Plastik olarak kişisel verilerinizin güvenliğine en üst düzeyde önem vermekteyiz. 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, web sitemiz üzerinden paylaştığınız kişisel verileriniz, veri sorumlusu sıfatıyla Pamir Plastik tarafından işlenmektedir.</p>
+            <p><strong>1. Kişisel Verilerin Hangi Amaçla İşleneceği</strong></p>
+            <p>Toplanan kişisel verileriniz; şirketimiz tarafından sunulan ürün ve hizmetlerden sizleri faydalandırmak, iletişim taleplerinize yanıt vermek, iş başvurularınızı değerlendirmek ve ticari faaliyetlerimizi sürdürmek amaçlarıyla işlenmektedir.</p>
+            <p><strong>2. İşlenen Kişisel Verilerin Kimlere ve Hangi Amaçla Aktarılabileceği</strong></p>
+            <p>Kişisel verileriniz, kanuni yükümlülüklerimizin yerine getirilmesi amacıyla yetkili kamu kurumları ve özel kişilerle, KVKK'nın 8. ve 9. maddelerinde belirtilen şartlar dâhilinde paylaşılabilecektir.</p>
+            <p><strong>3. Veri Sahibinin Hakları</strong></p>
+            <p>KVKK'nın 11. maddesi uyarınca; kişisel verilerinizin işlenip işlenmediğini öğrenme, işlenmişse buna ilişkin bilgi talep etme, eksik veya yanlış işlenmişse düzeltilmesini isteme haklarına sahipsiniz.</p>
+        </div>
+        <div class="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-end">
+            <button onclick="document.getElementById('kvkkModal').classList.add('hidden')" class="px-6 py-2 bg-pamir-brand text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors">Okudum, Anladım</button>
+        </div>
+    </div>
+</div>
+
+<!-- Cookie Modal -->
+<div id="cookieModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm transition-all">
+    <div class="bg-white text-slate-800 w-[90%] max-w-2xl max-h-[80vh] rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+        <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+            <h3 class="font-bold text-lg text-pamir-brand">Çerez (Cookie) Politikası</h3>
+            <button onclick="document.getElementById('cookieModal').classList.add('hidden')" class="text-slate-400 hover:text-red-500 transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+        <div class="p-6 overflow-y-auto text-sm text-slate-600 space-y-4">
+            <p><strong>Çerez Politikamız</strong></p>
+            <p>Pamir Plastik web sitesi (www.pamirplastik.com) olarak, ziyaretçilerimize daha iyi bir kullanıcı deneyimi sunmak, site trafiğimizi analiz etmek ve içeriğimizi kişiselleştirmek amacıyla çerezler (cookies) kullanmaktayız.</p>
+            <p><strong>Çerez (Cookie) Nedir?</strong></p>
+            <p>Çerezler, bir web sitesini ziyaret ettiğinizde tarayıcınız aracılığıyla cihazınıza depolanan küçük metin dosyalarıdır. Bu dosyalar, sitemizin sizin tercihlerinizi hatırlamasını sağlar.</p>
+            <p><strong>Hangi Çerezleri Kullanıyoruz?</strong></p>
+            <ul class="list-disc pl-5 space-y-2">
+                <li><strong>Zorunlu Çerezler:</strong> Web sitesinin temel fonksiyonlarının çalışması için elzem olan çerezlerdir.</li>
+                <li><strong>Performans ve Analitik Çerezleri:</strong> Ziyaretçilerin siteyi nasıl kullandığını anlamamıza yardımcı olur. (Örn: Hangi sayfalarda daha çok vakit geçiriliyor).</li>
+            </ul>
+            <p><strong>Çerezleri Nasıl Yönetebilirsiniz?</strong></p>
+            <p>Tarayıcınızın ayarlarını değiştirerek çerezlere ilişkin tercihlerinizi yönetebilir, çerezleri tamamen reddedebilir veya silinmesini sağlayabilirsiniz.</p>
+        </div>
+        <div class="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-end">
+            <button onclick="document.getElementById('cookieModal').classList.add('hidden')" class="px-6 py-2 bg-pamir-brand text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors">Kabul Et ve Kapat</button>
+        </div>
+    </div>
+</div>

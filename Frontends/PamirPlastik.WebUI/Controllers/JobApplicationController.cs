@@ -50,12 +50,11 @@ namespace PamirPlastik.WebUI.Controllers
 
             if (responseMessage.IsSuccessStatusCode)
             {
-                // Send success message to Contact index using TempData
-                TempData["SuccessMessage"] = "Başvurunuz başarıla alınmıştır. İnsan kaynakları ekibimiz en kısa sürede CV'nizi inceleyecektir.";
+                TempData["SuccessMessage"] = "Ba\u015Fvurunuz ba\u015Far\u0131yla al\u0131nm\u0131\u015Ft\u0131r. \u0130nsan kaynaklar\u0131 ekibimiz en k\u0131sa s\u00FCrede CV'nizi inceleyecektir.";
                 return RedirectToAction("Index", "Contact");
             }
 
-            TempData["ErrorMessage"] = "Başvurunuz gönderilirken bir hata oluştu. Lütfen tekrar deneyin.";
+            TempData["ErrorMessage"] = "Ba\u015Fvurunuz g\u00F6nderilirken bir hata olu\u015Ftu. L\u00FCtfen tekrar deneyin.";
             return RedirectToAction("Index", "Contact");
         }
     }

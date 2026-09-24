@@ -23,6 +23,7 @@ namespace PamirPlastik.Persistence.Context
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
         public DbSet<SocialMedia> SocialMedias { get; set; }
+        public DbSet<DeveloperSetting> DeveloperSettings { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }

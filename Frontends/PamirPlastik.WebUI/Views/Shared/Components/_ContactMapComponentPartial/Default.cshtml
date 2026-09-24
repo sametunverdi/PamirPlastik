@@ -2,12 +2,21 @@
 
 <div class="mt-20 relative rounded-[3rem] overflow-hidden border-4 border-white shadow-lg">
 
-    <iframe src="@Model.MapLocation"
-            class="w-full h-[400px]" @* Filtreleri şimdilik sildim, nokta çıksın sonra ekleriz *@
-            style="border:0;"
-            allowfullscreen=""
-            loading="lazy">
-    </iframe>
+    @if (Model.MapLocation != null && Model.MapLocation.StartsWith("<iframe"))
+    {
+        <div class="w-full h-[400px] [&~iframe]:w-full [&~iframe]:h-full [&~iframe]:border-0">
+            @Html.Raw(Model.MapLocation)
+        </div>
+    }
+    else
+    {
+        <iframe src="@Model.MapLocation"
+                class="w-full h-[400px]"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy">
+        </iframe>
+    }
 
     <div class="absolute bottom-6 left-6 z-10 hidden md:block">
         <div class="bg-[#0f172a] text-white p-7 rounded-[2rem] shadow-2xl border border-white/5">

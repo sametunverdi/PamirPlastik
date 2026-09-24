@@ -1,4 +1,4 @@
-@model List<PamirPlastik.WebUI.DTOs.SocialMediaDtos.ResultSocialMediaDto>
+﻿@model List<PamirPlastik.WebUI.DTOs.SocialMediaDtos.ResultSocialMediaDto>
 @{
     ViewData["Title"] = "Sosyal Medya Hesapları";
 }
@@ -9,85 +9,89 @@
         <p class="text-slate-500 text-sm mt-1">Sitenin footer kısmındaki sosyal medya linklerini düzenleyin.</p>
     </div>
     <div>
-        <a href="/Admin/SocialMedia/Create" class="inline-flex items-center px-4 py-2 bg-[#4A5FC1] text-white rounded-xl font-medium shadow-md shadow-indigo-500/20 hover:bg-[#374796] transition-colors">
+        <a href="/Admin/SocialMedia/Create" class="inline-flex items-center px-4 py-2 bg-[#0f172a] text-white rounded-xl font-medium shadow-md hover:bg-pamir-brand hover:text-[#0f172a] transition-colors">
             <i class="fa-solid fa-plus mr-2"></i> Yeni Ekle
         </a>
     </div>
 </div>
 
-<div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
-    <table class="w-full text-left text-sm text-slate-600">
-        <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-500 uppercase text-xs font-semibold">
-            <tr>
-                <th class="px-6 py-4">İkon & İsim</th>
-                <th class="px-6 py-4">URL</th>
-                <th class="px-6 py-4 text-right">İşlemler</th>
-            </tr>
-        </thead>
-        <tbody class="divide-y divide-slate-100">
-            @foreach (var item in Model)
-            {
-                <tr class="hover:bg-slate-50/50 transition-colors" id="row-@item.SocialMediaID">
-                    <td class="px-6 py-4">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center mr-3 text-[#4A5FC1]">
-                                <i class="@item.IconClass text-lg"></i>
-                            </div>
-                            <span class="font-medium text-slate-800">@item.PlatformName</span>
-                        </div>
-                    </td>
-                    <td class="px-6 py-4">
-                        <a href="@item.Url" target="_blank" class="text-blue-500 hover:underline">@item.Url</a>
-                    </td>
-                    <td class="px-6 py-4 text-right space-x-2">
-                        <a href="/Admin/SocialMedia/Edit/@item.SocialMediaID" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors" title="Düzenle">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                        <button onclick="deleteRecord(@item.SocialMediaID, '/Admin/SocialMedia/Delete')" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors" title="Sil">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            }
-            @if(!Model.Any())
-            {
-                <tr>
-                    <td colspan="3" class="px-6 py-8 text-center text-slate-500">
-                        <div class="flex flex-col items-center justify-center">
-                            <i class="fa-regular fa-folder-open text-4xl mb-3 text-slate-300"></i>
-                            <p>Henüz sosyal medya hesabı eklenmemiş.</p>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    @foreach (var item in Model)
+    {
+        <div class="bg-white rounded-28 p-6 shadow-sm border border-slate-100 hover:shadow-md transition-all group">
+            <div class="flex items-center gap-4 mb-5">
+                <div class="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-800 group-hover:bg-pamir-brand group-hover:text-[#0f172a] transition-all">
+                    <i class="@item.IconClass text-2xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg mb-0.5 font-bold text-slate-800">@item.PlatformName</h3>
+                    <a href="@item.Url" target="_blank" class="text-xs text-slate-410 hover:text-pamir-brand truncate max-w-[16rem] block">@item.Url</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="/Admin/SocialMedia/Edit/@item.SocialMediaID" class="flex-1 py-2 text-center bg-slate-50 hover:bg-slate-100 text-slate-600 rounded-xl font-medium transition-colors">
+                    <i class="fa-solid fa-pen-to-square mr-1"></i> Duzenle
+                </a>
+                <a href="/Admin/SocialMedia/Delete/@item.SocialMediaID" onclick="deleteAlert(event, this.href)" class="w-10 h-10 flex items-center justify-center bg-red-50 hover:bg-red-500 text-red-500 hover:text-white rounded-xl transition-colors">
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+            </div>
+        </div>
+    }
+    @if(!Model.Any())
+    {
+        <div class="col-span-full bg-white rounded-28 p-12 text-center border border-slate-100">
+            <i class="fa-regular fa-folder-open text-5xl mb-4 text-slate-200"></i>
+            <h3 class="text-lg font-medium text-slate-500">Henüz sosyal medya hesabı eklenmemiş.</h3>
+            <p class="text-sm text-slate-400 mt-1">Vizyonunuzu genişletmek için yeni bir hesap ekleyin.</p>
+            <a href="/Admin/SocialMedia/Create" class="inline-block mt-4 px-4 py-2 bg-[#0f172a] text-white rounded-xl hover:bg-pamir-brand hover:text-[#0f172a] transition-colors">
+                <i class="fa-solid fa-plus mr-2"></i> Hesap Ekle
+            </a>
+        </div>
+    }
 </div>
 
-@section Scripts {
-    <script>
-        function deleteRecord(id, url) {
-            const swalResult = await Swal.fire({
+<script>
+    function deleteAlert(e, url) {
+        e.preventDefault();
+        Swal.fire({
             title: 'Emin misiniz?',
-            text: 'Bu kaydı silmek istediğinize emin misiniz?',
+            text: 'Bu sosyal medya hesabını silmek istediğinize emin misiniz?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#ef4444',
             cancelButtonColor: '#64748b',
             confirmButtonText: 'Evet, Sil!',
-            cancelButtonText: 'İptal'
-        });
-        if (swalResult.isConfirmed) {
-                fetchApi(url + '/' + id, { method: 'POST' })
-                    .then(data => {
-                        if (data && data.success) {
-                            document.getElementById('row-' + id).remove();
-                            showToast('Kayıt başarıyla silindi.', 'success');
-                        } else {
-                            showToast(data.message || 'Silme başarısız.', 'error');
-                        }
-                    });
+            cancelButtonText: 'ıptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
             }
-        }
-    </script>
-}
+        });
+    }
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <text>
+        Swal.fire({
+            title: 'Başarılı!',
+            text: @Html.Raw(Json.Serialize(TempData["SuccessMessage"])),
+            icon: 'success',
+            confirmButtonText: 'Tamam',
+            confirmButtonColor: '#0f172a'
+        });
+        </text>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <text>
+        Swal.fire({
+            title: 'Hata!',
+            text: @Html.Raw(Json.Serialize(TempData["ErrorMessage"])),
+            icon: 'error',
+            confirmButtonText: 'Tamam',
+            confirmButtonColor: '#ef4444'
+        });
+        </text>
+    }
+</script>

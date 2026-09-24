@@ -1,9 +1,10 @@
-namespace PamirPlastik.WebUI.DTOs.SocialMediaDtos
+﻿namespace PamirPlastik.WebUI.DTOs.SocialMediaDtos
 {
     public class CreateSocialMediaDto
     {
         public string? PlatformName { get; set; }
         public string? Url { get; set; }
         public string? IconClass { get; set; }
+        public bool IsActive { get; set; }
     }
 }

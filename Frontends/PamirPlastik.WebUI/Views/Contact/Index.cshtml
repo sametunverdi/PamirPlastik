@@ -207,3 +207,12 @@
         </text>
     }
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.get('openJobModal') === 'true') {
+            document.getElementById('jobApplicationModal').classList.remove('hidden');
+        }
+    });
+</script>

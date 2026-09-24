@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PamirPlastik.WebUI.DTOs.ContactDtos;
 using PamirPlastik.WebUI.DTOs.SocialMediaDtos;
@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace PamirPlastik.WebUI.ViewComponents.Layout
 {
-    public class _LayoutTopBarComponentPartial : ViewComponent
+    public class _LayoutTopbarComponentPartial : ViewComponent
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public _LayoutTopBarComponentPartial(IHttpClientFactory httpClientFactory)
+        public _LayoutTopbarComponentPartial(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
@@ -21,6 +21,8 @@ namespace PamirPlastik.WebUI.ViewComponents.Layout
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var client = _httpClientFactory.CreateClient();
+            
+            // 1. Fetch Contact for phone/email
             var responseContact = await client.GetAsync("https://localhost:7184/api/Contacts");
             if (responseContact.IsSuccessStatusCode)
             {
@@ -29,6 +31,7 @@ namespace PamirPlastik.WebUI.ViewComponents.Layout
                 ViewBag.Contact = valuesContact?.FirstOrDefault();
             }
 
+            // 2. Fetch Social Media
             var responseSocial = await client.GetAsync("https://localhost:7184/api/SocialMedias");
             if (responseSocial.IsSuccessStatusCode)
             {

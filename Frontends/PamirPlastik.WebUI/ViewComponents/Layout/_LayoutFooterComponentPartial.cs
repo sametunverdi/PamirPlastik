@@ -1,7 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PamirPlastik.WebUI.DTOs.ContactDtos;
 using PamirPlastik.WebUI.DTOs.SocialMediaDtos;
+using PamirPlastik.WebUI.DTOs.DeveloperSettingDtos;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -21,6 +22,8 @@ namespace PamirPlastik.WebUI.ViewComponents.Layout
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var client = _httpClientFactory.CreateClient();
+            
+            // 1. Fetch Contact
             var responseContact = await client.GetAsync("https://localhost:7184/api/Contacts");
             if (responseContact.IsSuccessStatusCode)
             {
@@ -29,6 +32,16 @@ namespace PamirPlastik.WebUI.ViewComponents.Layout
                 ViewBag.Contact = valuesContact?.FirstOrDefault();
             }
 
+            // 2. Fetch Developer Settings
+            var responseDev = await client.GetAsync("https://localhost:7184/api/DeveloperSettings");
+            if (responseDev.IsSuccessStatusCode)
+            {
+                var jsonDev = await responseDev.Content.ReadAsStringAsync();
+                var valuesDev = JsonConvert.DeserializeObject<List<ResultDeveloperSettingDto>>(jsonDev);
+                ViewBag.DeveloperSetting = valuesDev?.FirstOrDefault();
+            }
+
+            // 3. Fetch Social Media
             var responseSocial = await client.GetAsync("https://localhost:7184/api/SocialMedias");
             if (responseSocial.IsSuccessStatusCode)
             {
