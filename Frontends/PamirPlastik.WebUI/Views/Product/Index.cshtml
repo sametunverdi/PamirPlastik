@@ -1,9 +1,10 @@
-﻿@model List<PamirPlastik.WebUI.DTOs.ProductDtos.ResultProductDto>
+﻿@inject PamirPlastik.WebUI.Services.LocalizationService Localizer
+@model List<PamirPlastik.WebUI.DTOs.ProductDtos.ResultProductDto>
 @{
-    ViewData["Title"] = "Ürün Kataloğu - Pamir Plastik";
-    ViewData["Description"] = "Mutfak gereçlerinden banyo aksesuarlarına kadar 150'den fazla dayanıklı ve şık plastik ürünümüzü keşfedin.";
-    ViewData["PageName"] = "Ürün Kataloğu";
-    ViewData["HeaderTitle"] = "Geleceğin Plastik Çözümlerini <br/> <span class='text-[#ffda44]'>Şimdi Keşfedin</span>";
+        ViewData["Title"] = Localizer.Get("Ürün Kataloğu - Pamir Plastik", "Product Catalog - Pamir Plastik");
+    ViewData["Description"] = Localizer.Get("Mutfak gereçlerinden banyo aksesuarlarına kadar 150'den fazla dayanıklı ve şık plastik ürünümüzü keşfedin.", "Discover over 150 durable and stylish plastic products from kitchenware to bathroom accessories.");
+    ViewData["PageName"] = Localizer.Get("Ürün Kataloğu", "Product Catalog");
+    ViewData["HeaderTitle"] = Html.Raw(Localizer.Get("Geleceğin Plastik Çözümlerini <br/> <span class='text-[#ffda44]'>Şimdi Keşfedin</span>", "Discover Future Plastic Solutions <br/> <span class='text-[#ffda44]'>Now</span>"));
     int currentPage = ViewBag.CurrentPage ?? 1;
     int totalPages = ViewBag.TotalPages ?? 1;
 }
@@ -11,7 +12,7 @@
 <div class="lg:hidden bg-white border-b border-gray-100 sticky top-[80px] z-40 px-4 py-4">
     <button id="open-filter-btn" class="w-full flex items-center justify-center gap-3 py-3 bg-[#0f172a] text-white rounded-2xl font-black text-xs tracking-widest shadow-xl shadow-blue-900/10">
         <svg class="w-5 h-5 text-[#ffda44]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4H4m6-4H4m8 8v-2m0 2a2 2 0 100-4m0 4a2 2 0 110-4m0 4h10m-10-4h10m-4 6v-2m0 2a2 2 0 100-4m0 4a2 2 0 110-4m0 4h10m-10-4h10"></path></svg>
-        KATEGORİLERİ FİLTRELE
+        @Localizer.Get("KATEGORİLERİ FİLTRELE", "FILTER CATEGORIES")
     </button>
 </div>
 
@@ -29,10 +30,10 @@
                         {
                             <div class="group bg-white rounded-[2.5rem] p-5 shadow-sm border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
                                 <div class="relative aspect-square rounded-[2rem] overflow-hidden bg-gray-50 mb-6 border border-gray-50">
-                                    <span class="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-md text-[#0f172a] text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-sm">Ürün</span>
+                                    <span class="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-md text-[#0f172a] text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-sm">@Localizer.Get("Ürün", "Product")</span>
 
                                     @* Kanka buralar senin orijinal isimlendirmelerin, dokunmadım *@
-                                    <img src="@item.MainImageUrl" loading="lazy" alt="@item.Name_TR" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                    <img src="@item.MainImageUrl" loading="lazy" alt="@(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(item.Name_EN) ? item.Name_EN : item.Name_TR)" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
 
                                     <div class="absolute inset-0 bg-[#0f172a]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
                                         <a href="/urun/@item.Slug_TR" class="w-12 h-12 bg-[#ffda44] text-[#0f172a] rounded-xl flex items-center justify-center shadow-xl hover:scale-110 transition-all">
@@ -42,14 +43,18 @@
                                 </div>
 
                                 <div class="px-2">
-                                    <h4 class="text-xl font-black text-gray-900 mb-2 group-hover:text-pamir-brand transition-colors tracking-tighter leading-none uppercase">@item.Name_TR</h4>
-                                    <p class="text-gray-400 text-xs font-medium leading-relaxed mb-6 line-clamp-2">@item.ShortDescription_TR</p>
+                                    <h4 class="text-xl font-black text-gray-900 mb-2 group-hover:text-pamir-brand transition-colors tracking-tighter leading-none uppercase">@(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(item.Name_EN) ? item.Name_EN : item.Name_TR)</h4>
+                                    <p class="text-gray-400 text-xs font-medium leading-relaxed mb-6 line-clamp-2">@(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(item.ShortDescription_EN) ? item.ShortDescription_EN : item.ShortDescription_TR)</p>
 
-                                    <div class="flex items-center justify-between pt-4 border-t border-gray-50">
-                                        <span class="text-[10px] font-black text-gray-300 uppercase tracking-widest">Kod: @item.ProductCode</span>
-                                        <a href="/urun/@item.Slug_TR" class="text-pamir-brand font-black text-xs flex items-center gap-1 group-hover:text-[#ffda44] transition-colors">
-                                            İNCELMEYE BAŞLA
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                                                        <div class="pt-4 border-t border-gray-50 flex flex-col gap-3">
+                                        <div class="flex items-center">
+                                            <span class="text-[10px] font-black text-gray-500 bg-gray-100 px-2.5 py-1 rounded-md tracking-widest uppercase">@Localizer.Get("Kod:", "Code:") @item.ProductCode</span>
+                                        </div>
+                                        <a href="/urun/@item.Slug_TR" class="w-full bg-[#f8fafc] group-hover:bg-[#ffda44] text-[#0f172a] font-black text-[11px] sm:text-xs py-3 px-3 sm:px-4 rounded-xl flex items-center justify-between transition-all duration-300">
+                                            @Localizer.Get("İNCELMEYE BAŞLA", "START REVIEWING")
+                                            <div class="w-5 h-5 sm:w-6 sm:h-6 bg-white rounded-full flex items-center justify-center shadow-sm shrink-0">
+                                                <svg class="w-3 h-3 text-[#0f172a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
+                                            </div>
                                         </a>
                                     </div>
                                 </div>
@@ -58,7 +63,7 @@
                     }
                     else
                     {
-                        <p class="text-center text-gray-500 py-10 col-span-full uppercase font-black text-sm tracking-widest">Bu kategoride henüz ürün bulunmuyor kanka.</p>
+                        <p class="text-center text-gray-500 py-10 col-span-full uppercase font-black text-sm tracking-widest">@Localizer.Get("Bu kategoride henüz ürün bulunmuyor.", "There are no products in this category yet.")</p>
                     }
                 </div>
 
@@ -114,4 +119,7 @@
         });
     </script>
 }
+
+
+
 

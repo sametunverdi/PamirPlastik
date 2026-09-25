@@ -1,4 +1,5 @@
-﻿@model PamirPlastik.WebUI.DTOs.HomePageSettingDtos.ResultHomePageSettingDto
+﻿@inject PamirPlastik.WebUI.Services.LocalizationService Localizer
+@model PamirPlastik.WebUI.DTOs.HomePageSettingDtos.ResultHomePageSettingDto
 @{
     ViewData["Title"] = "Plastik Üretiminde Global Çözüm Ortağınız";
     ViewData["Description"] = "Pamir Plastik, 25 yıllık tecrübesiyle dünya standartlarında mutfak ve ev gereçleri üreten lider bir markadır.";
@@ -17,39 +18,39 @@
             <div class="text-white space-y-8">
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-semibold tracking-wide w-fit">
                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    @Model.HeroTitleTop_TR
+                    @(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.HeroTitleTop_EN) ? Model.HeroTitleTop_EN : Model.HeroTitleTop_TR)
                 </div>
                 <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-white drop-shadow-lg">
-                    @Html.Raw(Model.HeroTitleMain_TR)
+                    @Html.Raw(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.HeroTitleMain_EN) ? Model.HeroTitleMain_EN : Model.HeroTitleMain_TR)
                 </h1>
                 <p class="text-lg md:text-xl text-blue-100 max-w-xl font-medium leading-relaxed">
-                    @Model.HeroDescription_TR
+                    @(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.HeroDescription_EN) ? Model.HeroDescription_EN : Model.HeroDescription_TR)
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 pt-4">
                     <a href="@(Model.CatalogPdfUrl ?? "#")" target="_blank" class="flex justify-center items-center gap-2 px-8 py-4 bg-[#ffda44] text-[#0f172a] font-bold text-lg rounded-xl hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(255,218,68,0.4)]">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                        Katalog İndir
+                        @Localizer.Get("Katalog İndir", "Download Catalog")
                     </a>
                     <a href="/Contact/Index/" class="flex justify-center items-center gap-2 px-8 py-4 bg-transparent text-white font-bold text-lg rounded-xl border border-white/40 hover:bg-white/10 hover:border-white transition-all duration-300">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                        Bize Ulaşın
+                        @Localizer.Get("Bize Ulaşın", "Contact Us")
                     </a>
                 </div>
                 <!-- İstatistikler -->
                 <div class="pt-8 flex items-center gap-6 sm:gap-10">
                     <div>
                         <div class="text-3xl font-black text-white">@Model.ExperienceYear</div>
-                        <div class="text-[11px] sm:text-xs font-medium text-blue-100 mt-1">Sektör Yılı</div>
+                        <div class="text-[11px] sm:text-xs font-medium text-blue-100 mt-1">@Localizer.Get("Sektör Yılı", "Years in Sector")</div>
                     </div>
                     <div class="w-px h-10 bg-white/30"></div>
                     <div>
                         <div class="text-3xl font-black text-white">@Model.ProductTypeCount</div>
-                        <div class="text-[11px] sm:text-xs font-medium text-blue-100 mt-1">Ürün Grupları</div>
+                        <div class="text-[11px] sm:text-xs font-medium text-blue-100 mt-1">@Localizer.Get("Ürün Grupları", "Product Groups")</div>
                     </div>
                     <div class="w-px h-10 bg-white/30"></div>
                     <div>
                         <div class="text-3xl font-black text-white">@Model.ExportCountryCount</div>
-                        <div class="text-[11px] sm:text-xs font-medium text-blue-100 mt-1">İhracat Ülkesi</div>
+                        <div class="text-[11px] sm:text-xs font-medium text-blue-100 mt-1">@Localizer.Get("İhracat Ülkesi", "Export Countries")</div>
                     </div>
                 </div>
             </div>
@@ -65,8 +66,8 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                     </div>
                     <div>
-                        <div class="font-black text-xs">@(string.IsNullOrEmpty(Model.HeroBadge1_TR) ? "ISO Sertifikalı" : Model.HeroBadge1_TR)</div>
-                        <div class="text-[10px] text-gray-500 font-medium">Sürdürülebilir</div>
+                        <div class="font-black text-xs">@((Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.HeroBadge1_EN) ? Model.HeroBadge1_EN : Model.HeroBadge1_TR) ?? (Localizer.CurrentLanguage == "en" ? "ISO Certified" : "ISO Sertifikalı"))</div>
+                        <div class="text-[10px] text-gray-500 font-medium">@Localizer.Get("Sürdürülebilir", "Sustainable")</div>
                     </div>
                 </div>
                 <!-- Rozet 2 - Sağ alt -->
@@ -75,8 +76,8 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
                     <div>
-                        <div class="font-black text-xs">@(string.IsNullOrEmpty(Model.HeroBadge2_TR) ? "Premium Kalite" : Model.HeroBadge2_TR)</div>
-                        <div class="text-[10px] text-gray-500 font-medium">Yüksek Kalite</div>
+                        <div class="font-black text-xs">@((Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.HeroBadge2_EN) ? Model.HeroBadge2_EN : Model.HeroBadge2_TR) ?? (Localizer.CurrentLanguage == "en" ? "Premium Quality" : "Premium Kalite"))</div>
+                        <div class="text-[10px] text-gray-500 font-medium">@Localizer.Get("Yüksek Kalite", "High Quality")</div>
                     </div>
                 </div>
                 <!-- Rozet 3 - Sağ orta -->
@@ -85,8 +86,8 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     </div>
                     <div>
-                        <div class="font-black text-xs">@(string.IsNullOrEmpty(Model.HeroBadge3_TR) ? "Yenilikçi Tasarım" : Model.HeroBadge3_TR)</div>
-                        <div class="text-[10px] text-gray-500 font-medium">Yenilikçi</div>
+                        <div class="font-black text-xs">@((Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.HeroBadge3_EN) ? Model.HeroBadge3_EN : Model.HeroBadge3_TR) ?? (Localizer.CurrentLanguage == "en" ? "Innovative Design" : "Yenilikçi Tasarım"))</div>
+                        <div class="text-[10px] text-gray-500 font-medium">@Localizer.Get("Yenilikçi", "Innovative")</div>
                     </div>
                 </div>
             </div>
@@ -120,7 +121,7 @@
                     </div>
                     <div>
                         <div class="text-lg font-black text-gray-900 leading-tight">10 Milyon+</div>
-                        <div class="text-[9px] uppercase font-bold text-gray-400 tracking-widest mt-0.5">Yıllık Üretim Kapasitesi</div>
+                        <div class="text-[9px] uppercase font-bold text-gray-400 tracking-widest mt-0.5">@Localizer.Get("Yıllık Üretim Kapasitesi", "Annual Production Capacity")</div>
                     </div>
                 </div>
             </div>
@@ -129,15 +130,15 @@
             <div class="space-y-8 lg:pl-8">
                 <div>
                     <h2 class="text-blue-600 font-bold tracking-widest text-xs uppercase mb-3">
-                        @(string.IsNullOrEmpty(Model.ProdTitleTop_TR) ? "PAMİR PLASTİK GÜVENCESİYLE" : Model.ProdTitleTop_TR)
+                        @((Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.ProdTitleTop_EN) ? Model.ProdTitleTop_EN : Model.ProdTitleTop_TR) ?? (Localizer.CurrentLanguage == "en" ? "WITH THE ASSURANCE OF PAMIR PLASTIK" : "PAMİR PLASTİK GÜVENCESİYLE"))
                     </h2>
                     <h3 class="text-4xl md:text-5xl font-black text-gray-900 tracking-tight leading-tight">
-                        @Html.Raw(string.IsNullOrEmpty(Model.ProdTitleMain_TR) ? "Sadece Üretmiyor, <br/><span class=\"text-blue-500/80\">Değer Katıyoruz.</span>" : Model.ProdTitleMain_TR)
+                        @Html.Raw((Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.ProdTitleMain_EN) ? Model.ProdTitleMain_EN : Model.ProdTitleMain_TR) ?? (Localizer.CurrentLanguage == "en" ? "We Don't Just Produce, <br/><span class=\"text-blue-500/80\">We Add Value.</span>" : "Sadece Üretmiyor, <br/><span class=\"text-blue-500/80\">Değer Katıyoruz.</span>"))
                     </h3>
                 </div>
 
                 <p class="text-gray-600 text-lg font-medium leading-relaxed">
-                    @(string.IsNullOrEmpty(Model.ProdDescription_TR) ? "Sektördeki 25 yıllık deneyimimizle, en son teknolojiye sahip makine parkurumuzda ev aletlerinden ofis kırtasiye ve banyo ürünlerine kadar binlerce ürün üretiyoruz." : Model.ProdDescription_TR)
+                    @((Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.ProdDescription_EN) ? Model.ProdDescription_EN : Model.ProdDescription_TR) ?? (Localizer.CurrentLanguage == "en" ? "With our 25 years of experience in the sector, we produce thousands of products from home appliances to office stationery and bathroom products in our state-of-art machinery park." : "Sektördeki 25 yıllık deneyimimizle, en son teknolojiye sahip makine parkurumuzda ev aletlerinden ofis kırtasiye ve banyo ürünlerine kadar binlerce ürün üretiyoruz."))
                 </p>
 
                 <!-- Özellikler Listesi -->
@@ -151,8 +152,8 @@
                             </svg>
                         </div>
                         <div>
-                            <h4 class="text-lg font-bold text-gray-900 mb-1">@(string.IsNullOrEmpty(Model.ProdItem1Title_TR) ? "Geniş Makine Parkuru" : Model.ProdItem1Title_TR)</h4>
-                            <p class="text-gray-500 text-sm leading-relaxed">@(string.IsNullOrEmpty(Model.ProdItem1Desc_TR) ? "Kendi bünyemizdeki yüksek teknoloji üretim bantlarıyla sınır tanımıyoruz." : Model.ProdItem1Desc_TR)</p>
+                            <h4 class="text-lg font-bold text-gray-900 mb-1">@((Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.ProdItem1Title_EN) ? Model.ProdItem1Title_EN : Model.ProdItem1Title_TR) ?? (Localizer.CurrentLanguage == "en" ? "Wide Machinery Park" : "Geniş Makine Parkuru"))</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed">@((Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.ProdItem1Desc_EN) ? Model.ProdItem1Desc_EN : Model.ProdItem1Desc_TR) ?? (Localizer.CurrentLanguage == "en" ? "We know no boundaries with our in-house high-tech production lines." : "Kendi bünyemizdeki yüksek teknoloji üretim bantlarıyla sınır tanımıyoruz."))</p>
                         </div>
                     </div>
                     <div class="flex gap-4">
@@ -163,8 +164,8 @@
                             </svg>
                         </div>
                         <div>
-                            <h4 class="text-lg font-bold text-gray-900 mb-1">@(string.IsNullOrEmpty(Model.ProdItem2Title_TR) ? "Sertifikalı Kalite" : Model.ProdItem2Title_TR)</h4>
-                            <p class="text-gray-500 text-sm leading-relaxed">@(string.IsNullOrEmpty(Model.ProdItem2Desc_TR) ? "Üretimin her aşamasında uluslararası standartlara uygun sürdürülebilir kalite kontrolü." : Model.ProdItem2Desc_TR)</p>
+                            <h4 class="text-lg font-bold text-gray-900 mb-1">@((Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.ProdItem2Title_EN) ? Model.ProdItem2Title_EN : Model.ProdItem2Title_TR) ?? (Localizer.CurrentLanguage == "en" ? "Certified Quality" : "Sertifikalı Kalite"))</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed">@((Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.ProdItem2Desc_EN) ? Model.ProdItem2Desc_EN : Model.ProdItem2Desc_TR) ?? (Localizer.CurrentLanguage == "en" ? "Sustainable quality control in accordance with international standards at every stage of production." : "Üretimin her aşamasında uluslararası standartlara uygun sürdürülebilir kalite kontrolü."))</p>
                         </div>
                     </div>
                     <div class="flex gap-4">
@@ -175,15 +176,15 @@
                             </svg>
                         </div>
                         <div>
-                            <h4 class="text-lg font-bold text-gray-900 mb-1">@(string.IsNullOrEmpty(Model.ProdItem3Title_TR) ? "Global Lojistik Ağı" : Model.ProdItem3Title_TR)</h4>
-                            <p class="text-gray-500 text-sm leading-relaxed">@(string.IsNullOrEmpty(Model.ProdItem3Desc_TR) ? "Dünyanın 50'den fazla ülkesine sorunsuz tedarik ve lojistik operasyonu sunuyoruz." : Model.ProdItem3Desc_TR)</p>
+                            <h4 class="text-lg font-bold text-gray-900 mb-1">@((Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.ProdItem3Title_EN) ? Model.ProdItem3Title_EN : Model.ProdItem3Title_TR) ?? (Localizer.CurrentLanguage == "en" ? "Global Logistics Network" : "Global Lojistik Ağı"))</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed">@((Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.ProdItem3Desc_EN) ? Model.ProdItem3Desc_EN : Model.ProdItem3Desc_TR) ?? (Localizer.CurrentLanguage == "en" ? "We offer seamless supply and logistics operations to more than 50 countries around the world." : "Dünyanın 50'den fazla ülkesine sorunsuz tedarik ve lojistik operasyonu sunuyoruz."))</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="pt-6">
                     <a href="/About/Index/" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-xl transition-all shadow-lg shadow-blue-600/30 hover:-translate-y-1">
-                        Hakkımızda Daha Fazla
+                        @Localizer.Get("Hakkımızda Daha Fazla", "More About Us")
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                 </div>
@@ -209,16 +210,16 @@
             <div class="text-white space-y-6">
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-semibold tracking-wide">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                    E-Ticarette Lider Konum
+                    @Localizer.Get("E-Ticarette Lider Konum", "Leading Position in E-Commerce")
                 </div>
                 <h3 class="text-3xl md:text-4xl font-extrabold mb-4 leading-tight">
-                    Online'da Güvenle <br />Alışverişin Adresi
+                    @Html.Raw(Localizer.Get("Online'da Güvenle <br />Alışverişin Adresi", "Safe Address for <br />Online Shopping"))
                 </h3>
                 <p class="text-orange-50 text-lg mb-8 opacity-90 max-w-md">
-                    Ev ve mutfak gereçlerinde en çok tercih edilen markalardan biri olarak on binlerce mutlu müşteriye ulaşıyoruz.
+                    @Localizer.Get("Ev ve mutfak gereçlerinde en çok tercih edilen markalardan biri olarak on binlerce mutlu müşteriye ulaşıyoruz.", "As one of the most preferred brands in home and kitchen appliances, we reach tens of thousands of happy customers.")
                 </p>
                 <a href="@Model.EcomStoreLink" target="_blank" class="inline-flex items-center justify-center gap-2 bg-white text-orange-500 px-8 py-4 rounded-xl font-bold text-lg hover:bg-orange-50 hover:scale-105 transition-all shadow-lg">
-                    Resmi Mağazamızı Ziyaret Et
+                    @Localizer.Get("Resmi Mağazamızı Ziyaret Et", "Visit Our Official Store")
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
             </div>
@@ -231,21 +232,21 @@
                             <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
                         }
                     </div>
-                    <div class="text-orange-100 font-medium text-xs">Mağaza Puanı</div>
+                    <div class="text-orange-100 font-medium text-xs">@Localizer.Get("Mağaza Puanı", "Store Rating")</div>
                 </div>
                 <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-center transform hover:-translate-y-1 transition-transform">
                     <div class="text-4xl font-black text-white mb-2">@Model.EcomDeliveryMonthly</div>
                     <div class="text-[#ffda44] mb-2">
                         <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
                     </div>
-                    <div class="text-orange-100 font-medium text-xs">Aylık Başarılı Teslimat</div>
+                    <div class="text-orange-100 font-medium text-xs">@Localizer.Get("Aylık Başarılı Teslimat", "Monthly Successful Deliveries")</div>
                 </div>
                 <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-center col-span-2 transform hover:-translate-y-1 transition-transform">
                     <div class="text-4xl font-black text-white mb-2">@Model.EcomCommentCount</div>
                     <div class="text-[#ffda44] mb-2">
                         <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
                     </div>
-                    <div class="text-orange-100 font-medium text-xs">Gerçek Müşteri Değerlendirmesi</div>
+                    <div class="text-orange-100 font-medium text-xs">@Localizer.Get("Gerçek Müşteri Değerlendirmesi", "Real Customer Reviews")</div>
                 </div>
             </div>
         </div>
@@ -260,42 +261,42 @@
     </div>
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <h2 class="text-[#4A5FC1] font-bold tracking-widest text-xs uppercase mb-3">Global Güç</h2>
+            <h2 class="text-[#4A5FC1] font-bold tracking-widest text-xs uppercase mb-3">@Localizer.Get("Global Güç", "Global Power")</h2>
             <h3 class="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">
-                Dünyanın Her Yerinde <span class="text-[#4A5FC1]">Pamir Plastik</span>
+                @Html.Raw(Localizer.Get("Dünyanın Her Yerinde <span class=\"text-[#4A5FC1]\">Pamir Plastik</span>", "Pamir Plastik <span class=\"text-[#4A5FC1]\">All Around the World</span>"))
             </h3>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
             <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center">
                 <div class="text-4xl font-black text-gray-900 mb-1">@Model.GlobExportCountry</div>
-                <div class="text-[#4A5FC1] text-[10px] font-bold uppercase tracking-wider">İhracat Ülkesi</div>
+                <div class="text-[#4A5FC1] text-[10px] font-bold uppercase tracking-wider">@Localizer.Get("İhracat Ülkesi", "Export Countries")</div>
             </div>
             <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center">
                 <div class="text-4xl font-black text-gray-900 mb-1">@Model.GlobContinent</div>
-                <div class="text-[#4A5FC1] text-[10px] font-bold uppercase tracking-wider">Kıta Ağı</div>
+                <div class="text-[#4A5FC1] text-[10px] font-bold uppercase tracking-wider">@Localizer.Get("Kıta Ağı", "Continent Network")</div>
             </div>
             <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center">
                 <div class="text-4xl font-black text-gray-900 mb-1">@Model.GlobDealer</div>
-                <div class="text-[#4A5FC1] text-[10px] font-bold uppercase tracking-wider">Ürün Çeşidi</div>
+                <div class="text-[#4A5FC1] text-[10px] font-bold uppercase tracking-wider">@Localizer.Get("Ürün Çeşidi", "Product Variety")</div>
             </div>
             <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center">
                 <div class="text-4xl font-black text-gray-900 mb-1">@Model.GlobSectorYear</div>
-                <div class="text-[#4A5FC1] text-[10px] font-bold uppercase tracking-wider">Sektör Yılı</div>
+                <div class="text-[#4A5FC1] text-[10px] font-bold uppercase tracking-wider">@Localizer.Get("Sektör Yılı", "Years in Sector")</div>
             </div>
         </div>
         <div class="relative bg-gradient-to-r from-slate-900 via-[#1a237e] to-[#4A5FC1] rounded-[2.5rem] p-8 md:p-12 overflow-hidden shadow-2xl">
             <div class="absolute top-0 right-0 w-64 h-full bg-[#4A5FC1]/10 skew-x-12 translate-x-10"></div>
             <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                 <div class="text-center md:text-left">
-                    <h4 class="text-2xl md:text-3xl font-bold text-white mb-2">Online Kataloğumuzu İnceleyin</h4>
-                    <p class="text-gray-400 text-xs md:text-base">Tüm ürün gruplarımızı ve teknik detayları içeren güncel kataloğumuza ulaşın.</p>
+                    <h4 class="text-2xl md:text-3xl font-bold text-white mb-2">@Localizer.Get("Online Kataloğumuzu İnceleyin", "Review Our Online Catalog")</h4>
+                    <p class="text-gray-400 text-xs md:text-base">@Localizer.Get("Tüm ürün gruplarımızı ve teknik detayları içeren güncel kataloğumuza ulaşın.", "Access our current catalog containing all our product groups and technical details.")</p>
                 </div>
                 <div class="flex gap-4">
                     <a href="/Contact/Index/" class="px-8 py-4 bg-[#4A5FC1] text-white font-bold rounded-2xl hover:bg-blue-600 transition-all shadow-lg shadow-blue-500/20">
-                        Teklif Alın
+                        @Localizer.Get("Teklif Alın", "Get a Quote")
                     </a>
                     <a href="@(Model.CatalogPdfUrl ?? "#")" target="_blank" class="px-8 py-4 bg-white/5 text-white border border-white/10 backdrop-blur-md font-bold rounded-2xl hover:bg-white/10 transition-all">
-                        Katalog
+                        @Localizer.Get("Katalog", "Catalog")
                     </a>
                 </div>
             </div>

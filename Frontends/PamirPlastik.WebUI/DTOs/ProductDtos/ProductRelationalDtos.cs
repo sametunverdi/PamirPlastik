@@ -1,4 +1,4 @@
-namespace PamirPlastik.WebUI.DTOs.ProductDtos
+﻿namespace PamirPlastik.WebUI.DTOs.ProductDtos
 
 {
 
@@ -9,6 +9,7 @@ namespace PamirPlastik.WebUI.DTOs.ProductDtos
         public int ProductColorID { get; set; }
 
         public string? ColorName { get; set; }
+        public string? ColorName_EN { get; set; }
 
         public string? ColorHex { get; set; }
 
@@ -27,4 +28,5 @@ namespace PamirPlastik.WebUI.DTOs.ProductDtos
     }
 
 }
+
 

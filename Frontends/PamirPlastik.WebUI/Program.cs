@@ -1,7 +1,17 @@
+﻿using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
 
 // Add services to the container.
+var supportedCultures = new[] { "tr-TR", "en-US" };
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture("tr-TR");
+    options.SupportedCultures = supportedCultures.Select(c => new CultureInfo(c)).ToList();
+    options.SupportedUICultures = supportedCultures.Select(c => new CultureInfo(c)).ToList();
+});
+builder.Services.AddScoped<PamirPlastik.WebUI.Services.LocalizationService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -18,6 +28,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseRequestLocalization();
 
 app.UseAuthorization();
 
@@ -35,4 +46,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
 

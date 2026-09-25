@@ -1,4 +1,5 @@
-﻿@model List<PamirPlastik.WebUI.DTOs.CategoryDtos.ResultCategoryDto>
+﻿@inject PamirPlastik.WebUI.Services.LocalizationService Localizer
+@model List<PamirPlastik.WebUI.DTOs.CategoryDtos.ResultCategoryDto>
 
 <aside id="filter-sidebar" class="fixed inset-0 z-[60] lg:relative lg:z-0 lg:block lg:w-1/4 transform -translate-x-full lg:translate-x-0 transition-transform duration-500 ease-in-out">
 
@@ -7,7 +8,7 @@
     <div class="relative w-[85%] max-w-xs h-full lg:w-full bg-white lg:bg-transparent shadow-2xl lg:shadow-none lg:sticky lg:top-32 overflow-y-auto lg:overflow-visible flex flex-col">
 
         <div class="flex lg:hidden items-center justify-between p-6 border-b border-gray-100">
-            <span class="text-xl font-black text-pamir-brand tracking-tighter uppercase">Filtrele</span>
+            <span class="text-xl font-black text-pamir-brand tracking-tighter uppercase">@Localizer.Get("Filtrele", "Filter")</span>
             <button id="close-filter-btn" class="p-2 bg-gray-50 rounded-xl text-gray-400">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
@@ -21,26 +22,26 @@
                     {
                         <input type="hidden" name="categoryId" value="@Context.Request.Query["categoryId"]" />
                     }
-                    <input type="text" name="searchQuery" value="@Context.Request.Query["searchQuery"]" placeholder="PMR Kod veya Ürün Ara..." class="w-full bg-gray-50 border border-gray-100 rounded-xl py-3 px-4 pr-10 text-sm font-medium text-gray-700 placeholder-gray-400 focus:outline-none focus:border-pamir-brand focus:ring-1 focus:ring-pamir-brand transition-all">
+                    <input type="text" name="searchQuery" value="@Context.Request.Query["searchQuery"]" placeholder="@Localizer.Get("PMR Kod veya Ürün Ara...", "Search PMR Code or Product...")" class="w-full bg-gray-50 border border-gray-100 rounded-xl py-3 px-4 pr-10 text-sm font-medium text-gray-700 placeholder-gray-400 focus:outline-none focus:border-pamir-brand focus:ring-1 focus:ring-pamir-brand transition-all">
                     <button type="submit" class="absolute right-3 top-3.5 text-gray-400 hover:text-pamir-brand transition-colors focus:outline-none">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </button>
                 </form>
 
-                <h3 class="text-lg font-black text-[#0f172a] mb-6 uppercase tracking-tighter border-b border-gray-50 pb-4">Kategoriler</h3>
+                <h3 class="text-lg font-black text-[#0f172a] mb-6 uppercase tracking-tighter border-b border-gray-50 pb-4">@Localizer.Get("Kategoriler", "Categories")</h3>
 
                 <div class="space-y-2">
                     @if (Model != null)
                     {
                         <a href="/Product/Index" class="flex items-center justify-between py-3 px-4 rounded-xl font-bold text-gray-500 hover:bg-gray-50 hover:text-pamir-brand transition-all group">
-                            <span>Tüm Ürünler</span>
+                            <span>@Localizer.Get("Tüm Ürünler", "All Products")</span>
                             <span class="text-[10px] bg-gray-100 px-2 py-1 rounded-md group-hover:bg-[#ffda44] group-hover:text-[#0f172a]">@Model.Sum(x => x.ProductCount)</span>
                         </a>
 
                         foreach (var item in Model)
                         {
                             <a href="/Product/Index?categoryId=@item.CategoryID" class="flex items-center justify-between py-3 px-4 rounded-xl font-bold text-gray-500 hover:bg-gray-50 hover:text-pamir-brand transition-all group">
-                                <span>@item.Name_TR</span>
+                                <span>@(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(item.Name_EN) ? item.Name_EN : item.Name_TR)</span>
                                 <span class="text-[10px] bg-gray-100 px-2 py-1 rounded-md group-hover:bg-[#ffda44] group-hover:text-[#0f172a]">@item.ProductCount</span>
                             </a>
                         }

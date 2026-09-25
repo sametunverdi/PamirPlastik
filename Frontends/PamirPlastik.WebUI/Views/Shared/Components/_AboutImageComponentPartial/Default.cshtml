@@ -1,4 +1,5 @@
-﻿@model List<PamirPlastik.WebUI.DTOs.AboutDtos.ResultAboutImageDto>
+﻿@inject PamirPlastik.WebUI.Services.LocalizationService Localizer
+@model List<PamirPlastik.WebUI.DTOs.AboutDtos.ResultAboutImageDto>
 
 <div class="mt-20 relative rounded-[3rem] overflow-hidden group shadow-3xl">
     @* Slider Alanı *@
@@ -28,7 +29,7 @@
                     10.000m²
                 </span>
                 <span class="text-white/60 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em]">
-                    Kapalı Üretim Alanı
+                    @Localizer.Get("Kapalı Üretim Alanı", "Closed Production Area")
                 </span>
             </div>
 
@@ -40,7 +41,7 @@
                     24/7
                 </span>
                 <span class="text-white/60 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em]">
-                    Kesintisiz Üretim
+                    @Localizer.Get("Kesintisiz Üretim", "Uninterrupted Production")
                 </span>
             </div>
         </div>

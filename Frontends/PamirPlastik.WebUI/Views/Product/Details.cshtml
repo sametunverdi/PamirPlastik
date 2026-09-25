@@ -1,9 +1,18 @@
-﻿@model PamirPlastik.WebUI.DTOs.ProductDtos.ResultProductDto
+﻿@inject PamirPlastik.WebUI.Services.LocalizationService Localizer
+@model PamirPlastik.WebUI.DTOs.ProductDtos.ResultProductDto
 @{
-    ViewData["Title"] = "Ürünler / " + (Model?.Name_TR ?? "Ürün Detayı");
-    ViewData["Description"] = Model?.ShortDescription_TR;
-    ViewData["PageName"] = "Ürün Kataloğu";
-    ViewData["HeaderTitle"] = Model?.Name_TR ?? "Ürün Detayı";
+        var nTr = Model?.Name_TR;
+    var nEn = !string.IsNullOrWhiteSpace(Model?.Name_EN) ? Model?.Name_EN : nTr;
+    var name = Localizer.CurrentLanguage == "en" ? nEn : nTr;
+    
+    var sTr = Model?.ShortDescription_TR;
+    var sEn = !string.IsNullOrWhiteSpace(Model?.ShortDescription_EN) ? Model?.ShortDescription_EN : sTr;
+    var shortDesc = Localizer.CurrentLanguage == "en" ? sEn : sTr;
+    
+    ViewData["Title"] = Localizer.Get("Ürünler / ", "Products / ") + (name ?? Localizer.Get("Ürün Detayı", "Product Detail"));
+    ViewData["Description"] = shortDesc;
+    ViewData["PageName"] = Localizer.Get("Ürün Kataloğu", "Product Catalog");
+    ViewData["HeaderTitle"] = name ?? Localizer.Get("Ürün Detayı", "Product Detail");
 }
 
 <style>
@@ -32,7 +41,7 @@
                             <i class="fa-solid fa-chevron-left"></i>
                         </button>
 
-                        <img id="main-image" src="@Model?.MainImageUrl" alt="@Model?.Name_TR" class="max-w-full max-h-full object-contain rounded-2xl drop-shadow-xl transition-all duration-500 cursor-zoom-in group-hover:scale-105" onclick="openLightbox(this.src)" />
+                        <img id="main-image" src="@Model?.MainImageUrl" alt="@(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model?.Name_EN) ? Model?.Name_EN : Model?.Name_TR)" class="max-w-full max-h-full object-contain rounded-2xl drop-shadow-xl transition-all duration-500 cursor-zoom-in group-hover:scale-105" onclick="openLightbox(this.src)" />
                         
                         <!-- Sağ Ok -->
                         <button onclick="nextImage(event)" class="absolute right-4 z-10 w-10 h-10 bg-white/80 hover:bg-white text-indigo-600 rounded-full shadow-md flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0">
@@ -46,7 +55,7 @@
                         @if (Model?.IsFeatured == true)
                         {
                             <span class="absolute top-6 left-6 z-10 bg-[#ffda44] text-[#0f172a] text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg flex items-center gap-2">
-                                <i class="fa-solid fa-star"></i> Yıldız Ürün
+                                <i class="fa-solid fa-star"></i> @Localizer.Get("Yıldız Ürün", "Featured")
                             </span>
                         }
                     </div>
@@ -75,27 +84,27 @@
                     <div class="mb-6">
                         <div class="flex items-center gap-3 mb-4">
                             <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-lg tracking-wider uppercase border border-slate-200">
-                                Stok Kodu: @Model?.ProductCode
+                                @Localizer.Get("Stok Kodu:", "Stock Code:") @Model?.ProductCode
                             </span>
                             @if (!string.IsNullOrEmpty(Model?.CategoryName))
                             {
                                 <a href="/Product/Index?categoryId=@Model.CategoryID" class="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-bold rounded-lg tracking-wider uppercase border border-indigo-100 hover:bg-indigo-100 transition-colors">
-                                    <i class="fa-solid fa-tags mr-1"></i> @Model.CategoryName
+                                    <i class="fa-solid fa-tags mr-1"></i> @(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model?.CategoryName_EN) ? Model?.CategoryName_EN : Model?.CategoryName)
                                 </a>
                             }
                         </div>
-                        <h1 class="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-4">@Model?.Name_TR</h1>
+                        <h1 class="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-4">@(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model?.Name_EN) ? Model?.Name_EN : Model?.Name_TR)</h1>
                         
-                        @if (!string.IsNullOrEmpty(Model?.ShortDescription_TR))
+                        @if (!string.IsNullOrEmpty(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model?.ShortDescription_EN) ? Model?.ShortDescription_EN : Model?.ShortDescription_TR))
                         {
-                            <p class="text-slate-500 text-lg leading-relaxed font-medium">@Model.ShortDescription_TR</p>
+                            <p class="text-slate-500 text-lg leading-relaxed font-medium">@(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model?.ShortDescription_EN) ? Model?.ShortDescription_EN : Model?.ShortDescription_TR)</p>
                         }
                     </div>
 
                     <!-- Renkler -->
                     <div class="mb-8 p-6 bg-slate-50 rounded-2xl border border-slate-100">
                         <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                            <i class="fa-solid fa-palette text-indigo-400"></i> Üretim Renkleri
+                            <i class="fa-solid fa-palette text-indigo-400"></i> @Localizer.Get("Üretim Renkleri", "Production Colors")
                         </h3>
                         <div class="flex flex-wrap gap-3">
                             @if (Model?.Colors != null && Model.Colors.Any())
@@ -104,13 +113,13 @@
                                 {
                                     <div class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-full shadow-sm hover:shadow-md transition-all cursor-pointer">
                                         <span class="w-5 h-5 rounded-full shadow-inner border border-slate-100" style="background-color: @color.ColorHex;"></span>
-                                        <span class="text-sm font-bold text-slate-700">@color.ColorName</span>
+                                        <span class="text-sm font-bold text-slate-700">@(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(color.ColorName_EN) ? color.ColorName_EN : color.ColorName)</span>
                                     </div>
                                 }
                             }
                             else
                             {
-                                <span class="text-sm font-bold text-slate-400 italic">Tüm standart renklerde üretilebilir.</span>
+                                <span class="text-sm font-bold text-slate-400 italic">@Localizer.Get("Tüm standart renklerde üretilebilir.", "Can be produced in all standard colors.")</span>
                             }
                         </div>
                     </div>
@@ -119,55 +128,55 @@
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
                         <div class="bg-white border border-slate-200 p-4 rounded-2xl shadow-sm text-center">
                             <i class="fa-solid fa-box text-indigo-400 text-2xl mb-3"></i>
-                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Koli Adedi</div>
+                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">@Localizer.Get("Koli Adedi", "Box Quantity")</div>
                             <div class="text-lg font-black text-slate-800">@Model?.BoxCount</div>
                         </div>
                         <div class="bg-white border border-slate-200 p-4 rounded-2xl shadow-sm text-center">
                             <i class="fa-solid fa-flask text-indigo-400 text-2xl mb-3"></i>
-                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Hacim</div>
+                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">@Localizer.Get("Hacim", "Volume")</div>
                             <div class="text-lg font-black text-slate-800">@(string.IsNullOrEmpty(Model?.Capacity) ? "-" : Model.Capacity)</div>
                         </div>
                         <div class="bg-white border border-slate-200 p-4 rounded-2xl shadow-sm text-center">
                             <i class="fa-solid fa-cubes-stacked text-indigo-400 text-2xl mb-3"></i>
-                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Hammadde</div>
+                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">@Localizer.Get("Hammadde", "Material")</div>
                             <div class="text-lg font-black text-slate-800">@(string.IsNullOrEmpty(Model?.Material) ? "PP" : Model.Material)</div>
                         </div>
                         <div class="bg-white border border-slate-200 p-4 rounded-2xl shadow-sm text-center">
                             <i class="fa-solid fa-ruler-combined text-indigo-400 text-2xl mb-3"></i>
-                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Koli Ölçüsü</div>
+                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">@Localizer.Get("Koli Ölçüsü", "Box Size")</div>
                             <div class="text-sm font-black text-slate-800 mt-1.5">@(string.IsNullOrEmpty(Model?.BoxSize) ? "-" : Model.BoxSize)</div>
                         </div>
                         <div class="bg-white border border-slate-200 p-4 rounded-2xl shadow-sm text-center">
                             <i class="fa-solid fa-weight-hanging text-indigo-400 text-2xl mb-3"></i>
-                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Koli Ağırlığı</div>
+                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">@Localizer.Get("Koli Ağırlığı", "Box Weight")</div>
                             <div class="text-sm font-black text-slate-800 mt-1.5">@(string.IsNullOrEmpty(Model?.BoxWeight) ? "-" : Model.BoxWeight)</div>
                         </div>
                         <div class="bg-white border border-slate-200 p-4 rounded-2xl shadow-sm text-center flex flex-col justify-center items-center">
                             @if (Model?.IsDishwasherSafe == true)
                             {
                                 <i class="fa-solid fa-soap text-sky-400 text-2xl mb-3"></i>
-                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Bulaşık Makinesi</div>
-                                <div class="text-xs font-black text-sky-600 mt-1">Uygun</div>
+                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">@Localizer.Get("Bulaşık Makinesi", "Dishwasher Safe")</div>
+                                <div class="text-xs font-black text-sky-600 mt-1">@Localizer.Get("Uygun", "Safe")</div>
                             }
                             else
                             {
                                 <i class="fa-solid fa-ban text-rose-400 text-2xl mb-3"></i>
-                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Bulaşık Makinesi</div>
-                                <div class="text-xs font-black text-rose-500 mt-1">Uygun Değil</div>
+                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">@Localizer.Get("Bulaşık Makinesi", "Dishwasher Safe")</div>
+                                <div class="text-xs font-black text-rose-500 mt-1">@Localizer.Get("Uygun Değil", "Not Safe")</div>
                             }
                         </div>
                         <div class="bg-white border border-slate-200 p-4 rounded-2xl shadow-sm text-center flex flex-col justify-center items-center">
                             @if (Model?.IsFoodSafe == true)
                             {
                                 <i class="fa-solid fa-utensils text-emerald-500 text-2xl mb-3"></i>
-                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Gıda Teması</div>
-                                <div class="text-xs font-black text-emerald-600 mt-1">Uygun</div>
+                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">@Localizer.Get("Gıda Teması", "Food Contact")</div>
+                                <div class="text-xs font-black text-emerald-600 mt-1">@Localizer.Get("Uygun", "Safe")</div>
                             }
                             else
                             {
                                 <i class="fa-solid fa-ban text-rose-400 text-2xl mb-3"></i>
-                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Gıda Teması</div>
-                                <div class="text-xs font-black text-rose-500 mt-1">Uygun Değil</div>
+                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">@Localizer.Get("Gıda Teması", "Food Contact")</div>
+                                <div class="text-xs font-black text-rose-500 mt-1">@Localizer.Get("Uygun Değil", "Not Safe")</div>
                             }
                         </div>
                     </div>
@@ -175,7 +184,7 @@
                     <!-- Aksiyon -->
                     <div class="flex gap-4">
                         <a href="/Contact" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-center py-4 rounded-2xl font-bold text-lg shadow-lg shadow-indigo-600/30 transition-all hover:-translate-y-1 flex items-center justify-center gap-2">
-                            <i class="fa-brands fa-whatsapp text-2xl"></i> Toptan Fiyat Alın
+                            <i class="fa-brands fa-whatsapp text-2xl"></i> @Localizer.Get("İletişime Geçin", "Contact Us")
                         </a>
                     </div>
                 </div>
@@ -183,14 +192,14 @@
             </div>
             
             <!-- Uzun Açıklama -->
-            @if (!string.IsNullOrEmpty(Model?.FullDescription_TR))
+            @if (!string.IsNullOrEmpty(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model?.FullDescription_EN) ? Model?.FullDescription_EN : Model?.FullDescription_TR))
             {
                 <div class="mt-16 pt-12 border-t border-slate-100">
                     <h3 class="text-2xl font-black text-slate-800 mb-6 flex items-center gap-3">
-                        <i class="fa-solid fa-file-alt text-indigo-500"></i> Ürün Detayları
+                        <i class="fa-solid fa-file-alt text-indigo-500"></i> @Localizer.Get("Ürün Detayları", "Product Details")
                     </h3>
                     <div class="prose prose-slate max-w-none prose-p:text-slate-600 prose-p:leading-relaxed text-lg">
-                        @Html.Raw(Model.FullDescription_TR.Replace("\n", "<br/>"))
+                        @Html.Raw((Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model?.FullDescription_EN) ? Model?.FullDescription_EN : Model?.FullDescription_TR).Replace("\n", "<br/>"))
                     </div>
                 </div>
             }
@@ -303,6 +312,12 @@
         });
     </script>
 }
+
+
+
+
+
+
 
 
 

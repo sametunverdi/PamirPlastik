@@ -36,6 +36,7 @@ namespace PamirPlastik.WebUI.Controllers
                     var query = searchQuery.ToLowerInvariant();
                     allProducts = allProducts.Where(x => 
                         (!string.IsNullOrEmpty(x.Name_TR) && x.Name_TR.ToLowerInvariant().Contains(query)) || 
+                        (!string.IsNullOrEmpty(x.Name_EN) && x.Name_EN.ToLowerInvariant().Contains(query)) || 
                         (!string.IsNullOrEmpty(x.ProductCode) && x.ProductCode.ToLowerInvariant().Contains(query))
                     ).ToList();
                 }
@@ -68,6 +69,15 @@ namespace PamirPlastik.WebUI.Controllers
 
                 if (product != null)
                 {
+                    // Kategori ingilizce ismini getir
+                    var catRes = await client.GetAsync($"https://localhost:7184/api/Categories/" + product.CategoryID);
+                    if (catRes.IsSuccessStatusCode)
+                    {
+                        var catJsonStr = await catRes.Content.ReadAsStringAsync();
+                        var catObj = JsonConvert.DeserializeObject<PamirPlastik.WebUI.DTOs.CategoryDtos.ResultCategoryDto>(catJsonStr);
+                        if(catObj != null) product.CategoryName_EN = catObj.Name_EN;
+                    }
+
                     // Resimleri getir
                     var imagesResponse = await client.GetAsync($"https://localhost:7184/api/ProductImages/ByProductId/{product.ProductID}");
                     if (imagesResponse.IsSuccessStatusCode)
@@ -93,6 +103,7 @@ namespace PamirPlastik.WebUI.Controllers
                             .Select(c => new ResultProductColorDto
                             {
                                 ColorName = c.Name_TR,
+                                ColorName_EN = c.Name_EN,
                                 ColorHex = c.HexCode
                             }).ToList();
                     }

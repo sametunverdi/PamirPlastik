@@ -1,14 +1,17 @@
-﻿@model PamirPlastik.WebUI.DTOs.AboutDtos.ResultAboutDto
+﻿@inject PamirPlastik.WebUI.Services.LocalizationService Localizer
+@model PamirPlastik.WebUI.DTOs.AboutDtos.ResultAboutDto
 @{
     // SEO: Tarayıcı sekmesinde ve Google arama sonuçlarında çıkacak mavi başlık.
-    ViewData["Title"] = Model?.SeoTitle_TR ?? "Kurumsal | Pamir Plastik - Plastik Enjeksiyon ve Ev Gereçleri Üreticisi";
+        var titleTr = Model?.SeoTitle_TR ?? "Kurumsal | Pamir Plastik - Plastik Enjeksiyon ve Ev Gereçleri Üreticisi";
+    var titleEn = Model?.SeoTitle_EN ?? "Corporate | Pamir Plastik - Plastic Injection Manufacturer";
+    ViewData["Title"] = Localizer.Get(titleTr, titleEn);
 
-    // SEO: Google aramalarında başlığın altındaki açıklama metni.
-    ViewData["Description"] = Model?.SeoDescription_TR ?? "2005'ten bugüne plastik enjeksiyon ve kalıp üretiminde uzman Pamir Plastik. İleri teknoloji makine parkuru ve yenilikçi ev gereçleri çözümleri için tıklayın.";
+    var descTr = Model?.SeoDescription_TR ?? "2005'ten bugüne plastik enjeksiyon ve kalıp üretiminde uzman Pamir Plastik.";
+    var descEn = Model?.SeoDescription_EN ?? "Pamir Plastik, expert in plastic injection and mold production since 2005.";
+    ViewData["Description"] = Localizer.Get(descTr, descEn);
 
-    // BREADCRUMB (Üst Banner) İÇİN GEREKENLER
-    ViewData["PageName"] = "Kurumsal";
-    ViewData["HeaderTitle"] = "Plastiğe Şekil Veren <br/> <span class='text-[#ffda44]'>Çeyrek Asırlık Tecrübe</span>";
+    ViewData["PageName"] = Localizer.Get("Kurumsal", "Corporate");
+    ViewData["HeaderTitle"] = Localizer.Get("Plastiğe Şekil Veren <br/> <span class='text-[#ffda44]'>Çeyrek Asırlık Tecrübe</span>", "Shaping Plastic <br/> <span class='text-[#ffda44]'>Quarter Century Experience</span>");
 }
 
 @await Component.InvokeAsync("_AboutMainComponentPartial")
@@ -20,8 +23,8 @@
 
     <div class="relative z-10 max-w-7xl mx-auto px-4">
         <div class="text-center mb-20">
-            <h3 class="text-[#ffda44] font-black tracking-[0.4em] text-xs uppercase mb-4">Üretimin Kalbi</h3>
-            <h4 class="text-3xl md:text-6xl font-black text-white tracking-tighter">İleri Teknoloji <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#ffda44] to-white">Entegre Tesisler</span></h4>
+            <h3 class="text-[#ffda44] font-black tracking-[0.4em] text-xs uppercase mb-4">@Localizer.Get("Üretimin Kalbi", "Heart of Production")</h3>
+            <h4 class="text-3xl md:text-6xl font-black text-white tracking-tighter">@Html.Raw(Localizer.Get("İleri Teknoloji <span class='text-transparent bg-clip-text bg-gradient-to-r from-[#ffda44] to-white'>Entegre Tesisler</span>", "Advanced Technology <span class='text-transparent bg-clip-text bg-gradient-to-r from-[#ffda44] to-white'>Integrated Facilities</span>"))</h4>
         </div>
 
         @await Component.InvokeAsync("_AboutFeatureComponentPartial")

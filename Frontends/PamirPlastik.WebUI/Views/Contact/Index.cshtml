@@ -1,11 +1,12 @@
+﻿@inject PamirPlastik.WebUI.Services.LocalizationService Localizer
 @{
     // SEO: Arama motoru başlığı ve açıklaması
     ViewData["Title"] = "İletişim | Pamir Plastik - Global Üretim ve İhracat Hattı";
     ViewData["Description"] = "Pamir Plastik Çerkeş fabrikası ve İstanbul ofis bilgilerine ulaşın. 7/24 teknik destek ve satış ekibimizle iletişime geçmek için tıklayın.";
 
     // BREADCRUMB (Üst Banner) İÇİN DEĞİŞKENLER - Kurumsal sayfanla aynı mantık
-    ViewData["PageName"] = "İletişim";
-    ViewData["HeaderTitle"] = "Dünyanın Dört Bir Yanına <br/> <span class='text-[#ffda44]'>Hızlı ve Kesintisiz Destek</span>";
+    ViewData["PageName"] = Localizer.Get("İletişim", "Contact");
+    ViewData["HeaderTitle"] = Localizer.Get("Dünyanın Dört Bir Yanına <br/> <span class='text-[#ffda44]'>Hızlı ve Kesintisiz Destek</span>", "Fast and Continuous Support <br/> <span class='text-[#ffda44]'>All Around the World</span>");
 }
 
 @* Google'a sayfanın ne olduğunu anlatan yapısal veri (Harita iğnesi için kritik) *@
@@ -49,7 +50,7 @@
             <div class="lg:col-span-5 space-y-8">
                 @await Component.InvokeAsync("_ContactInfoComponentPartial")
                 <div class="pt-6 px-4 text-center lg:text-left">
-                    <span class="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] block mb-6">Dijitalde Pamir Plastik</span>
+                    <span class="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] block mb-6">@Localizer.Get("Dijitalde Pamir Plastik", "Pamir Plastik on Digital")</span>
                     @await Component.InvokeAsync("_ContactSocialMediaComponentPartial")
                 </div>
             </div>
@@ -60,33 +61,33 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                             <div class="space-y-1.5">
-                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-4">Ad Soyad</label>
+                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-4">@Localizer.Get("Ad Soyad", "Full Name")</label>
                                 <div class="relative">
-                                    <input type="text" name="FullName" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 pl-12 pr-6 text-sm text-[#0f172a] focus:outline-none focus:border-[#ffda44] transition-all" placeholder="Adınız Soyadınız..." required>
+                                    <input type="text" name="FullName" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 pl-12 pr-6 text-sm text-[#0f172a] focus:outline-none focus:border-[#ffda44] transition-all" placeholder="@Localizer.Get("Adınız Soyadınız...", "Your Full Name...")" required>
                                     <i class="fa-solid fa-user absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 text-xs"></i>
                                 </div>
                             </div>
 
                             <div class="space-y-1.5">
-                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-4">E-Posta</label>
+                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-4">@Localizer.Get("E-Posta", "Email")</label>
                                 <div class="relative">
-                                    <input type="email" name="Email" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 pl-12 pr-6 text-sm text-[#0f172a] focus:outline-none focus:border-[#ffda44] transition-all" placeholder="iletisim@sirket.com" required>
+                                    <input type="email" name="Email" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 pl-12 pr-6 text-sm text-[#0f172a] focus:outline-none focus:border-[#ffda44] transition-all" placeholder="@Localizer.Get("iletisim@sirket.com", "contact@company.com")" required>
                                     <i class="fa-solid fa-at absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 text-xs"></i>
                                 </div>
                             </div>
 
                             <div class="space-y-1.5">
-                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-4">Şirket / Kurum</label>
+                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-4">@Localizer.Get("Şirket / Kurum", "Company / Organization")</label>
                                 <div class="relative">
-                                    <input type="text" name="Company" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 pl-12 pr-6 text-sm text-[#0f172a] focus:outline-none focus:border-[#ffda44] transition-all" placeholder="Şirketiniz...">
+                                    <input type="text" name="Company" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 pl-12 pr-6 text-sm text-[#0f172a] focus:outline-none focus:border-[#ffda44] transition-all" placeholder="@Localizer.Get("Şirketiniz...", "Your Company...")">
                                     <i class="fa-solid fa-building absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 text-xs"></i>
                                 </div>
                             </div>
 
                             <div class="space-y-1.5">
-                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-4">İletişim Konusu</label>
+                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-4">@Localizer.Get("İletişim Konusu", "Subject of Contact")</label>
                                 <div class="relative">
-                                    <input type="text" name="Subject" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 pl-12 pr-6 text-sm text-[#0f172a] focus:outline-none focus:border-[#ffda44] transition-all" placeholder="Konuyu giriniz..." required>
+                                    <input type="text" name="Subject" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 pl-12 pr-6 text-sm text-[#0f172a] focus:outline-none focus:border-[#ffda44] transition-all" placeholder="@Localizer.Get("Konuyu giriniz...", "Enter the subject...")" required>
                                     <i class="fa-solid fa-pen absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 text-xs"></i>
                                 </div>
                             </div>
@@ -94,20 +95,20 @@
                         </div>
 
                         <div class="space-y-1.5">
-                            <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-4">Mesajınızın Detayı</label>
+                            <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-4">@Localizer.Get("Mesajınızın Detayı", "Message Details")</label>
                             <div class="relative">
-                                <textarea name="MessageDetail" rows="4" class="w-full bg-gray-50 border border-gray-100 rounded-[2rem] py-4 pl-12 pr-6 text-sm text-[#0f172a] focus:outline-none focus:border-[#ffda44] transition-all resize-none" placeholder="Size nasıl yardımcı olabiliriz?" required></textarea>
+                                <textarea name="MessageDetail" rows="4" class="w-full bg-gray-50 border border-gray-100 rounded-[2rem] py-4 pl-12 pr-6 text-sm text-[#0f172a] focus:outline-none focus:border-[#ffda44] transition-all resize-none" placeholder="@Localizer.Get("Size nasıl yardımcı olabiliriz?", "How can we help you?")" required></textarea>
                                 <i class="fa-solid fa-message absolute left-5 top-6 text-gray-300 text-xs"></i>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <button type="submit" class="group w-full py-5 bg-[#0f172a] text-white rounded-2xl font-black text-[11px] tracking-[0.3em] uppercase shadow-lg hover:bg-pamir-brand transition-all flex items-center justify-center gap-3 active:scale-[0.98]">
-                                <span>MESAJI GÖNDER</span>
+                                <span>@Localizer.Get("MESAJI GÖNDER", "SEND MESSAGE")</span>
                                 <i class="fa-solid fa-paper-plane transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform text-[#ffda44]"></i>
                             </button>
                             <button type="button" onclick="document.getElementById('jobApplicationModal').classList.remove('hidden')" class="group w-full py-5 bg-white border-2 border-[#0f172a] text-[#0f172a] rounded-2xl font-black text-[11px] tracking-[0.3em] uppercase hover:bg-gray-50 transition-all flex items-center justify-center gap-3 active:scale-[0.98]">
-                                <span>İŞ BAŞVURUSU YAP</span>
+                                <span>@Localizer.Get("İŞ BAŞVURUSU YAP", "JOB APPLICATION")</span>
                                 <i class="fa-solid fa-briefcase text-pamir-brand"></i>
                             </button>
                         </div>
@@ -132,8 +133,8 @@
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl bg-white rounded-[2rem] shadow-2xl p-8 max-h-[90vh] overflow-y-auto">
         <div class="flex justify-between items-center mb-6">
             <div>
-                <h3 class="text-2xl font-black text-[#0f172a] uppercase tracking-tighter">İş Başvurusu</h3>
-                <p class="text-sm text-gray-500 font-medium mt-1">Ekibimize katılmak için aşağıdaki formu doldurun.</p>
+                <h3 class="text-2xl font-black text-[#0f172a] uppercase tracking-tighter">@Localizer.Get("İş Başvurusu", "Job Application")</h3>
+                <p class="text-sm text-gray-500 font-medium mt-1">@Localizer.Get("Ekibimize katılmak için aşağıdaki formu doldurun.", "Fill out the form below to join our team.")</p>
             </div>
             <button onclick="document.getElementById('jobApplicationModal').classList.add('hidden')" class="w-10 h-10 rounded-xl bg-gray-100 text-gray-500 flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-colors">
                 <i class="fa-solid fa-xmark"></i>
@@ -143,38 +144,38 @@
         <form action="/JobApplication/SubmitApplication" method="post" enctype="multipart/form-data" class="space-y-5">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div class="space-y-1.5">
-                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">Adınız</label>
+                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">@Localizer.Get("Adınız", "First Name")</label>
                     <input type="text" name="FirstName" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-5 text-sm text-[#0f172a] focus:border-pamir-brand focus:outline-none transition-all" required>
                 </div>
                 <div class="space-y-1.5">
-                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">Soyadınız</label>
+                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">@Localizer.Get("Soyadınız", "Last Name")</label>
                     <input type="text" name="LastName" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-5 text-sm text-[#0f172a] focus:border-pamir-brand focus:outline-none transition-all" required>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div class="space-y-1.5">
-                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">E-Posta</label>
+                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">@Localizer.Get("E-Posta", "Email")</label>
                     <input type="email" name="Email" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-5 text-sm text-[#0f172a] focus:border-pamir-brand focus:outline-none transition-all" required>
                 </div>
                 <div class="space-y-1.5">
-                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">Telefon</label>
+                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">@Localizer.Get("Telefon", "Phone")</label>
                     <input type="tel" name="Phone" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-5 text-sm text-[#0f172a] focus:border-pamir-brand focus:outline-none transition-all" required>
                 </div>
             </div>
 
             <div class="space-y-1.5">
-                <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">Ön Yazı / Mesajınız</label>
-                <textarea name="Message" rows="3" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-5 text-sm text-[#0f172a] focus:border-pamir-brand focus:outline-none transition-all resize-none" placeholder="Kısaca kendinizden bahsedin..."></textarea>
+                <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">@Localizer.Get("Ön Yazı / Mesajınız", "Cover Letter / Message")</label>
+                <textarea name="Message" rows="3" class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-5 text-sm text-[#0f172a] focus:border-pamir-brand focus:outline-none transition-all resize-none" placeholder="@Localizer.Get("Kısaca kendinizden bahsedin...", "Tell us briefly about yourself...")"></textarea>
             </div>
 
             <div class="space-y-1.5">
-                <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">Özgeçmiş (CV) Yükle <span class="text-red-500">* Sadece PDF</span></label>
+                <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">@Localizer.Get("Özgeçmiş (CV) Yükle", "Upload Resume (CV)") <span class="text-red-500">@Localizer.Get("* Sadece PDF", "* PDF Only")</span></label>
                 <input type="file" name="CvFile" accept=".pdf" class="w-full bg-white border-2 border-dashed border-gray-200 rounded-2xl py-4 px-5 text-sm text-gray-500 focus:border-pamir-brand transition-all cursor-pointer" required>
             </div>
 
             <button type="submit" class="w-full py-4 bg-pamir-brand text-white rounded-2xl font-black text-[11px] tracking-[0.3em] uppercase hover:bg-[#0f172a] transition-colors mt-2 shadow-lg shadow-pamir-brand/30">
-                BAŞVURUYU TAMAMLA
+                @Localizer.Get("BAŞVURUYU TAMAMLA", "SUBMIT APPLICATION")
             </button>
         </form>
     </div>

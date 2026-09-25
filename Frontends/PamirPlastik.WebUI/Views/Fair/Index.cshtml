@@ -1,24 +1,25 @@
-﻿@model List<PamirPlastik.WebUI.DTOs.FairDtos.ResultFairDto>
+﻿@inject PamirPlastik.WebUI.Services.LocalizationService Localizer
+@model List<PamirPlastik.WebUI.DTOs.FairDtos.ResultFairDto>
 @{
-    ViewData["Title"] = "Fuarlarımız";
-    ViewData["PageName"] = "FUARLAR";
-    ViewData["HeaderTitle"] = "GÜNCEL FUAR <br> VE ETKİNLİKLERİMİZ";
+    ViewData["Title"] = Localizer.Get("Fuarlarımız", "Our Fairs");
+    ViewData["PageName"] = Localizer.Get("FUARLAR", "FAIRS");
+    ViewData["HeaderTitle"] = Localizer.Get("GÜNCEL FUAR <br> VE ETKİNLİKLERİMİZ", "CURRENT FAIRS <br> AND EVENTS");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="bg-slate-50 py-16 sm:py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto mb-16">
-            <h1 class="text-4xl font-black text-slate-900 tracking-tight sm:text-5xl mb-4">Fuarlarımız ve Etkinliklerimiz</h1>
-            <p class="text-lg text-slate-600">Sektördeki yenilikleri yakından takip ediyor, ulusal ve uluslararası fuarlarda yerimizi alıyoruz. Bizi ziyaret ederek ürünlerimizi yakından inceleyebilirsiniz.</p>
+            <h1 class="text-4xl font-black text-slate-900 tracking-tight sm:text-5xl mb-4">@Localizer.Get("Fuarlarımız ve Etkinliklerimiz", "Our Fairs and Events")</h1>
+            <p class="text-lg text-slate-600">@Localizer.Get("Sektördeki yenilikleri yakından takip ediyor, ulusal ve uluslararası fuarlarda yerimizi alıyoruz. Bizi ziyaret ederek ürünlerimizi yakından inceleyebilirsiniz.", "We closely follow the innovations in the sector and take our place at national and international fairs. You can visit us to examine our products closely.")</p>
         </div>
 
         @if (Model == null || !Model.Any())
         {
             <div class="text-center py-16 bg-white rounded-3xl shadow-sm border border-slate-100">
                 <i class="fa-regular fa-calendar-xmark text-6xl text-slate-200 mb-4"></i>
-                <h3 class="text-xl font-bold text-slate-800">Şu An Planlanmış Bir Fuar Bulunmuyor</h3>
-                <p class="text-slate-500 mt-2">Gelecek etkinliklerimiz için sayfamızı takip etmeye devam edin.</p>
+                <h3 class="text-xl font-bold text-slate-800">@Localizer.Get("Şu An Planlanmış Bir Fuar Bulunmuyor", "There are currently no scheduled fairs")</h3>
+                <p class="text-slate-500 mt-2">@Localizer.Get("Gelecek etkinliklerimiz için sayfamızı takip etmeye devam edin.", "Keep following our page for future events.")</p>
             </div>
         }
         else
@@ -45,7 +46,7 @@
                             {
                                 <div class="w-full h-full flex flex-col items-center justify-center text-slate-300">
                                     <i class="fa-solid fa-camera text-5xl mb-2"></i>
-                                    <span class="font-medium text-sm">Görsel Bulunmuyor</span>
+                                    <span class="font-medium text-sm">@Localizer.Get("Görsel Bulunmuyor", "No Image")</span>
                                 </div>
                             }
                             
@@ -54,13 +55,13 @@
                                 @if (fair.IsFuture)
                                 {
                                     <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-[#ffda44] text-[#0f172a] shadow-lg shadow-black/5">
-                                        <i class="fa-solid fa-clock mr-1.5"></i> Yaklaşan Etkinlik
+                                        <i class="fa-solid fa-clock mr-1.5"></i> @Localizer.Get("Yaklaşan Etkinlik", "Upcoming Event")
                                     </span>
                                 }
                                 else
                                 {
                                     <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-white/90 backdrop-blur-sm text-slate-700 shadow-lg shadow-black/5 border border-slate-200/50">
-                                        Geçmiş Etkinlik
+                                        @Localizer.Get("Geçmiş Etkinlik", "Past Event")
                                     </span>
                                 }
                             </div>
@@ -76,7 +77,7 @@
                                         <i class="fa-solid fa-calendar-days text-lg"></i>
                                     </div>
                                     <div>
-                                        <p class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-0.5">Tarih</p>
+                                        <p class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-0.5">@Localizer.Get("Tarih", "Date")</p>
                                         <p class="text-lg font-bold text-slate-800">@fair.Date</p>
                                     </div>
                                 </div>
@@ -86,7 +87,7 @@
                                         <i class="fa-solid fa-location-dot text-lg"></i>
                                     </div>
                                     <div>
-                                        <p class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-0.5">Lokasyon</p>
+                                        <p class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-0.5">@Localizer.Get("Lokasyon", "Location")</p>
                                         <p class="text-lg font-bold text-slate-800">@fair.Location</p>
                                     </div>
                                 </div>
@@ -98,7 +99,7 @@
                                             <i class="fa-solid fa-store text-sm"></i>
                                         </div>
                                         <div>
-                                            <p class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-0.5">Stant Bilgisi</p>
+                                            <p class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-0.5">@Localizer.Get("Stant Bilgisi", "Stand Info")</p>
                                             <p class="text-lg font-bold text-slate-800">@fair.Stand</p>
                                         </div>
                                     </div>

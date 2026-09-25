@@ -18,6 +18,7 @@ namespace PamirPlastik.WebUI.DTOs.ProductDtos
         public int CategoryID { get; set; }
         public int ProductCount { get; set; }
         public string? CategoryName { get; set; }
+        public string? CategoryName_EN { get; set; }
         public int BoxCount { get; set; }
         public string? Capacity { get; set; }
         public bool IsDishwasherSafe { get; set; }
@@ -33,4 +34,5 @@ namespace PamirPlastik.WebUI.DTOs.ProductDtos
         public string? Slug_EN { get; set; }
     }
 }
+
 

@@ -1,4 +1,5 @@
-﻿@model List<PamirPlastik.WebUI.DTOs.FairDtos.ResultFairDto>
+﻿@inject PamirPlastik.WebUI.Services.LocalizationService Localizer
+@model List<PamirPlastik.WebUI.DTOs.FairDtos.ResultFairDto>
 @{
     var settings = ViewBag.HomePageSetting as PamirPlastik.WebUI.DTOs.HomePageSettingDtos.ResultHomePageSettingDto;
 }
@@ -7,13 +8,13 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div class="max-w-2xl text-left">
-                <h2 class="text-[#4A5FC1] font-bold tracking-widest text-sm uppercase mb-3">@(settings?.FairTitleTop_TR ?? "Fuarlar")</h2>
+                <h2 class="text-[#4A5FC1] font-bold tracking-widest text-sm uppercase mb-3">@((Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(settings?.FairTitleTop_EN) ? settings?.FairTitleTop_EN : settings?.FairTitleTop_TR) ?? (Localizer.CurrentLanguage == "en" ? "Fairs" : "Fuarlar"))</h2>
                 <h3 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">
-                    @Html.Raw(settings?.FairTitleMain_TR ?? "Global <span class='text-[#4A5FC1]'>Buluşma</span> Noktalarımız")
+                    @Html.Raw((Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(settings?.FairTitleMain_EN) ? settings?.FairTitleMain_EN : settings?.FairTitleMain_TR) ?? (Localizer.CurrentLanguage == "en" ? "Our Global <span class='text-[#4A5FC1]'>Meeting</span> Points" : "Global <span class='text-[#4A5FC1]'>Buluşma</span> Noktalarımız"))
                 </h3>
                 <div class="w-20 h-1.5 bg-gradient-to-r from-[#4A5FC1] to-blue-300 rounded-full mb-6"></div>
                 <p class="text-lg text-gray-500 font-medium leading-relaxed">
-                    @(settings?.FairDescription_TR ?? "Sektördeki en son yenilikleri yakından takip etmek ve ürünlerimizi dünya ile buluşturmak için uluslararası fuarlarda yerimizi alıyoruz.")
+                    @((Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(settings?.FairDescription_EN) ? settings?.FairDescription_EN : settings?.FairDescription_TR) ?? (Localizer.CurrentLanguage == "en" ? "We take our place at international fairs to closely follow the latest innovations in the sector and bring our products to the world." : "Sektördeki en son yenilikleri yakından takip etmek ve ürünlerimizi dünya ile buluşturmak için uluslararası fuarlarda yerimizi alıyoruz."))
                 </p>
             </div>
             
@@ -41,7 +42,7 @@
                                 <div class="bg-gray-50 h-full rounded-3xl p-8 border border-gray-100 hover:shadow-xl transition-all duration-300 relative overflow-hidden group flex flex-col">
                                     @if (fair.IsFuture)
                                     {
-                                        <div class="absolute top-6 right-6 bg-[#4A5FC1] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg uppercase tracking-wider z-10 shadow-md">Yakında</div>
+                                        <div class="absolute top-6 right-6 bg-[#4A5FC1] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg uppercase tracking-wider z-10 shadow-md">@Localizer.Get("Yakında", "Soon")</div>
                                     }
                                     
                                     <div class="mb-6 h-48 rounded-xl overflow-hidden bg-gray-200 relative group/image shrink-0">
@@ -86,7 +87,7 @@
             else
             {
                 <div class="text-center py-16 text-gray-400 border-2 border-dashed border-gray-100 rounded-3xl">
-                    <p>Henüz fuar bilgisi eklenmemişş.</p>
+                    <p>@Localizer.Get("Henüz fuar bilgisi eklenmemiş.", "No fair information has been added yet.")</p>
                 </div>
             }
         </div>

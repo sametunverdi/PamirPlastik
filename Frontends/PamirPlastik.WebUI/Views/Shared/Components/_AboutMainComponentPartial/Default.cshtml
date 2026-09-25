@@ -1,4 +1,5 @@
-﻿@model PamirPlastik.WebUI.DTOs.AboutDtos.ResultAboutDto
+﻿@inject PamirPlastik.WebUI.Services.LocalizationService Localizer
+@model PamirPlastik.WebUI.DTOs.AboutDtos.ResultAboutDto
 
 <section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,12 +11,12 @@
                 @* Ana Başlık - Font weight 'font-black' zaten en üst seviye, 
                    ama 'tracking-tighter' ile harf arasını daraltarak daha yoğun gösterdik *@
                 <h2 class="text-4xl md:text-5xl font-black text-[#0f172a] leading-tight tracking-tighter">
-                    @Html.Raw(Model.MainTitle_TR)
+                    @Html.Raw(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.MainTitle_EN) ? Model.MainTitle_EN : Model.MainTitle_TR)
                 </h2>
 
                 @* Alt Başlık - 'font-bold' yerine 'font-black' yaparak daha dolgun yaptık *@
                 <p class="text-gray-500 font-black text-sm uppercase tracking-[0.2em] italic">
-                    "@Model.SubTitle_TR"
+                    "@(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.SubTitle_EN) ? Model.SubTitle_EN : Model.SubTitle_TR)"
                 </p>
             </div>
 
@@ -25,19 +26,19 @@
 
                     @* İlk Paragraf *@
                     <p class="leading-8">
-                        @Model.Description1_TR
+                        @(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.Description1_EN) ? Model.Description1_EN : Model.Description1_TR)
                     </p>
 
                     @* Vurgulu Söz (Mavi Kutulu Alan) *@
                     <div class="p-8 bg-blue-50 border-l-8 border-[#ffda44] rounded-r-3xl my-10 shadow-sm">
                         <p class="text-[#0f172a] font-black text-2xl leading-snug">
-                            @Model.HighlightQuote_TR
+                            @(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.HighlightQuote_EN) ? Model.HighlightQuote_EN : Model.HighlightQuote_TR)
                         </p>
                     </div>
 
                     @* İkinci Paragraf *@
                     <p class="leading-8">
-                        @Model.Description2_TR
+                        @(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(Model.Description2_EN) ? Model.Description2_EN : Model.Description2_TR)
                     </p>
 
                 </div>

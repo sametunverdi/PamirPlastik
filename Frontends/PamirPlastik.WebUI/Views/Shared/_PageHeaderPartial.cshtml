@@ -1,4 +1,5 @@
-﻿<section class="relative pt-10 pb-12 bg-gradient-to-br from-[#8ba1f0] via-[#5c73d1] to-[#4A5FC1] overflow-hidden">
+﻿@inject PamirPlastik.WebUI.Services.LocalizationService Localizer
+<section class="relative pt-10 pb-12 bg-gradient-to-br from-[#8ba1f0] via-[#5c73d1] to-[#4A5FC1] overflow-hidden">
     <div class="absolute inset-0 z-0 opacity-30">
         <div class="absolute top-[-20%] left-[-5%] w-[250px] h-[250px] bg-white rounded-full blur-[100px]"></div>
         <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#3b4ca3] rounded-full blur-[100px]"></div>
@@ -7,7 +8,7 @@
     <div class="max-w-7xl mx-auto px-6 relative z-10">
         <div class="max-w-3xl">
             <nav class="flex items-center gap-3 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em] mb-4 text-white/70">
-                <a href="/" class="hover:text-[#ffda44] transition-all">Ana Sayfa</a>
+                <a href="/" class="hover:text-[#ffda44] transition-all">@Localizer.Get("Ana Sayfa", "Home")</a>
                 <span class="opacity-30">/</span>
                 <span class="text-[#ffda44]">@ViewData["PageName"]</span>
             </nav>

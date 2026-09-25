@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject PamirPlastik.WebUI.Services.LocalizationService Localizer
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="utf-8" />
@@ -74,11 +75,11 @@
             <div class="flex justify-between items-center h-28 transition-all duration-300" id="nav-container">
 
                 <nav class="hidden lg:flex w-5/12 justify-start space-x-8">
-                    <a href="/" class="relative group py-2 font-semibold text-gray-700 hover:text-[#ffda44] transition-colors">Ana Sayfa<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ffda44] shadow-[0_0_10px_#ffda44] transition-all duration-300 group-hover:w-full"></span>
+                    <a href="/" class="relative group py-2 font-semibold text-gray-700 hover:text-[#ffda44] transition-colors">@Localizer.Get("Ana Sayfa", "Home")<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ffda44] shadow-[0_0_10px_#ffda44] transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="/About/Index/" class="relative group py-2 font-semibold text-gray-700 hover:text-[#ffda44] transition-colors">Hakkımızda<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ffda44] shadow-[0_0_10px_#ffda44] transition-all duration-300 group-hover:w-full"></span>
+                    <a href="/About/Index/" class="relative group py-2 font-semibold text-gray-700 hover:text-[#ffda44] transition-colors">@Localizer.Get("Hakkımızda", "About Us")<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ffda44] shadow-[0_0_10px_#ffda44] transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="/Product/Index/" class="relative group py-2 font-semibold text-gray-700 hover:text-[#ffda44] transition-colors">Ürünler<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ffda44] shadow-[0_0_10px_#ffda44] transition-all duration-300 group-hover:w-full"></span>
+                    <a href="/Product/Index/" class="relative group py-2 font-semibold text-gray-700 hover:text-[#ffda44] transition-colors">@Localizer.Get("Ürünler", "Products")<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ffda44] shadow-[0_0_10px_#ffda44] transition-all duration-300 group-hover:w-full"></span>
                     </a>
                 </nav>
 
@@ -89,22 +90,22 @@
                 </div>
 
                 <nav class="hidden lg:flex w-5/12 justify-end items-center space-x-8">
-                    <a href="/Category/Index/" class="relative group py-2 font-semibold text-gray-700 hover:text-[#ffda44] transition-colors">Kategoriler<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ffda44] shadow-[0_0_10px_#ffda44] transition-all duration-300 group-hover:w-full"></span>
+                    <a href="/Category/Index/" class="relative group py-2 font-semibold text-gray-700 hover:text-[#ffda44] transition-colors">@Localizer.Get("Kategoriler", "Categories")<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ffda44] shadow-[0_0_10px_#ffda44] transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="/Fair/Index/" class="relative group py-2 font-semibold text-gray-700 hover:text-[#ffda44] transition-colors">Fuarlar<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ffda44] shadow-[0_0_10px_#ffda44] transition-all duration-300 group-hover:w-full"></span>
+                    <a href="/Fair/Index/" class="relative group py-2 font-semibold text-gray-700 hover:text-[#ffda44] transition-colors">@Localizer.Get("Fuarlar", "Fairs")<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ffda44] shadow-[0_0_10px_#ffda44] transition-all duration-300 group-hover:w-full"></span>
                     </a>
-                    <a href="/Contact/Index/" class="relative group py-2 font-semibold text-gray-700 hover:text-[#ffda44] transition-colors">İletişim<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ffda44] shadow-[0_0_10px_#ffda44] transition-all duration-300 group-hover:w-full"></span>
+                    <a href="/Contact/Index/" class="relative group py-2 font-semibold text-gray-700 hover:text-[#ffda44] transition-colors">@Localizer.Get("İletişim", "Contact")<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#ffda44] shadow-[0_0_10px_#ffda44] transition-all duration-300 group-hover:w-full"></span>
                     </a>
 
                     <div class="relative group cursor-pointer border-l-2 border-gray-200 pl-6 flex items-center gap-1 font-bold text-gray-700 py-2">
-                        <img src="https://flagcdn.com/w20/tr.png" width="20" class="rounded-[2px] shadow-sm" alt="TR">
+                          @if(Localizer.CurrentLanguage == "en"){ <img src="https://flagcdn.com/w20/gb.png" width="20" class="rounded-[2px] shadow-sm" alt="EN"> } else { <img src="https://flagcdn.com/w20/tr.png" width="20" class="rounded-[2px] shadow-sm" alt="TR"> }
                         <svg class="w-4 h-4 transition-transform group-hover:rotate-180 text-[#ffda44]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                         <div class="absolute right-0 top-full mt-0 w-32 bg-white shadow-xl border border-gray-100 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
                             <div class="py-2">
-                                <a href="?lang=tr" class="block px-4 py-2 text-sm font-bold text-pamir-brand bg-blue-50/50 flex items-center gap-2"><img src="https://flagcdn.com/w20/tr.png" width="20" class="rounded-[2px] shadow-sm" alt="TR"> Türkçe</a>
-                                <a href="?lang=en" class="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-[#ffda44] transition-colors flex items-center gap-2"><img src="https://flagcdn.com/w20/gb.png" width="20" class="rounded-[2px] shadow-sm" alt="EN"> English</a>
+                                <a href="/Language/Change?culture=tr-TR&returnUrl=@Context.Request.Path" class="@(Localizer.CurrentLanguage == "tr" ? "block px-4 py-2 text-sm font-bold text-pamir-brand bg-blue-50/50 flex items-center gap-2" : "block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-[#ffda44] transition-colors flex items-center gap-2")"><img src="https://flagcdn.com/w20/tr.png" width="20" class="rounded-[2px] shadow-sm" alt="TR"> Türkçe</a>
+                                <a href="/Language/Change?culture=en-US&returnUrl=@Context.Request.Path" class="@(Localizer.CurrentLanguage == "en" ? "block px-4 py-2 text-sm font-bold text-pamir-brand bg-blue-50/50 flex items-center gap-2" : "block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-[#ffda44] transition-colors flex items-center gap-2")"><img src="https://flagcdn.com/w20/gb.png" width="20" class="rounded-[2px] shadow-sm" alt="EN"> English</a>
                             </div>
                         </div>
                     </div>
@@ -142,7 +143,7 @@
                     <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-pamir-brand shadow-sm group-hover:bg-[#ffda44] group-hover:text-[#0f172a] transition-all">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                     </div>
-                    <span class="text-base font-extrabold text-gray-800 group-hover:text-white transition-colors">Ana Sayfa</span>
+                    <span class="text-base font-extrabold text-gray-800 group-hover:text-white transition-colors">@Localizer.Get("Ana Sayfa", "Home")</span>
                 </div>
                 <svg class="w-5 h-5 text-gray-300 group-hover:text-[#ffda44] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </a>
@@ -152,7 +153,7 @@
                     <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-pamir-brand shadow-sm group-hover:bg-[#ffda44] group-hover:text-[#0f172a] transition-all">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-10V4m0 10V4m-4 14h.01M9 18h.01M19 10h.01M1M19 14h.01M1M12 18h.01M1M12 7h.01M1M12 11h.01M1M12 14h.01M15 11h.01M15 14h.01M15 18h.01M15 7h.01"></path></svg>
                     </div>
-                    <span class="text-base font-extrabold text-gray-800 group-hover:text-white transition-colors">Hakkımızda</span>
+                    <span class="text-base font-extrabold text-gray-800 group-hover:text-white transition-colors">@Localizer.Get("Hakkımızda", "About Us")</span>
                 </div>
                 <svg class="w-5 h-5 text-gray-300 group-hover:text-[#ffda44] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </a>
@@ -162,7 +163,7 @@
                     <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-pamir-brand shadow-sm group-hover:bg-[#ffda44] group-hover:text-[#0f172a] transition-all">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                     </div>
-                    <span class="text-base font-extrabold text-gray-800 group-hover:text-white transition-colors">Ürünler</span>
+                    <span class="text-base font-extrabold text-gray-800 group-hover:text-white transition-colors">@Localizer.Get("Ürünler", "Products")</span>
                 </div>
                 <svg class="w-5 h-5 text-gray-300 group-hover:text-[#ffda44] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </a>
@@ -172,7 +173,7 @@
                     <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-pamir-brand shadow-sm group-hover:bg-[#ffda44] group-hover:text-[#0f172a] transition-all">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                     </div>
-                    <span class="text-base font-extrabold text-gray-800 group-hover:text-white transition-colors">Kategoriler</span>
+                    <span class="text-base font-extrabold text-gray-800 group-hover:text-white transition-colors">@Localizer.Get("Kategoriler", "Categories")</span>
                 </div>
                 <svg class="w-5 h-5 text-gray-300 group-hover:text-[#ffda44] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </a>
@@ -182,7 +183,7 @@
                     <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-pamir-brand shadow-sm group-hover:bg-[#ffda44] group-hover:text-[#0f172a] transition-all">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                     </div>
-                    <span class="text-base font-extrabold text-gray-800 group-hover:text-white transition-colors">Fuarlar</span>
+                    <span class="text-base font-extrabold text-gray-800 group-hover:text-white transition-colors">@Localizer.Get("Fuarlar", "Fairs")</span>
                 </div>
                 <svg class="w-5 h-5 text-gray-300 group-hover:text-[#ffda44] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </a>
@@ -192,7 +193,7 @@
                     <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-white">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                     </div>
-                    <span class="text-base font-extrabold text-white">İletişim</span>
+                    <span class="text-base font-extrabold text-white">@Localizer.Get("İletişim", "Contact")</span>
                 </div>
                 <svg class="w-5 h-5 text-white/50 group-hover:text-[#ffda44] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </a>
@@ -201,7 +202,7 @@
                     <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-pamir-brand shadow-sm group-hover:bg-[#ffda44] group-hover:text-[#0f172a] transition-all">
                         <i class="fa-solid fa-briefcase text-lg"></i>
                     </div>
-                    <span class="text-base font-extrabold text-gray-800 group-hover:text-white transition-colors">İş Başvurusu</span>
+                    <span class="text-base font-extrabold text-gray-800 group-hover:text-white transition-colors">@Localizer.Get("İş Başvurusu", "Job Application")</span>
                 </div>
                 <svg class="w-5 h-5 text-gray-300 group-hover:text-[#ffda44] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </a>
@@ -212,13 +213,13 @@
                         <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-pamir-brand">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
                         </div>
-                        <span class="text-sm font-bold text-gray-600 uppercase flex items-center gap-2">Dil: <img src="https://flagcdn.com/w20/tr.png" width="20" class="rounded-[2px] shadow-sm" alt="TR"></span>
+                        @if(Localizer.CurrentLanguage == "en") { <span class="text-sm font-bold text-gray-600 uppercase flex items-center gap-2">Lang: <img src="https://flagcdn.com/w20/gb.png" width="20" class="rounded-[2px] shadow-sm" alt="EN"></span> } else { <span class="text-sm font-bold text-gray-600 uppercase flex items-center gap-2">Dil: <img src="https://flagcdn.com/w20/tr.png" width="20" class="rounded-[2px] shadow-sm" alt="TR"></span> }
                     </div>
                     <svg class="w-5 h-5 text-gray-400 transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </summary>
                 <div class="px-5 py-2 space-y-1 mt-2">
-                    <a href="?lang=tr" class="flex items-center gap-3 py-3 px-4 text-sm font-bold text-pamir-brand bg-blue-50 rounded-xl border-l-4 border-pamir-brand"><img src="https://flagcdn.com/w20/tr.png" width="20" class="rounded-[2px] shadow-sm" alt="TR"> Türkçe</a>
-                    <a href="?lang=en" class="flex items-center gap-3 py-3 px-4 text-sm font-bold text-gray-500 hover:text-pamir-brand transition-colors"><img src="https://flagcdn.com/w20/gb.png" width="20" class="rounded-[2px] shadow-sm" alt="EN"> English</a>
+                    <a href="/Language/Change?culture=tr-TR&returnUrl=@Context.Request.Path" class="@(Localizer.CurrentLanguage == "tr" ? "flex items-center gap-3 py-3 px-4 text-sm font-bold text-pamir-brand bg-blue-50 rounded-xl border-l-4 border-pamir-brand" : "flex items-center gap-3 py-3 px-4 text-sm font-bold text-gray-500 hover:text-pamir-brand transition-colors")"><img src="https://flagcdn.com/w20/tr.png" width="20" class="rounded-[2px] shadow-sm" alt="TR"> Türkçe</a>
+                    <a href="/Language/Change?culture=en-US&returnUrl=@Context.Request.Path" class="@(Localizer.CurrentLanguage == "en" ? "flex items-center gap-3 py-3 px-4 text-sm font-bold text-pamir-brand bg-blue-50 rounded-xl border-l-4 border-pamir-brand" : "flex items-center gap-3 py-3 px-4 text-sm font-bold text-gray-500 hover:text-pamir-brand transition-colors")"><img src="https://flagcdn.com/w20/gb.png" width="20" class="rounded-[2px] shadow-sm" alt="EN"> English</a>
                 </div>
             </details>
         </div>
@@ -293,4 +294,8 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
+
+
 

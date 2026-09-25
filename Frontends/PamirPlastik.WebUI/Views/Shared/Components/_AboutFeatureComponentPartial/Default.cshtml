@@ -1,4 +1,5 @@
-﻿@model List<PamirPlastik.WebUI.DTOs.AboutDtos.ResultAboutFeatureDto>
+﻿@inject PamirPlastik.WebUI.Services.LocalizationService Localizer
+@model List<PamirPlastik.WebUI.DTOs.AboutDtos.ResultAboutFeatureDto>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
     @if (Model != null && Model.Count > 0)
@@ -15,12 +16,12 @@
 
                     @* Dinamik Başlık - SEO İçin Önemli *@
                     <h5 class="text-[#ffda44] font-black text-xl mb-4 uppercase">
-                        @item.Title_TR
+                        @(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(item.Title_EN) ? item.Title_EN : item.Title_TR)
                     </h5>
 
                     @* Dinamik Açıklama *@
                     <p class="text-gray-400 text-sm leading-relaxed">
-                        @item.Description_TR
+                        @(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(item.Description_EN) ? item.Description_EN : item.Description_TR)
                     </p>
                 </div>
             </div>
