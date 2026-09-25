@@ -6,6 +6,7 @@ using System.Text;
 namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public class HomePageSettingController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

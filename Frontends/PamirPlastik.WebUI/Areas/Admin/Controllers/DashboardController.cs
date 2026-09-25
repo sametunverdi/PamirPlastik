@@ -8,6 +8,7 @@ using System.Net.Http;
 namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public class DashboardController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -19,20 +20,27 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // Canlı Ziyaretçi Sayacını Oku (WebUI anasayfasından besleniyor)
-            try
+            // Yeni Kurumsal Ziyaretçi İstatistikleri (F5 Korumalı)
+            ViewBag.TodayVisitor = "0";
+            ViewBag.WeeklyVisitor = "0";
+            ViewBag.MonthlyVisitor = "0";
+            ViewBag.TotalVisitorCount = "0";
+
+            var visitorClient = _httpClientFactory.CreateClient();
+            try 
             {
-                string countFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "visitor_count.txt");
-                if (System.IO.File.Exists(countFilePath))
+                var visitorRes = await visitorClient.GetAsync("https://localhost:7184/api/Visitor/GetStats");
+                if (visitorRes.IsSuccessStatusCode)
                 {
-                    ViewBag.TotalVisitorCount = System.IO.File.ReadAllText(countFilePath);
+                    var vData = await visitorRes.Content.ReadAsStringAsync();
+                    dynamic? vStats = JsonConvert.DeserializeObject(vData);
+                    ViewBag.TodayVisitor = vStats?.today ?? "0";
+                    ViewBag.WeeklyVisitor = vStats?.weekly ?? "0";
+                    ViewBag.MonthlyVisitor = vStats?.monthly ?? "0";
+                    ViewBag.TotalVisitorCount = vStats?.total ?? "0";
                 }
-                else 
-                {
-                    ViewBag.TotalVisitorCount = "0";
-                }
-            }
-            catch { ViewBag.TotalVisitorCount = "0"; }
+            } 
+            catch { }
 
             var client = _httpClientFactory.CreateClient();
             

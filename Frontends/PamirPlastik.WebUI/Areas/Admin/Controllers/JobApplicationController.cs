@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PamirPlastik.WebUI.DTOs.JobApplicationDtos;
 using System.Collections.Generic;
@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Microsoft.AspNetCore.Authorization.Authorize]
     [Route("Admin/[controller]")]
     public class JobApplicationController : Controller
     {

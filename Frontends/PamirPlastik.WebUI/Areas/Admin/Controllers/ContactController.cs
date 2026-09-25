@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PamirPlastik.WebUI.DTOs.ContactDtos;
 using PamirPlastik.WebUI.DTOs.SocialMediaDtos;
@@ -11,6 +11,7 @@ using System.Net.Http;
 namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public class ContactController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

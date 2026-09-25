@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PamirPlastik.Persistence.Context;
 
@@ -11,9 +12,11 @@ using PamirPlastik.Persistence.Context;
 namespace PamirPlastik.Persistence.Migrations
 {
     [DbContext(typeof(PamirPlastikContext))]
-    partial class PamirPlastikContextModelSnapshot : ModelSnapshot
+    [Migration("20260925173916_AddAppUserTable")]
+    partial class AddAppUserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,38 +171,6 @@ namespace PamirPlastik.Persistence.Migrations
                     b.HasIndex("AboutId");
 
                     b.ToTable("AboutImages");
-                });
-
-            modelBuilder.Entity("PamirPlastik.Domain.Entities.AppUser", b =>
-                {
-                    b.Property<int>("AppUserID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AppUserID"));
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AppUserID");
-
-                    b.ToTable("AppUsers");
                 });
 
             modelBuilder.Entity("PamirPlastik.Domain.Entities.Category", b =>

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+ï»¿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PamirPlastik.WebUI.DTOs.FairDtos;
 using System.Text;
@@ -6,6 +6,7 @@ using System.Text;
 namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public class FairController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -73,11 +74,11 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "Fuar baþarýyla kaydedildi.";
+                TempData["SuccessMessage"] = "Fuar baï¿½arï¿½yla kaydedildi.";
                 return RedirectToAction("Index", "Fair", new { area = "Admin" });
             }
 
-            TempData["ErrorMessage"] = "Fuar kayýt edilemedi. Lütfen zorunlu alanlarý kontrol edin.";
+            TempData["ErrorMessage"] = "Fuar kayï¿½t edilemedi. Lï¿½tfen zorunlu alanlarï¿½ kontrol edin.";
             return View(createFairDto);
         }
 
@@ -142,11 +143,11 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "Fuar baþarýyla güncellendi.";
+                TempData["SuccessMessage"] = "Fuar baï¿½arï¿½yla gï¿½ncellendi.";
                 return RedirectToAction("Index", "Fair", new { area = "Admin" });
             }
 
-            TempData["ErrorMessage"] = "Fuar güncellenemedi. Lütfen alanlarý kontrol edin.";
+            TempData["ErrorMessage"] = "Fuar gï¿½ncellenemedi. Lï¿½tfen alanlarï¿½ kontrol edin.";
             return View(updateFairDto);
         }
 

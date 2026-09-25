@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PamirPlastik.WebUI.DTOs.ContactMessageDtos;
 using System.Text;
@@ -6,6 +6,7 @@ using System.Text;
 namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public class MessageController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

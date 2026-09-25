@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+ï»¿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PamirPlastik.WebUI.DTOs.CategoryDtos;
 using System.Text;
@@ -6,6 +6,7 @@ using System.Text;
 namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public class CategoryController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -61,10 +62,10 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
                 createCategoryDto.ImageUrl = "";
             }
 
-            // Slug oluþtur (basit versiyon)
+            // Slug oluï¿½tur (basit versiyon)
             if(string.IsNullOrEmpty(createCategoryDto.Slug) && !string.IsNullOrEmpty(createCategoryDto.Name_TR))
             {
-                createCategoryDto.Slug = createCategoryDto.Name_TR.ToLower().Replace(" ", "-").Replace("ý", "i").Replace("ð", "g").Replace("ü", "u").Replace("þ", "s").Replace("ö", "o").Replace("ç", "c");
+                createCategoryDto.Slug = createCategoryDto.Name_TR.ToLower().Replace(" ", "-").Replace("ï¿½", "i").Replace("ï¿½", "g").Replace("ï¿½", "u").Replace("ï¿½", "s").Replace("ï¿½", "o").Replace("ï¿½", "c");
             }
 
             var client = _httpClientFactory.CreateClient();
@@ -74,11 +75,11 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "Kategori baþarýyla kaydedildi.";
+                TempData["SuccessMessage"] = "Kategori baï¿½arï¿½yla kaydedildi.";
                 return RedirectToAction("Index", "Category", new { area = "Admin" });
             }
 
-            TempData["ErrorMessage"] = "Kategori kayýt edilemedi. Lütfen zorunlu alanlarý kontrol edin.";
+            TempData["ErrorMessage"] = "Kategori kayï¿½t edilemedi. Lï¿½tfen zorunlu alanlarï¿½ kontrol edin.";
             return View(createCategoryDto);
         }
 
@@ -120,10 +121,10 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
                 updateCategoryDto.ImageUrl = "";
             }
 
-            // Slug yoksa oluþtur
+            // Slug yoksa oluï¿½tur
             if(string.IsNullOrEmpty(updateCategoryDto.Slug) && !string.IsNullOrEmpty(updateCategoryDto.Name_TR))
             {
-                updateCategoryDto.Slug = updateCategoryDto.Name_TR.ToLower().Replace(" ", "-").Replace("ý", "i").Replace("ð", "g").Replace("ü", "u").Replace("þ", "s").Replace("ö", "o").Replace("ç", "c");
+                updateCategoryDto.Slug = updateCategoryDto.Name_TR.ToLower().Replace(" ", "-").Replace("ï¿½", "i").Replace("ï¿½", "g").Replace("ï¿½", "u").Replace("ï¿½", "s").Replace("ï¿½", "o").Replace("ï¿½", "c");
             }
 
             var client = _httpClientFactory.CreateClient();
@@ -133,11 +134,11 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
 
             if (responseMessage.IsSuccessStatusCode)
             {
-                TempData["SuccessMessage"] = "Kategori baþarýyla güncellendi.";
+                TempData["SuccessMessage"] = "Kategori baï¿½arï¿½yla gï¿½ncellendi.";
                 return RedirectToAction("Index", "Category", new { area = "Admin" });
             }
 
-            TempData["ErrorMessage"] = "Kategori güncellenemedi. Lütfen alanlarý kontrol edin.";
+            TempData["ErrorMessage"] = "Kategori gï¿½ncellenemedi. Lï¿½tfen alanlarï¿½ kontrol edin.";
             return View(updateCategoryDto);
         }
 
@@ -152,7 +153,7 @@ namespace PamirPlastik.WebUI.Areas.Admin.Controllers
                 return Json(new { success = true });
             }
 
-            return Json(new { success = false, message = "Kategori silinemedi. Lütfen önce bu kategoriye baðlý ürünleri silin veya kategorilerini deðiþtirin." });
+            return Json(new { success = false, message = "Kategori silinemedi. Lï¿½tfen ï¿½nce bu kategoriye baï¿½lï¿½ ï¿½rï¿½nleri silin veya kategorilerini deï¿½iï¿½tirin." });
         }
     }
 }

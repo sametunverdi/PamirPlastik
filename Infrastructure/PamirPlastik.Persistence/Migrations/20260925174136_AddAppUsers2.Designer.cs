@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PamirPlastik.Persistence.Context;
 
@@ -11,9 +12,11 @@ using PamirPlastik.Persistence.Context;
 namespace PamirPlastik.Persistence.Migrations
 {
     [DbContext(typeof(PamirPlastikContext))]
-    partial class PamirPlastikContextModelSnapshot : ModelSnapshot
+    [Migration("20260925174136_AddAppUsers2")]
+    partial class AddAppUsers2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

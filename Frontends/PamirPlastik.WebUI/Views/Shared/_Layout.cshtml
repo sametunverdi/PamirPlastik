@@ -292,6 +292,17 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <!-- Ziyaretçi Sayacı (F5 Korumalı & Asenkron) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (!document.cookie.includes("PamirVisitor=1")) {
+                var date = new Date();
+                date.setTime(date.getTime() + (24 * 60 * 60 * 1000));
+                document.cookie = "PamirVisitor=1; expires=" + date.toUTCString() + "; path=/";
+                fetch("https://localhost:7184/api/Visitor/Increment", { method: "POST" }).catch(() => {});
+            }
+        });
+    </script>
 </body>
 </html>
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Localization;
 using System.Globalization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
 
@@ -13,6 +14,18 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 });
 builder.Services.AddScoped<PamirPlastik.WebUI.Services.LocalizationService>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login/Index/";
+        options.LogoutPath = "/Login/LogOut/";
+        options.AccessDeniedPath = "/Login/Index/";
+        options.Cookie.Name = "PamirPlastikAdminAuth";
+        options.Cookie.HttpOnly = true;
+        options.Cookie.SameSite = SameSiteMode.Strict;
+        options.ExpireTimeSpan = TimeSpan.FromDays(7);
+    });
 
 var app = builder.Build();
 
@@ -28,6 +41,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();
 app.UseRequestLocalization();
 
 app.UseAuthorization();

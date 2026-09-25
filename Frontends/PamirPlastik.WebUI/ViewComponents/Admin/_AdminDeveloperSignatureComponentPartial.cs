@@ -26,7 +26,7 @@ namespace PamirPlastik.WebUI.ViewComponents.Admin
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultDeveloperSettingDto>>(jsonData);
-                return View(values.FirstOrDefault());
+                return View(values?.FirstOrDefault());
             }
             return View();
         }

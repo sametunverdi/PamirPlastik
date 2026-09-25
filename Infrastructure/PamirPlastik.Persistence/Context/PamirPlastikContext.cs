@@ -16,6 +16,8 @@ namespace PamirPlastik.Persistence.Context
         }
 
         // Mevcut Tabloların
+        public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<VisitorStatistic> VisitorStatistics { get; set; }
         public DbSet<About> Abouts { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }
         public DbSet<AboutFeature> AboutFeatures { get; set; }
