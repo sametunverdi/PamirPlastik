@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /Admin/
+Disallow: /Login/
+Disallow: /cvs/
+Allow: /
+
+Sitemap: https://www.pamirplastik.com/sitemap.xml

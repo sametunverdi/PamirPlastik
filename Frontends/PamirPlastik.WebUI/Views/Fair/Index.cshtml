@@ -1,7 +1,8 @@
-﻿@inject PamirPlastik.WebUI.Services.LocalizationService Localizer
+@inject PamirPlastik.WebUI.Services.LocalizationService Localizer
 @model List<PamirPlastik.WebUI.DTOs.FairDtos.ResultFairDto>
 @{
     ViewData["Title"] = Localizer.Get("Fuarlarımız", "Our Fairs");
+    ViewData["Description"] = Localizer.Get("Pamir Plastik olarak katıldığımız yurt içi ve yurt dışı fuarları, etkinlikleri ve sektörel organizasyonları keşfedin.", "Discover the domestic and international fairs, events and industry organizations attended by Pamir Plastik.");
     ViewData["PageName"] = Localizer.Get("FUARLAR", "FAIRS");
     ViewData["HeaderTitle"] = Localizer.Get("GÜNCEL FUAR <br> VE ETKİNLİKLERİMİZ", "CURRENT FAIRS <br> AND EVENTS");
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -34,11 +35,11 @@
                             @if (!string.IsNullOrEmpty(fair.Img1))
                             {
                                 <div class="w-full h-full relative group/image">
-                                    <img src="@fair.Img1" alt="@fair.Name" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 @(!string.IsNullOrEmpty(fair.Img2) ? "group-hover/image:opacity-0" : "")" />
+                                    <img loading="lazy" src="@fair.Img1" alt="@fair.Name" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 @(!string.IsNullOrEmpty(fair.Img2) ? "group-hover/image:opacity-0" : "")" />
                                     
                                     @if (!string.IsNullOrEmpty(fair.Img2))
                                     {
-                                        <img src="@fair.Img2" alt="@fair.Name - Detay" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 opacity-0 group-hover/image:opacity-100 group-hover:scale-105" />
+                                        <img loading="lazy" src="@fair.Img2" alt="@fair.Name - Detay" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 opacity-0 group-hover/image:opacity-100 group-hover:scale-105" />
                                     }
                                 </div>
                             }

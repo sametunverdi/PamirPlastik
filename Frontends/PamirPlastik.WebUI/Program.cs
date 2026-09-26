@@ -40,6 +40,29 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+// CV Dosyalarina Direkt Erisimi Engelle
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.StartsWithSegments("/cvs"))
+    {
+        context.Response.StatusCode = 403;
+        await context.Response.WriteAsync("Erisim Engellendi.");
+        return;
+    }
+    await next();
+});
+
+
+// Guvenlik HTTP Basliklari
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Append("X-Content-Type-Options", "nosniff");
+    context.Response.Headers.Append("X-Frame-Options", "SAMEORIGIN");
+    context.Response.Headers.Append("X-XSS-Protection", "1; mode=block");
+    context.Response.Headers.Append("Referrer-Policy", "strict-origin-when-cross-origin");
+    await next();
+});
+
 app.UseRouting();
 app.UseAuthentication();
 app.UseRequestLocalization();

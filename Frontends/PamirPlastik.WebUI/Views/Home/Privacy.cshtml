@@ -1,6 +1,55 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
+﻿@inject PamirPlastik.WebUI.Services.LocalizationService Localizer
+@{
+    ViewData["Title"] = Localizer.CurrentLanguage == "en" ? "Privacy Policy & KVKK" : "Gizlilik Politikası ve KVKK Aydınlatma Metni";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<!-- Sayfa Başlığı (Hero) -->
+<div class="bg-gray-900 text-white py-16">
+    <div class="container mx-auto px-4 max-w-5xl">
+        <h1 class="text-3xl md:text-5xl font-black mb-4">@ViewData["Title"]</h1>
+        <p class="text-gray-400 text-lg">
+            @(Localizer.CurrentLanguage == "en" ? "We care about your data privacy. Please read our policy carefully." : "Kişisel verilerinizin güvenliği bizim için önemlidir. Lütfen aydınlatma metnini dikkatlice okuyunuz.")
+        </p>
+    </div>
+</div>
+
+<!-- İçerik -->
+<div class="container mx-auto px-4 max-w-5xl py-12">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-12 prose prose-slate max-w-none">
+        
+        @if (Localizer.CurrentLanguage == "en")
+        {
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">1. Data Controller</h3>
+            <p class="text-gray-600 mb-6">Under the Personal Data Protection Law, your personal data may be processed by Pamir Plastik in connection with the purposes stated below.</p>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">2. Purpose of Processing Personal Data</h3>
+            <p class="text-gray-600 mb-6">Your collected personal data (Name, Surname, Email, Phone number, etc. sent via our contact/career forms) are processed for the purposes of evaluating your requests, providing customer support, and improving our products/services.</p>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">3. Data Security</h3>
+            <p class="text-gray-600 mb-6">We take all necessary technical and administrative measures to ensure the appropriate level of security in order to prevent unlawful processing of and access to your personal data.</p>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">4. Your Rights</h3>
+            <p class="text-gray-600 mb-6">You have the right to request information about whether your personal data is processed, the purpose of processing, and to request correction or deletion of your data by contacting us via our official contact channels.</p>
+        }
+        else
+        {
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">1. Veri Sorumlusu</h3>
+            <p class="text-gray-600 mb-6">6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, kişisel verileriniz veri sorumlusu sıfatıyla Pamir Plastik tarafından aşağıda açıklanan kapsamda işlenebilecektir.</p>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">2. Kişisel Verilerin Hangi Amaçla İşleneceği</h3>
+            <p class="text-gray-600 mb-6">İletişim ve iş başvuru formlarımız aracılığıyla toplanan kişisel verileriniz (Ad, Soyad, E-Posta, Telefon, CV vb.); taleplerinizin değerlendirilmesi, tarafınıza destek sağlanması ve hizmet kalitemizin artırılması amaçlarıyla işlenmektedir.</p>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">3. Veri Güvenliği</h3>
+            <p class="text-gray-600 mb-6">Pamir Plastik, kişisel verilerinizin hukuka aykırı olarak işlenmesini ve erişilmesini önlemek amacıyla, uygun güvenlik düzeyini temin etmeye yönelik gerekli her türlü teknik ve idari tedbiri almaktadır.</p>
+
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">4. İlgili Kişinin Hakları</h3>
+            <p class="text-gray-600 mb-6">KVKK'nın 11. maddesi uyarınca; kişisel verilerinizin işlenip işlenmediğini öğrenme, işlenme amacına uygun kullanılıp kullanılmadığını bilme, eksik veya yanlış işlenmişse düzeltilmesini ve silinmesini talep etme haklarına sahipsiniz. Bu haklarınızı kullanmak için iletişim kanallarımızdan bize ulaşabilirsiniz.</p>
+        }
+
+        <hr class="my-8 border-gray-100" />
+        <p class="text-sm text-gray-400 italic">
+            @(Localizer.CurrentLanguage == "en" ? "Last Updated: " : "Son Güncelleme: ") @DateTime.Now.ToString("dd.MM.yyyy")
+        </p>
+
+    </div>
+</div>

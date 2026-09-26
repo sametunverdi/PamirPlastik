@@ -18,6 +18,7 @@ namespace PamirPlastik.WebUI.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SubmitApplication(CreateJobApplicationDto createJobApplicationDto)
         {
             if (createJobApplicationDto.CvFile != null && createJobApplicationDto.CvFile.Length > 0)

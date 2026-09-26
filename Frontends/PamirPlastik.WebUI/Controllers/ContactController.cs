@@ -23,6 +23,7 @@ namespace PamirPlastik.WebUI.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(CreateContactMessageDto createContactMessageDto)
         {
             var client = _httpClientFactory.CreateClient();
