@@ -1,4 +1,4 @@
-<div align="center">
+﻿<div align="center">
   
   <!-- LOGO VEYA ANA GÖRSEL İÇİN YER -->
   <img src="Frontends/PamirPlastik.WebUI/wwwroot/images/logo-blue.png" alt="Pamir Plastik Logo" width="250"/>
@@ -52,24 +52,7 @@ Proje, Frontend ve Backend süreçlerinin birbirinden izole edildiği, modern en
 
 ## 📸 Ekran Görüntüleri
 
-*Projeyi inceleyenler için sistemin görsel arayüzleri:*
-
-### 1. Kullanıcı Arayüzü (WebUI - Anasayfa)
-> Projenin ana sayfasını gösteren bir görsel buraya gelecek.
-> *(Öneri: `docs/images/home.png` şeklinde projenin içine bir klasör açıp resmi yükleyin)*
-![Anasayfa](docs/images/placeholder.png)
-
-### 2. Ürünler ve Çoklu Dil Desteği
-> Ürün listeleme sayfasının görseli.
-![Ürünler](docs/images/placeholder.png)
-
-### 3. Admin Paneli Dashboard
-> Admin paneline giriş ve istatistiklerin göründüğü ana ekran.
-![Admin Panel](docs/images/placeholder.png)
-
-### 4. Geliştirici Boss Odası (Easter Egg)
-> Ateşli CSS animasyonuyla tasarlanan şifreli giriş ekranı.
-![Boss Room](docs/images/placeholder.png)
+*Proje görselleri (Anasayfa, Admin Paneli vb.), hosting ve canlıya alma işlemleri tamamlandıktan sonra buraya eklenecektir.*
 
 ---
 
@@ -109,7 +92,7 @@ Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları i
 
 **Samet**  
 Eskişehir Osmangazi Üni. Bilgisayar Programcılığı | Anadolu Üni. YBS
-- GitHub: [@githubKullaniciAdiniz](https://github.com/githubKullaniciAdiniz)
-- LinkedIn: [LinkedIn Profiliniz](https://linkedin.com/in/linkedinKullaniciAdiniz)
+- GitHub: [@sametunverdi](https://github.com/sametunverdi)
+- LinkedIn: [Samet Ünverdi](https://www.linkedin.com/in/sametunverdi)
 
 *Bu proje, modern web geliştirme standartları (Clean Architecture, API Tüketimi, Security & SEO) gözetilerek kodlanmıştır.*
