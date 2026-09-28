@@ -28,7 +28,7 @@
                     {
                         foreach (var item in Model)
                         {
-                            <div class="group bg-white rounded-[2.5rem] p-5 shadow-sm border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+                            <div class="group bg-white rounded-[2.5rem] p-5 shadow-sm border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col h-full">
                                 <div class="relative aspect-square rounded-[2rem] overflow-hidden bg-gray-50 mb-6 border border-gray-50">
                                     <span class="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-md text-[#0f172a] text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-sm">@Localizer.Get("Ürün", "Product")</span>
 
@@ -42,11 +42,11 @@
                                     </div>
                                 </div>
 
-                                <div class="px-2">
+                                <div class="px-2 flex flex-col flex-grow">
                                     <h4 class="text-xl font-black text-gray-900 mb-2 group-hover:text-pamir-brand transition-colors tracking-tighter leading-none uppercase">@(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(item.Name_EN) ? item.Name_EN : item.Name_TR)</h4>
                                     <p class="text-gray-400 text-xs font-medium leading-relaxed mb-6 line-clamp-2">@(Localizer.CurrentLanguage == "en" && !string.IsNullOrWhiteSpace(item.ShortDescription_EN) ? item.ShortDescription_EN : item.ShortDescription_TR)</p>
 
-                                                                        <div class="pt-4 border-t border-gray-50 flex flex-col gap-3">
+                                                                        <div class="pt-4 mt-auto border-t border-gray-50 flex flex-col gap-3">
                                         <div class="flex items-center">
                                             <span class="text-[10px] font-black text-gray-500 bg-gray-100 px-2.5 py-1 rounded-md tracking-widest uppercase">@Localizer.Get("Kod:", "Code:") @item.ProductCode</span>
                                         </div>

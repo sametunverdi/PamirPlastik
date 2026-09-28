@@ -1,0 +1,22 @@
+﻿{
+  "name": "Pamir Plastik",
+  "short_name": "PamirPlastik",
+  "description": "Plastik Uretiminde Global Cozum Ortaginiz",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/images/favicon-square.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
